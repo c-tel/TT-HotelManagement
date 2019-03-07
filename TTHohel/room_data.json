@@ -1,0 +1,191 @@
+[
+    {
+        "RoomNumber": 1,
+        "Type": "Econom",
+        "Floor": 1,
+        "DailyInfo": [
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Debt"
+            },
+        ]
+    },
+    {
+        "RoomNumber": 51,
+        "Type": "DeLuxe",
+        "Floor": 11,
+        "DailyInfo": [
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Debt"
+            }
+        ]
+    },
+    {
+        "RoomNumber": 55,
+        "Type": "Standard",
+        "Floor": 12,
+        "DailyInfo": [
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Debt"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            }
+        ]
+    },
+    {
+        "RoomNumber": 15,
+        "Type": "Standard",
+        "Floor": 3,
+        "DailyInfo": [
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            }
+        ]
+    },
+    {
+        "RoomNumber": 31,
+        "Type": "Econom",
+        "Floor": 7,
+        "DailyInfo": [
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Booked"
+            },
+          {
+            "Status": "Free"
+          },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Free"
+            },
+            {
+                "Status": "Booked"
+            },
+            {
+                "Status": "Free"
+            }
+        ]
+    }
+    
+
+
+
+]

@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="TTHohel.Views.LoginView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="600">
+    <Grid Background="#17252B">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Border CornerRadius="10" Background="WhiteSmoke" Width="330">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Вхід в TTHotel" FontSize="25" HorizontalAlignment="Center" Foreground="#2DA46F" FontWeight="Bold" Margin="2,7,2,20"/>
+
+                    <Grid Margin="5" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Margin="40,5,0,5" Content="Логін:" FontSize="16" HorizontalContentAlignment="Left"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtUserId" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
+                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <Label Grid.Row="1" Grid.Column="0" Margin="40,5,0,5" Content="Пароль:" FontSize="16" HorizontalContentAlignment="Left"/>
+                        <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="txtPassword" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
+                                     />
+
+                        <StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                            <Button Content="Вхід" x:Name="btnLogin"  Command="{Binding LoginCommand}" FontSize="17" Margin="5,10" Width="100" Height="30" Background="#17A210" Foreground="WhiteSmoke" BorderBrush="#17A210"/>
+                            <Button Content="Вихід" x:Name="btnClose" FontSize="17" Margin="2,10" Width="100" Background="#D81B0E" Foreground="WhiteSmoke" BorderBrush="#A3150A" Click="BtnClose_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>
