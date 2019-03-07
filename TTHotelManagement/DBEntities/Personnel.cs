@@ -14,7 +14,7 @@ namespace TTHotel.API.DBEntities
         public string Pers_name { get; set; }
         public string Surname { get; set; }
         public string Patronym { get; set; }
-        public UserRoles pers_role { get; set; }
+        public UserRoles Pers_role { get; set; }
         public DateTime Works_from { get; set; }
         public DateTime? Works_to { get; set; }
         public string Login { get; set; }
