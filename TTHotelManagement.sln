@@ -6,8 +6,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTHotel.API", "TTHotelManagement\TTHotel.API.csproj", "{4484E0A4-E84C-4309-9DF5-66B692326B22}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTHohel", "TTHohel\TTHohel.csproj", "{61DEC4B5-CCCE-4108-B8F4-6771532D72FD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E7A916A0-0003-4103-A92E-F522263D38EB} = {E7A916A0-0003-4103-A92E-F522263D38EB}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTHotel.Contracts", "TTHotel.Contracts\TTHotel.Contracts.csproj", "{E7A916A0-0003-4103-A92E-F522263D38EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTHotel.Contracts", "TTHotel.Contracts\TTHotel.Contracts.csproj", "{E7A916A0-0003-4103-A92E-F522263D38EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
