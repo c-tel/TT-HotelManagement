@@ -15,4 +15,8 @@
     <PackageReference Include="Npgsql" Version="4.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TTHotel.Contracts\TTHotel.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

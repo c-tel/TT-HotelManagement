@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql;
-using TTHotelManagement.DBEntities;
+using TTHotel.API.DBEntities;
 
 namespace TTHotelManagement.Controllers
 {
@@ -36,15 +36,15 @@ namespace TTHotelManagement.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<UserDBEntity>> Get()
+        public ActionResult<IEnumerable<Personnel>> Get()
         {
-            var query = "SELECT * FROM Users";
-            IEnumerable<UserDBEntity> res;
+            var query = "SELECT * FROM personnel";
+            IEnumerable<Personnel> res;
             using (conn)
             {
-                res = conn.Query<UserDBEntity>(query);
+                res = conn.Query<Personnel>(query);
             }
-            return new ActionResult<IEnumerable<UserDBEntity>>(res);
+            return new ActionResult<IEnumerable<Personnel>>(res);
         }
 
         // GET api/values/5
