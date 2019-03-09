@@ -3,7 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using TTHohel.Models;
+using TTHohel.Contracts.Bookings;
 
 namespace TTHohel.Tools
 {
@@ -20,12 +20,13 @@ namespace TTHohel.Tools
                 if (index != null)
                     currStatus =  statuses.ElementAt(index.Value).Status;
 
+                if(statuses.ElementAt(index.Value).Debt == 0)
                 switch (currStatus)
                 {
-                    case RoomDailyStatus.Debt: return "#D81B0E";
+                    //case RoomDailyStatus.Debt: return "#D81B0E";
                     case RoomDailyStatus.Booked: return Brushes.LightSeaGreen;
-                    case RoomDailyStatus.Free: return Brushes.WhiteSmoke;
-                    default: return DependencyProperty.UnsetValue;
+                    //case RoomDailyStatus.Free: return Brushes.WhiteSmoke;
+                    default: return Brushes.WhiteSmoke;
                 }
             }            
             return null;

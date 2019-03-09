@@ -20,10 +20,10 @@ namespace TTHohel.Tools
         {
             var dataGrid = d as RoomsDataGrid;
             dataGrid.Columns.Clear();
-            //Add Person Column
+            //Add Room Columns
             dataGrid.Columns.Add(new DataGridTextColumn() { Header = "Номер", Binding = new Binding("RoomNumber") });
             dataGrid.Columns.Add(new DataGridTextColumn() { Header = "Поверх", Binding = new Binding("Floor") });
-            //Add Manufactures Columns
+            //Add States Columns
             foreach (var value in dataGrid.ColumnHeaders)
             {
                 var column = new DataGridTextColumn()

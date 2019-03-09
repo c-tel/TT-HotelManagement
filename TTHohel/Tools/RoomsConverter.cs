@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Data;
-using TTHohel.Models;
+using TTHohel.Contracts.Bookings;
 
 namespace TTHohel.Tools
 {
