@@ -36,15 +36,21 @@ namespace TTHotelManagement.Controllers
 
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<Personnel>> Get()
+        public ActionResult<IEnumerable<MainPivotData>> Get()
         {
-            var query = "SELECT * FROM personnel";
-            IEnumerable<Personnel> res;
+            var query = "select rooms.room_num, room_floor, start_date, end_date, book_state, (price_period+service_price+sum_fees-payed) AS debt" +
+                " from (select *" +
+                " from bookings" +
+                " where end_date BETWEEN \'2019-03-10\' AND \'2019-03-15\'" +
+                " OR start_date BETWEEN \'2019-03-10\' AND \'2019-03-15\'" +
+                " ) AS B RIGHT OUTER JOIN rooms ON B.room_num = rooms.room_num" +
+                " order by room_num, room_floor; ";
+            IEnumerable<MainPivotData> res;
             using (conn)
             {
-                res = conn.Query<Personnel>(query);
+                res = conn.Query<MainPivotData>(query);
             }
-            return new ActionResult<IEnumerable<Personnel>>(res);
+            return new ActionResult<IEnumerable<MainPivotData>>(res);
         }
 
         // GET api/values/5
