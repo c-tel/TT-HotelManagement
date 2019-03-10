@@ -12,7 +12,7 @@ namespace TTHohel.Contracts.Bookings
 
     public enum RoomDailyStatus
     {
-        Free,Booked, Settled
+        Free, Booked, Settled
     }
 
     public class RoomInfo
@@ -24,7 +24,6 @@ namespace TTHohel.Contracts.Bookings
         //public DateTime DateFrom { get; set; }
         //public DateTime DateTo { get; set; }
         public ObservableCollection<RoomDailyInfo> DailyInfo { get; set; }
-        public int BookID { get; set; }
     }
 
     public class RoomDailyInfo
@@ -32,6 +31,7 @@ namespace TTHohel.Contracts.Bookings
         [JsonConverter(typeof(StringEnumConverter))]
         public RoomDailyStatus Status { get; set; }
         public double? Debt { get; set; }
+        public int BookID { get; set; }
         public DateTime BookDate { get; set; }
     }
 
