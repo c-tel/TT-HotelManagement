@@ -24,32 +24,34 @@ namespace TTHohel.ViewModels
         private ICommand _settCommand;
         private ICommand _refreshCommand;
 
+        ObservableCollection<string> _columnHeaders;
         public ObservableCollection<RoomInfo> InfoTable { get; set; }
-        public ObservableCollection<int> ColumnHeaders { get; set; }
 
         public MainModel Model { get; private set; }
 
         public MainViewModel()
         {
             Model = new MainModel();
-            _dateFrom  = DateTime.Today.Date;
-            _dateTo = DateTime.Today.AddDays(10);
-            _datesList = DatesList();
-
-            ColumnHeaders = new ObservableCollection<int>();
-
+            _datesList = new List<DateTime>();
+            DateFrom  = DateTime.Today.Date;
+            DateTo = DateTime.Today.AddDays(10);
+                        
+            ColumnHeaders = new ObservableCollection<string>();
 
             // string output = File.ReadAllText("room_data.json");
             // var inp = JsonConvert.DeserializeObject<List<RoomInfo>>(output);
             var inp = new List<RoomInfo>();
 
-            foreach (var i in Enumerable.Range(0, 10))
-            {
-                ColumnHeaders.Add(i);
-            }
-
             InfoTable = new ObservableCollection<RoomInfo>(inp);
         }
+
+        public ObservableCollection<string> ColumnHeaders {
+            get { return _columnHeaders; }
+            set
+            {
+                _columnHeaders = value;
+                InvokePropertyChanged(nameof(ColumnHeaders));
+            } }
 
         public DateTime DateFrom
         {
@@ -59,10 +61,21 @@ namespace TTHohel.ViewModels
                 if (_dateFrom != value)
                 {
                     _dateFrom = value;
-                    InvokePropertyChanged("DateFrom");
+                    InvokePropertyChanged(nameof(DateFrom));
                 }
             }
         }
+
+        private void ChangeDatesList()
+        {
+            _datesList.Clear();
+            var i = _dateFrom;
+            while (i <= _dateTo){
+                _datesList.Add(i);
+                i = i.AddDays(1);
+            }
+        }
+
         public DateTime DateTo
         {
             get { return _dateTo; }
@@ -71,7 +84,7 @@ namespace TTHohel.ViewModels
                 if (_dateTo != value)
                 {
                     _dateTo = value;
-                    InvokePropertyChanged("DateTo");
+                    InvokePropertyChanged(nameof(DateTo));
                 }
             }
         }
@@ -89,7 +102,7 @@ namespace TTHohel.ViewModels
             set
             {
                 _exitCommand = value;
-                InvokePropertyChanged("ExitCommand");
+                InvokePropertyChanged(nameof(ExitCommand));
             }
         }
         public ICommand SettCommand
@@ -105,7 +118,7 @@ namespace TTHohel.ViewModels
             set
             {
                 _settCommand = value;
-                InvokePropertyChanged("SettCommand");
+                InvokePropertyChanged(nameof(SettCommand));
             }
         }
         public ICommand RefreshCommand
@@ -134,7 +147,11 @@ namespace TTHohel.ViewModels
 
         private void RefreshExecute(object obj)
         {
-            MessageBox.Show(DateTo.Date.ToString());
+            ChangeDatesList();
+            ObservableCollection<string> vs = new ObservableCollection<string>();
+            foreach (DateTime i in _datesList)
+                vs.Add(i.ToString("dd-MM-yyyy"));
+            ColumnHeaders = vs;
         }
 
         private void ExitExecute(object obj)
@@ -156,17 +173,6 @@ namespace TTHohel.ViewModels
             return true;
         }
 
-        private List<DateTime> DatesList()
-        {
-            List<DateTime> dateTimes = new List<DateTime>();
-            DateTime curr = _dateFrom;
-            while (curr != _dateTo.AddDays(1))
-            {
-                dateTimes.Add(curr);
-                curr = curr.AddDays(1);
-            }
-            return dateTimes;
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

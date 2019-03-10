@@ -8,13 +8,17 @@ namespace TTHohel.Tools
 {
     class RoomsDataGrid : DataGrid
     {
-        public ObservableCollection<int> ColumnHeaders
+
+        public ObservableCollection<string> ColumnHeaders
         {
-            get { return GetValue(ColumnHeadersProperty) as ObservableCollection<int>; }
-            set { SetValue(ColumnHeadersProperty, value); }
+            get { return GetValue(ColumnHeadersProperty) as ObservableCollection<string>; }
+            set
+            {
+                SetValue(ColumnHeadersProperty, value);
+            }
         }
 
-        public static readonly DependencyProperty ColumnHeadersProperty = DependencyProperty.Register("ColumnHeaders", typeof(ObservableCollection<int>), typeof(RoomsDataGrid), new PropertyMetadata(new PropertyChangedCallback(OnColumnsChanged)));
+        public static readonly DependencyProperty ColumnHeadersProperty = DependencyProperty.Register("ColumnHeaders", typeof(ObservableCollection<string>), typeof(RoomsDataGrid), new PropertyMetadata(new PropertyChangedCallback(OnColumnsChanged)));
 
         static void OnColumnsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

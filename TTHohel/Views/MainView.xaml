@@ -46,10 +46,12 @@
                 <Button Style="{StaticResource BtnMenuStyle}" Height="26" FontSize="14" Background="#2DA46F" Command="{Binding RefreshCommand}">Оновити</Button>
             </StackPanel>
 
-            <localVM:RoomsDataGrid AutoGenerateColumns="False" FontSize="14"
+            <!--<DataGrid ItemsSource="{Binding RoomsDataGrid}"></DataGrid>-->
+            <localVM:RoomsDataGrid AutoGenerateColumns="False" FontSize="14" x:Name="MyDataGrid"
                       ColumnHeaders="{Binding ColumnHeaders}"
                       ItemsSource="{Binding InfoTable}"
                        IsReadOnly="True" Background="Transparent" SelectionUnit="Cell" AlternatingRowBackground="WhiteSmoke"></localVM:RoomsDataGrid>
+        
         </DockPanel>
     </ScrollViewer>
 </UserControl>
