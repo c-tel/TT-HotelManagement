@@ -35,8 +35,8 @@ namespace TTHohel.ViewModels
             _datesList = new List<DateTime>();
             DateFrom  = DateTime.Today.Date;
             DateTo = DateTime.Today.AddDays(10);
-                        
-            ColumnHeaders = new ObservableCollection<string>();
+
+            ColumnHeaders = ChangeCollumnHeaders();
 
             // string output = File.ReadAllText("room_data.json");
             // var inp = JsonConvert.DeserializeObject<List<RoomInfo>>(output);
@@ -134,7 +134,7 @@ namespace TTHohel.ViewModels
             set
             {
                 _refreshCommand = value;
-                InvokePropertyChanged("RefreshCommand");
+                InvokePropertyChanged(nameof(RefreshCommand));
             }
         }
 
@@ -147,11 +147,16 @@ namespace TTHohel.ViewModels
 
         private void RefreshExecute(object obj)
         {
+            ColumnHeaders= ChangeCollumnHeaders();
+        }
+
+        private ObservableCollection<string> ChangeCollumnHeaders()
+        {
             ChangeDatesList();
             ObservableCollection<string> vs = new ObservableCollection<string>();
             foreach (DateTime i in _datesList)
                 vs.Add(i.ToString("dd-MM-yyyy"));
-            ColumnHeaders = vs;
+            return vs;
         }
 
         private void ExitExecute(object obj)
