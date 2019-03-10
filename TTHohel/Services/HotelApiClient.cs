@@ -32,7 +32,7 @@ namespace TTHohel.Services
         }
         public List<RoomInfo> RoomInfos(DateTime from, DateTime to)
         {
-            UriBuilder builder = new UriBuilder("http://localhost:6598/api/get")
+            UriBuilder builder = new UriBuilder("http://localhost:6598/api/bookings")
             {
                 Query = $"from='{from.ToString("dd-mm-yyyy")}'&to='{to.ToString("dd-mm-yyyy")}'"
             };
