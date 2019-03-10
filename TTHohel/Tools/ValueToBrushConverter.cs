@@ -20,13 +20,17 @@ namespace TTHohel.Tools
                 if (index != null)
                     currStatus =  statuses.ElementAt(index.Value).Status;
 
-                if(statuses.ElementAt(index.Value).Debt == 0)
-                switch (currStatus)
+                if (statuses.ElementAt(index.Value).Debt != 0)
+                    return "#D81B0E";
+                else
                 {
-                    //case RoomDailyStatus.Debt: return "#D81B0E";
-                    case RoomDailyStatus.Booked: return Brushes.LightSeaGreen;
-                    //case RoomDailyStatus.Free: return Brushes.WhiteSmoke;
-                    default: return Brushes.WhiteSmoke;
+                    switch (currStatus)
+                    {
+                        case RoomDailyStatus.Settled: return Brushes.LightSeaGreen;
+                        case RoomDailyStatus.Booked: return Brushes.YellowGreen;
+                        //case RoomDailyStatus.Free: return Brushes.WhiteSmoke;
+                        default: return Brushes.WhiteSmoke;
+                    }
                 }
             }            
             return null;
