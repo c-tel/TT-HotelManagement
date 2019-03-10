@@ -1,14 +1,36 @@
-﻿using Npgsql;
+﻿using Dapper;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TTHohel.Contracts.Bookings;
+using TTHotel.API.DBEntities;
 
 namespace TTHotel.API.Services
 {
     public class PostgresHotelService: IHotelService
     {
         private NpgsqlConnection _conn;
+
+        #region QUERIES
+
+        private static string PeriodDataQuery(DateTime from, DateTime to)
+        {
+            var fromStr = $"'{from.ToString("yyyy-mm-dd")}'";
+            var toStr = $"'{from.ToString("yyyy-mm-dd")}'";
+            return "SELECT rooms.room_num, room_floor, start_date, end_date, book_state," +
+                " (price_period+service_price+sum_fees-payed) AS debt" +
+                " FROM (select *" +
+                " FROM bookings" +
+                " WHERE end_date BETWEEN \'2019-03-10\' AND \'2019-03-15\'" +
+                " OR start_date BETWEEN \'2019-03-10\' AND \'2019-03-15\'" +
+                " ) AS B RIGHT OUTER JOIN rooms ON B.room_num = rooms.room_num" +
+                " ORDER BY room_num, room_floor; ";
+        }
+
+        #endregion
+
 
         public PostgresHotelService()
         {
@@ -31,5 +53,20 @@ namespace TTHotel.API.Services
             };
         }
 
+        public List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to)
+        {
+            var bookingsData = QueryInternal<MainPivotData>("");
+            return null;
+        }
+
+        private IEnumerable<T> QueryInternal<T>(string sql)
+        {
+            IEnumerable<T> result;
+            using (_conn)
+            {
+                result = _conn.Query<T>(sql);
+            }
+            return result;
+        }
     }
 }
