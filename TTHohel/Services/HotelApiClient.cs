@@ -34,7 +34,7 @@ namespace TTHohel.Services
         {
             UriBuilder builder = new UriBuilder("http://localhost:6598/api/get")
             {
-                Query = $"from='{from.ToString("dd-mm-yyyy")}'&to='{to.ToString("dd-mm-yyyy")}'"
+                Query = $"from='{ToQueryArgument(from)}'&to='{ToQueryArgument(to)}'"
             };
             
             var resp = Client.GetAsync(builder.Uri).Result;
@@ -44,6 +44,10 @@ namespace TTHohel.Services
 
                 return result;
             }
+        }
+        private string ToQueryArgument(DateTime dateTime)
+        {
+            return $"{dateTime.Month}%2F{dateTime.Day}%2F{dateTime.Year}";
         }
 
     }

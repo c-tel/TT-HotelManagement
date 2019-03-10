@@ -10,6 +10,7 @@ using System.Windows;
 using System.Globalization;
 using System.Collections.ObjectModel;
 using System.Linq;
+using TTHohel.Contracts.Bookings;
 
 namespace TTHohel.ViewModels
 {
