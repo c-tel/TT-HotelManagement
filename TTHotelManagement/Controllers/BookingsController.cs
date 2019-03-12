@@ -22,6 +22,8 @@ namespace TTHotel.API.Controllers
         [HttpGet("periodInfo")]
         public IEnumerable<RoomInfo> Get([FromQuery] DateTime from, [FromQuery] DateTime to)
         {
+            from = DateTime.Now;
+            to = DateTime.Now.AddDays(5);
             return _hotelService.GetPeriodInfo(from, to);
         }
     }
