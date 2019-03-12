@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace TTHohel.Contracts.Bookings
@@ -23,7 +24,7 @@ namespace TTHohel.Contracts.Bookings
         public int Floor { get; set; }
         //public DateTime DateFrom { get; set; }
         //public DateTime DateTo { get; set; }
-        public ObservableCollection<RoomDailyInfo> DailyInfo { get; set; }
+        public List<RoomDailyInfo> DailyInfo { get; set; }
     }
 
     public class RoomDailyInfo
@@ -31,7 +32,7 @@ namespace TTHohel.Contracts.Bookings
         [JsonConverter(typeof(StringEnumConverter))]
         public RoomDailyStatus Status { get; set; }
         public double? Debt { get; set; }
-        public int BookID { get; set; }
+        public int? BookID { get; set; }
         public DateTime BookDate { get; set; }
     }
 
