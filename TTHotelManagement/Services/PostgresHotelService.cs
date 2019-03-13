@@ -3,6 +3,8 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.DBEntities;
@@ -21,16 +23,23 @@ namespace TTHotel.API.Services
         {
             var fromStr = $"'{from.ToString("yyyy-MM-dd")}'";
             var toStr = $"'{to.ToString("yyyy-MM-dd")}'";
-            var res = "SELECT rooms.room_num, room_floor, start_date, end_date, book_state, book_num, " +
-                " (price_period+service_price+sum_fees-payed) AS debt" +
-                " FROM (select *" +
-                " FROM bookings" +
-                $" WHERE (end_date BETWEEN {fromStr} AND {toStr}" +
-                $" OR start_date BETWEEN {fromStr} AND {toStr})" +
-                $" AND book_state <> 'canceled'" +
-                " ) AS B RIGHT OUTER JOIN rooms ON B.room_num = rooms.room_num" +
-                " ORDER BY room_num, start_date; ";
+            var res =   "SELECT rooms.room_num, room_floor, start_date, end_date, book_state, book_num, " +
+                        "(price_period+service_price+sum_fees-payed) AS debt " +
+                        "FROM ( " +
+                            "select * " +
+                            "FROM bookings " +
+                            $"WHERE (end_date BETWEEN {fromStr} AND {toStr} " +
+                            $"OR start_date BETWEEN {fromStr} AND {toStr}) " +
+                            $"AND book_state <> 'canceled' " +
+                              ") AS B RIGHT OUTER JOIN rooms ON B.room_num = rooms.room_num " +
+                        "ORDER BY room_num, start_date; ";
             return res;
+        }
+
+        private static string LoginQuery(string login, string pwdHash)
+        {
+            return      $"SELECT * FROM personnel " +
+                        $"WHERE login ='{login}' AND pwd = '{pwdHash}'";
         }
 
         #endregion
@@ -90,6 +99,22 @@ namespace TTHotel.API.Services
             return infos;
         }
 
+        public UserDTO GetUser(string login, string pwd)
+        {
+            var sql = LoginQuery(login, Hash(pwd));
+            var qRes = QuerySingleOrDefaultInternal<Personnel>(sql);
+            if (qRes == null)
+                return null;
+            return new UserDTO
+            {
+                EmplBook = qRes.Book_num,
+                Name = qRes.Pers_name,
+                Role = qRes.Pers_role,
+                Surname = qRes.Surname
+            };
+        }
+
+        #region WRAPPERS
         private IEnumerable<T> QueryInternal<T>(string sql)
         {
             IEnumerable<T> result;
@@ -105,6 +130,23 @@ namespace TTHotel.API.Services
             return result;
         }
 
+        private T QuerySingleOrDefaultInternal<T>(string sql)
+        {
+            T result;
+            _conn = new NpgsqlConnection(_builder.ToString())
+            {
+                // dirty hack. must be removed later
+                UserCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+            };
+            using (_conn)
+            {
+                result = _conn.QuerySingleOrDefault<T>(sql);
+            }
+            return result;
+        }
+
+        #endregion
+
         private RoomDailyStatus MapToStatus(BookStates? state)
         {
             switch(state)
@@ -118,15 +160,23 @@ namespace TTHotel.API.Services
             }
         }
 
-        public UserDTO GetUser(string login, string pwd)
+        private static string Hash(string value)
         {
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
+
+            using (var hash = SHA256.Create())
+            {
+                var enc = Encoding.UTF8;
+                var result = hash.ComputeHash(enc.GetBytes(value));
+
+                foreach (var b in result)
+                    sb.Append(b.ToString("x2"));
+            }
+
+            return sb.ToString();
         }
 
-        List<RoomInfo> IHotelService.GetPeriodInfo(DateTime from, DateTime to)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 
     internal class RoomInfoComparer : EqualityComparer<RoomInfo>

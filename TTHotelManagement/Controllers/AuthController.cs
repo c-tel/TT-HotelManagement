@@ -20,7 +20,16 @@ namespace TTHotel.API.Controllers
         [HttpPost("authorize")]
         public ActionResult<AuthorizationResponse> Authorize(Credentials creds)
         {
-            throw new System.Exception();
+            var user = _hotelService.GetUser(creds.Login, creds.Password);
+            if(user == null)
+                return Unauthorized();
+            var sess = _authService.Authorize(user);
+            return new AuthorizationResponse
+            {
+                SessionKey = sess,
+                User = user
+            };
         }
+
     }
 }

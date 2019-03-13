@@ -22,8 +22,6 @@ namespace TTHohel.Contracts.Bookings
         [JsonConverter(typeof(StringEnumConverter))]
         public RoomType Type { get; set; }
         public int Floor { get; set; }
-        //public DateTime DateFrom { get; set; }
-        //public DateTime DateTo { get; set; }
         public List<RoomDailyInfo> DailyInfo { get; set; }
     }
 

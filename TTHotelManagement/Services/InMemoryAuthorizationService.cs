@@ -8,7 +8,7 @@ namespace TTHotel.API.Services
 {
     public class InMemoryAuthService : IAuthService
     {
-        private Dictionary<string, UserDTO> _storage;
+        private readonly Dictionary<string, UserDTO> _storage = new Dictionary<string, UserDTO>();
 
         public string Authorize(UserDTO user)
         {
