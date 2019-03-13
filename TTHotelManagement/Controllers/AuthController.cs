@@ -4,6 +4,7 @@ using TTHotel.Contracts.Auth;
 
 namespace TTHotel.API.Controllers
 {
+    // some bla
     [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
