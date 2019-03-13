@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.DBEntities;
+using TTHotel.Contracts.Auth;
 
 namespace TTHotel.API.Services
 {
@@ -13,6 +14,7 @@ namespace TTHotel.API.Services
     {
         private NpgsqlConnection _conn;
         private NpgsqlConnectionStringBuilder _builder;
+
         #region QUERIES
 
         private static string PeriodDataQuery(DateTime from, DateTime to)
@@ -116,7 +118,17 @@ namespace TTHotel.API.Services
             }
         }
 
+        public UserDTO GetUser(string login, string pwd)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<RoomInfo> IHotelService.GetPeriodInfo(DateTime from, DateTime to)
+        {
+            throw new NotImplementedException();
+        }
     }
+
     internal class RoomInfoComparer : EqualityComparer<RoomInfo>
     {
         public override bool Equals(RoomInfo x, RoomInfo y)
