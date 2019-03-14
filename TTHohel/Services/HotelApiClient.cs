@@ -6,12 +6,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
+using TTHotel.Contracts.Auth;
 
 namespace TTHohel.Services
 {
     class HotelApiClient
     {
-        private string SessionId;
+        public AuthorizationResponse AuthorizationResponse { get; private set; }
         private HttpClient Client;
         private static HotelApiClient ApiClient;
 
@@ -30,6 +31,22 @@ namespace TTHohel.Services
                 ApiClient = new HotelApiClient();
             return ApiClient;
         }
+
+        public bool Login(string login, string password)
+        {
+            var userCredentials = new Credentials
+            {
+                Login = login,
+                Password = password
+            };
+
+            var resp = Client.PostAsJsonAsync("api/auth/authorize", userCredentials).Result;
+            if (!resp.IsSuccessStatusCode)
+                return false;
+            AuthorizationResponse = resp.Content.ReadAsAsync<AuthorizationResponse>().Result;
+            return true;
+        }
+
         public List<RoomInfo> RoomInfos(DateTime from, DateTime to)
         {
             UriBuilder builder = new UriBuilder("http://localhost:6598/api/bookings/periodInfo")

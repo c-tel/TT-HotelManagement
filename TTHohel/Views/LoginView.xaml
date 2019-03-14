@@ -20,17 +20,21 @@
                             <RowDefinition />
                             <RowDefinition/>
                             <RowDefinition/>
+                            <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Margin="40,5,0,5" Content="Логін:" FontSize="16" HorizontalContentAlignment="Left"/>
                         <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtUserId" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
                                  Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="1" Grid.Column="0" Margin="40,5,0,5" Content="Пароль:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="txtPassword" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
-                                     />
+                        <PasswordBox x:Name="MyPwdBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"/>
 
-                        <StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                            <Button Content="Вхід" x:Name="btnLogin"  Command="{Binding LoginCommand}" FontSize="17" Margin="5,10" Width="100" Height="30" Background="#17A210" Foreground="WhiteSmoke" BorderBrush="#17A210"/>
+                        <Label Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Невірні логін або пароль. Спробуйте ще раз." Foreground="#D81B0E"
+                               Visibility="{Binding ErrorVisibility}"/>
+
+                        <StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                            <Button Content="Вхід" x:Name="btnLogin"  Command="{Binding LoginCommand}" FontSize="17" Margin="5,10" Width="100" Height="30" Background="#17A210" Foreground="WhiteSmoke" BorderBrush="#17A210"
+                                    CommandParameter="{Binding ElementName=MyPwdBox}"/>
                             <Button Content="Вихід" x:Name="btnClose" FontSize="17" Margin="2,10" Width="100" Background="#D81B0E" Foreground="WhiteSmoke" BorderBrush="#A3150A" Click="BtnClose_Click"/>
                         </StackPanel>
                     </Grid>

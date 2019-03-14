@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
@@ -8,7 +10,7 @@ namespace TTHohel.ViewModels
     class LoginViewModel : INotifyPropertyChanged
     {
         private string _name;
-        //private string _password;
+        private Visibility _errorVisibility;
 
         private ICommand _loginCommand;
         //private ICommand _exitCommand;
@@ -18,6 +20,7 @@ namespace TTHohel.ViewModels
         public LoginViewModel()
         {
             Model = new LoginModel();
+            ErrorVisibility = Visibility.Collapsed;
         }
 
         public string Name
@@ -28,7 +31,19 @@ namespace TTHohel.ViewModels
                 if (_name != value)
                 {
                     _name = value;
-                    InvokePropertyChanged("Name");
+                    InvokePropertyChanged(nameof(Name));
+                }
+            }
+        }
+        public Visibility ErrorVisibility
+        {
+            get { return _errorVisibility; }
+            set
+            {
+                if (_errorVisibility != value)
+                {
+                    _errorVisibility = value;
+                    InvokePropertyChanged(nameof(ErrorVisibility));
                 }
             }
         }
@@ -47,13 +62,18 @@ namespace TTHohel.ViewModels
             set
             {
                 _loginCommand = value;
-                InvokePropertyChanged("LoginCommand");
+                InvokePropertyChanged(nameof(LoginCommand));
             }
         }
 
         private void LoginExecute(object obj)
         {
-            Model.Login(Name);
+            var btn = obj as PasswordBox;
+
+            if(!Model.Login(Name, btn.Password))
+            {
+                ErrorVisibility = Visibility.Visible;
+            }
         }
 
         private bool LoginCanExecute(object obj)
