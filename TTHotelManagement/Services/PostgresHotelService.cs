@@ -49,6 +49,13 @@ namespace TTHotel.API.Services
                    $"WHERE book_num ={id}";
         }
 
+        private static string CreateBookingQuery(BookingCreateDTO booking, string person_book)
+        {
+            return "INSERT INTO bookings (start_date, end_date, book_comment, room_num, cl_tel_num, pers_book) " +
+                   $"VALUES ({booking.StartDate.ToString("yyyy-mm-dd")}, {booking.EndDate.ToString("yyyy-mm-dd")}, " +
+                   $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
+        }
+
         #endregion
 
 
@@ -140,12 +147,17 @@ namespace TTHotel.API.Services
                 EndDateReal = qRes.End_date_real,
                 Payed = qRes.Payed,
                 PersBook = qRes.Pers_book,
-                PersSettledBook = qRes.Pers_book,
+                PersSettledBook = qRes.Pers_settled,
                 PricePeriod = qRes.Price_period,
                 StartDate = qRes.Start_date,
                 StartDateReal = qRes.Start_date_real,
                 SumFees = qRes.Sum_fees
             };
+        }
+
+        public void CreateBooking(BookingCreateDTO booking, string persBook)
+        {
+            ExecuteInternal(CreateBookingQuery(booking, persBook));
         }
 
         #region WRAPPERS
@@ -179,6 +191,19 @@ namespace TTHotel.API.Services
             return result;
         }
 
+        private void ExecuteInternal(string sql)
+        {
+            _conn = new NpgsqlConnection(_builder.ToString())
+            {
+                // dirty hack. must be removed later
+                UserCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+            };
+            using (_conn)
+            {
+                _conn.Execute(sql);
+            }
+        }
+
         #endregion
 
         private RoomDailyStatus MapToStatus(BookStates? state)
@@ -209,6 +234,8 @@ namespace TTHotel.API.Services
 
             return sb.ToString();
         }
+
+        
     }
 
     internal class RoomInfoComparer : EqualityComparer<RoomInfo>
