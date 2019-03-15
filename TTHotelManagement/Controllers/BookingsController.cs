@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.Services;
+using TTHotel.Contracts.Bookings;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,10 +20,18 @@ namespace TTHotel.API.Controllers
             _hotelService = hotelService;
         }
 
-        [HttpGet("periodInfo")]
-        public IEnumerable<RoomInfo> Get([FromQuery] DateTime from, [FromQuery] DateTime to)
+        [HttpGet()]
+        public IEnumerable<RoomInfo> PeriodInfo([FromQuery] DateTime from, [FromQuery] DateTime to)
         {
             return _hotelService.GetPeriodInfo(from, to);
         }
+
+        [HttpGet("{id}")]
+        public BookingDTO ById([FromRoute] int id)
+        {
+            return _hotelService.GetBooking(id);
+        }
+
+        
     }
 }

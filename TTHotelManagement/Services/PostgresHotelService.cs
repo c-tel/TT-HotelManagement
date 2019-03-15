@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.DBEntities;
 using TTHotel.Contracts.Auth;
+using TTHotel.Contracts.Bookings;
 
 namespace TTHotel.API.Services
 {
@@ -40,6 +41,12 @@ namespace TTHotel.API.Services
         {
             return      $"SELECT * FROM personnel " +
                         $"WHERE login ='{login}' AND pwd = '{pwdHash}'";
+        }
+
+        private static string BookingByIdQuery(int id)
+        {
+            return $"SELECT * FROM bookings " +
+                   $"WHERE book_num ={id}";
         }
 
         #endregion
@@ -114,6 +121,33 @@ namespace TTHotel.API.Services
             };
         }
 
+        public BookingDTO GetBooking(int id)
+        {
+            var sql = BookingByIdQuery(id);
+            var qRes = QuerySingleOrDefaultInternal<Booking>(sql);
+            if (qRes == null)
+                return null;
+            return new BookingDTO
+            {
+                BookComment = qRes.Book_comment,
+                BookedPrice = qRes.Booked_price,
+                BookedRoomNum = qRes.Book_num,
+                BookingId = qRes.Book_num,
+                Book_state = (BookingStates)qRes.Book_state,
+                ClientTel = qRes.Cl_tel_num,
+                Complaint = qRes.Complaint,
+                EndDate = qRes.End_date,
+                EndDateReal = qRes.End_date_real,
+                Payed = qRes.Payed,
+                PersBook = qRes.Pers_book,
+                PersSettledBook = qRes.Pers_book,
+                PricePeriod = qRes.Price_period,
+                StartDate = qRes.Start_date,
+                StartDateReal = qRes.Start_date_real,
+                SumFees = qRes.Sum_fees
+            };
+        }
+
         #region WRAPPERS
         private IEnumerable<T> QueryInternal<T>(string sql)
         {
@@ -175,8 +209,6 @@ namespace TTHotel.API.Services
 
             return sb.ToString();
         }
-
-
     }
 
     internal class RoomInfoComparer : EqualityComparer<RoomInfo>

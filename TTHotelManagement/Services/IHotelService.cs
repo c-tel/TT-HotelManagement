@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.Contracts.Auth;
+using TTHotel.Contracts.Bookings;
 
 namespace TTHotel.API.Services
 {
@@ -12,6 +13,8 @@ namespace TTHotel.API.Services
         // users
         UserDTO GetUser(string login, string pwd);
 
+        // bokings
         List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to);
+        BookingDTO GetBooking(int id);
     }
 }
