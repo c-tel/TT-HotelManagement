@@ -13,7 +13,6 @@ namespace TTHohel.ViewModels
         private Visibility _errorVisibility;
 
         private ICommand _loginCommand;
-        //private ICommand _exitCommand;
 
         public LoginModel Model { get; private set; }
 
