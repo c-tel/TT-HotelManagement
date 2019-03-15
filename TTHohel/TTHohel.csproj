@@ -88,20 +88,23 @@
     </ApplicationDefinition>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MainModel.cs" />
-    <Compile Include="Models\Permissions.cs" />
     <Compile Include="Models\SettingsModel.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Services\HotelApiClient.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
-    <Compile Include="Tools\RoleToVisibilityConverter.cs" />
     <Compile Include="Tools\RoomsConverter.cs" />
     <Compile Include="Tools\RoomsDataGrid.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
+    <Compile Include="Views\AdminMainView.xaml.cs">
+      <DependentUpon>AdminMainView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MaidMainView.xaml.cs">
+      <DependentUpon>MaidMainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -116,7 +119,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AdminMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MaidMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

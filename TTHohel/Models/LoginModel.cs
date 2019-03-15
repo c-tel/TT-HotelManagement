@@ -10,7 +10,9 @@ namespace TTHohel.Models
         {
             if(HotelApiClient.GetInstance().Login(login, pwd))
             {
-                NavigationManager.Instance.Navigate(ModesEnum.Main);
+                if(HotelApiClient.GetInstance().AuthorizationResponse.User.Role.ToString() == "Head")
+                    NavigationManager.Instance.Navigate(ModesEnum.Main);
+                else NavigationManager.Instance.Navigate(ModesEnum.AdminMain);
                 return true;
             }
             return false;

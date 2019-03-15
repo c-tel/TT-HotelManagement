@@ -3,13 +3,9 @@ using System.ComponentModel;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
-using Newtonsoft.Json;
-using System.IO;
 using System;
 using System.Windows;
-using System.Globalization;
 using System.Collections.ObjectModel;
-using System.Linq;
 using TTHohel.Contracts.Bookings;
 
 namespace TTHohel.ViewModels
@@ -19,6 +15,7 @@ namespace TTHohel.ViewModels
         private DateTime _dateFrom;
         private DateTime _dateTo;
         private List<DateTime> _datesList;
+        private Visibility _settingsVisibility;
 
         private ICommand _exitCommand;
         private ICommand _settCommand;
@@ -32,6 +29,8 @@ namespace TTHohel.ViewModels
         public MainViewModel()
         {
             Model = new MainModel();
+            SettingsVisibility = Visibility.Collapsed;
+
             _datesList = new List<DateTime>();
             DateFrom  = DateTime.Today.Date;
             DateTo = DateTime.Today.AddDays(10);
@@ -43,6 +42,19 @@ namespace TTHohel.ViewModels
             var inp = new List<RoomInfo>();
 
             InfoTable = new ObservableCollection<RoomInfo>(inp);
+        }
+
+        public Visibility SettingsVisibility
+        {
+            get { return _settingsVisibility; }
+            set
+            {
+                if (_settingsVisibility != value)
+                {
+                    _settingsVisibility = value;
+                    InvokePropertyChanged(nameof(SettingsVisibility));
+                }
+            }
         }
 
         public ObservableCollection<string> ColumnHeaders {
