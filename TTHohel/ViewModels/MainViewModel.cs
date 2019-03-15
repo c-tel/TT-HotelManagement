@@ -7,6 +7,7 @@ using System;
 using System.Windows;
 using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
+using TTHohel.Services;
 
 namespace TTHohel.ViewModels
 {
@@ -39,7 +40,7 @@ namespace TTHohel.ViewModels
 
             // string output = File.ReadAllText("room_data.json");
             // var inp = JsonConvert.DeserializeObject<List<RoomInfo>>(output);
-            var inp = new List<RoomInfo>();
+            var inp = HotelApiClient.GetInstance().RoomInfos(DateFrom, DateTo);
 
             InfoTable = new ObservableCollection<RoomInfo>(inp);
         }

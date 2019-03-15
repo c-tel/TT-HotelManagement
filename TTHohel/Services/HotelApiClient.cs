@@ -46,7 +46,7 @@ namespace TTHohel.Services
 
         public List<RoomInfo> RoomInfos(DateTime from, DateTime to)
         {
-            UriBuilder builder = new UriBuilder("http://localhost:6598/api/bookings/periodInfo")
+            UriBuilder builder = new UriBuilder("https://tt-hotel.herokuapp.com/api/bookings")
             {
                 Query = $"from='{ToQueryArgument(from)}'&to='{ToQueryArgument(to)}'"
             };
