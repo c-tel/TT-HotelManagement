@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using TTHohel.Manger;
+using TTHohel.Manager;
 using TTHohel.Models;
 using TTHohel.Windows;
 

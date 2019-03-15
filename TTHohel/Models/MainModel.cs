@@ -1,5 +1,5 @@
 ﻿using System;
-using TTHohel.Manger;
+using TTHohel.Manager;
 
 namespace TTHohel.Models
 {

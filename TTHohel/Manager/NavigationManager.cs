@@ -1,6 +1,6 @@
 ﻿using TTHohel.Models;
 
-namespace TTHohel.Manger
+namespace TTHohel.Manager
 {
     class NavigationManager
     {

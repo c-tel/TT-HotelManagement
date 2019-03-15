@@ -1,4 +1,4 @@
-﻿using TTHohel.Manger;
+﻿using TTHohel.Manager;
 using TTHohel.Services;
 
 namespace TTHohel.Models

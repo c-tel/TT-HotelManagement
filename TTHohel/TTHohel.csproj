@@ -88,9 +88,12 @@
     </ApplicationDefinition>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MainModel.cs" />
+    <Compile Include="Models\Permissions.cs" />
     <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Services\HotelApiClient.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
+    <Compile Include="Tools\RoleToVisibilityConverter.cs" />
     <Compile Include="Tools\RoomsConverter.cs" />
     <Compile Include="Tools\RoomsDataGrid.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
@@ -131,7 +134,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Manger\NavigationManager.cs" />
+    <Compile Include="Manager\NavigationManager.cs" />
     <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

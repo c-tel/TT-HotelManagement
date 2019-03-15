@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TTHohel.Views"
              xmlns:localVM="clr-namespace:TTHohel.Tools"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:permissions="clr-namespace:TTHohel.Models"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -32,7 +32,8 @@
                 <Button Style="{StaticResource BtnMenuStyle}">Додати</Button>
                 <Button Style="{StaticResource BtnMenuStyle}">Button</Button>
                 <Button Style="{StaticResource BtnMenuStyle}">Звіт</Button>
-                <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Налаштування" Command="{Binding SettCommand}">
+                <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Налаштування" Command="{Binding SettCommand}"
+                        >
                     <fa:ImageAwesome Icon="Cogs" Foreground="WhiteSmoke" Height="26"/>
                 </Button>
                 <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Вийти" Command="{Binding ExitCommand}">
