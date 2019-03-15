@@ -140,7 +140,7 @@ namespace TTHotel.API.Services
                 EndDateReal = qRes.End_date_real,
                 Payed = qRes.Payed,
                 PersBook = qRes.Pers_book,
-                PersSettledBook = qRes.Pers_book,
+                PersSettledBook = qRes.Pers_settled,
                 PricePeriod = qRes.Price_period,
                 StartDate = qRes.Start_date,
                 StartDateReal = qRes.Start_date_real,

@@ -13,7 +13,7 @@ namespace TTHotel.API.Services
         // users
         UserDTO GetUser(string login, string pwd);
 
-        // bokings
+        // bookings
         List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to);
         BookingDTO GetBooking(int id);
     }
