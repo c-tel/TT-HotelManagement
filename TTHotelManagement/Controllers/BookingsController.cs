@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,12 @@ namespace TTHotel.API.Controllers
         }
 
         [HttpGet()]
-        public IEnumerable<RoomInfo> PeriodInfo([FromQuery] DateTime from, [FromQuery] DateTime to)
+        public IEnumerable<RoomInfo> PeriodInfo([FromQuery] string from, [FromQuery] string to)
         {
-            return _hotelService.GetPeriodInfo(from, to);
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            var fromDate = DateTime.ParseExact(from, "dd-MM-yyyy", provider);
+            var toDate = DateTime.ParseExact(from, "dd-MM-yyyy", provider);
+            return _hotelService.GetPeriodInfo(fromDate, toDate);
         }
 
         [HttpGet("{id}")]
