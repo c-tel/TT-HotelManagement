@@ -24,12 +24,12 @@ namespace TTHotel.API.Controllers
         }
 
         [HttpGet()]
-        public IEnumerable<RoomInfo> PeriodInfo([FromQuery] string from, [FromQuery] string to)
+        public IEnumerable<RoomInfo> PeriodInfo([FromQuery] long from, [FromQuery] long to)
         {
             //CultureInfo provider = CultureInfo.InvariantCulture;
             //Convert.ToDateTime(from);
-            var fromDate = DateTime.Parse(from);
-            var toDate = DateTime.Parse(to);
+            var fromDate = new DateTime(from);
+            var toDate = new DateTime(to);
             return _hotelService.GetPeriodInfo(fromDate, toDate);
         }
 
