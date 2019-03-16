@@ -47,6 +47,11 @@ namespace TTHohel.Tools
                                     ConverterParameter = value,
                                     Converter = new ValueToBrushConverter()
                                 }
+                            },
+                            new Setter
+                            {
+                                Property = BorderThicknessProperty,
+                                Value = new Thickness (1)
                             }
                         }
                     }

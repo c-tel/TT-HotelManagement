@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using TTHohel.Contracts.Bookings;
@@ -15,20 +14,21 @@ namespace TTHohel.Tools
             if (_ != null && parameter != null)
             {
                 var statuses = _.DailyInfo;
-                var index = parameter as int?;
+                var index = parameter as string;
                 RoomDailyStatus currStatus = RoomDailyStatus.Free;
-                if (index != null)
-                    currStatus =  statuses.ElementAt(index.Value).Status;
 
-                if (statuses.ElementAt(index.Value).Debt != 0)
+                var currInfo = statuses.FirstOrDefault(x => x.BookDate.ToString("dd-MM-yyyy") == index);
+
+                currStatus =  currInfo.Status;
+
+                if (currInfo.Debt != 0 && currInfo.Debt != null)
                     return "#D81B0E";
                 else
                 {
                     switch (currStatus)
                     {
-                        case RoomDailyStatus.Settled: return Brushes.LightSeaGreen;
+                        case RoomDailyStatus.Settled: return Brushes.MediumSeaGreen;
                         case RoomDailyStatus.Booked: return Brushes.YellowGreen;
-                        //case RoomDailyStatus.Free: return Brushes.WhiteSmoke;
                         default: return Brushes.WhiteSmoke;
                     }
                 }

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
@@ -7,7 +6,6 @@ using System;
 using System.Windows;
 using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
-using TTHohel.Services;
 
 namespace TTHohel.ViewModels
 {
@@ -15,15 +13,14 @@ namespace TTHohel.ViewModels
     {
         private DateTime _dateFrom;
         private DateTime _dateTo;
-        private List<DateTime> _datesList;
         private Visibility _settingsVisibility;
 
         private ICommand _exitCommand;
         private ICommand _settCommand;
         private ICommand _refreshCommand;
 
-        ObservableCollection<string> _columnHeaders;
-        public ObservableCollection<RoomInfo> InfoTable { get; set; }
+        private ObservableCollection<string> _columnHeaders;
+        private ObservableCollection<RoomInfo> _infoTable;
 
         public MainModel Model { get; private set; }
 
@@ -32,17 +29,11 @@ namespace TTHohel.ViewModels
             Model = new MainModel();
             SettingsVisibility = Visibility.Collapsed;
 
-            _datesList = new List<DateTime>();
             DateFrom  = DateTime.Today.Date;
             DateTo = DateTime.Today.AddDays(10);
 
-            ColumnHeaders = ChangeCollumnHeaders();
-
-            // string output = File.ReadAllText("room_data.json");
-            // var inp = JsonConvert.DeserializeObject<List<RoomInfo>>(output);
-            var inp = HotelApiClient.GetInstance().RoomInfos(DateFrom, DateTo);
-
-            InfoTable = new ObservableCollection<RoomInfo>(inp);
+            InfoTable = Model.ChangeInfoTable(DateFrom, DateTo);
+            ColumnHeaders = Model.ChangeCollumnHeaders(DateFrom, DateTo);
         }
 
         public Visibility SettingsVisibility
@@ -66,6 +57,15 @@ namespace TTHohel.ViewModels
                 InvokePropertyChanged(nameof(ColumnHeaders));
             } }
 
+        public ObservableCollection<RoomInfo> InfoTable {
+            get { return _infoTable; }
+            set
+            {
+                _infoTable = value;
+                InvokePropertyChanged(nameof(InfoTable));
+            }
+        }
+
         public DateTime DateFrom
         {
             get { return _dateFrom; }
@@ -76,16 +76,6 @@ namespace TTHohel.ViewModels
                     _dateFrom = value;
                     InvokePropertyChanged(nameof(DateFrom));
                 }
-            }
-        }
-
-        private void ChangeDatesList()
-        {
-            _datesList.Clear();
-            var i = _dateFrom;
-            while (i <= _dateTo){
-                _datesList.Add(i);
-                i = i.AddDays(1);
             }
         }
 
@@ -118,6 +108,7 @@ namespace TTHohel.ViewModels
                 InvokePropertyChanged(nameof(ExitCommand));
             }
         }
+
         public ICommand SettCommand
         {
             get
@@ -134,6 +125,7 @@ namespace TTHohel.ViewModels
                 InvokePropertyChanged(nameof(SettCommand));
             }
         }
+
         public ICommand RefreshCommand
         {
             get
@@ -160,16 +152,8 @@ namespace TTHohel.ViewModels
 
         private void RefreshExecute(object obj)
         {
-            ColumnHeaders= ChangeCollumnHeaders();
-        }
-
-        private ObservableCollection<string> ChangeCollumnHeaders()
-        {
-            ChangeDatesList();
-            ObservableCollection<string> vs = new ObservableCollection<string>();
-            foreach (DateTime i in _datesList)
-                vs.Add(i.ToString("dd-MM-yyyy"));
-            return vs;
+            InfoTable = Model.ChangeInfoTable(DateFrom, DateTo);
+            ColumnHeaders= Model.ChangeCollumnHeaders(DateFrom, DateTo);
         }
 
         private void ExitExecute(object obj)
@@ -190,7 +174,6 @@ namespace TTHohel.ViewModels
         {
             return true;
         }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
 
