@@ -61,7 +61,7 @@ namespace TTHohel.Services
         }
         private string ToQueryArgument(DateTime dateTime)
         {
-            return dateTime.ToString("dd-mm-yyyy");
+            return dateTime.ToString("dd-MM-yyyy");
         }
 
     }
