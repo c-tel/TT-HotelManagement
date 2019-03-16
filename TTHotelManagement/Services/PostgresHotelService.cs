@@ -25,7 +25,7 @@ namespace TTHotel.API.Services
             var fromStr = $"'{from.ToString("yyyy-MM-dd")}'";
             var toStr = $"'{to.ToString("yyyy-MM-dd")}'";
             var res =   "SELECT rooms.room_num, room_floor, start_date, end_date, book_state, book_num, " +
-                        "(price_period+service_price+sum_fees-payed) AS debt " +
+                        "(price_period+sum_fees-payed) AS debt " +
                         "FROM ( " +
                             "select * " +
                             "FROM bookings " +
