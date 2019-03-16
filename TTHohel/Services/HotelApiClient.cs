@@ -61,7 +61,7 @@ namespace TTHohel.Services
         }
         private string ToQueryArgument(DateTime dateTime)
         {
-            return $"{dateTime.Month}%2F{dateTime.Day}%2F{dateTime.Year}";
+            return dateTime.ToString("dd-MM-yyyy");
         }
 
     }
