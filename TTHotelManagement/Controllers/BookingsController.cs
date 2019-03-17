@@ -12,6 +12,7 @@ using TTHotel.Contracts.Bookings;
 
 namespace TTHotel.API.Controllers
 {
+    [ApiController]
     [Route("api/bookings")]
     public class BookingsController : Controller
     {
@@ -24,13 +25,11 @@ namespace TTHotel.API.Controllers
         }
 
         [HttpGet()]
-        public IEnumerable<RoomInfo> PeriodInfo([FromQuery] long from, [FromQuery] long to)
+        public IEnumerable<RoomInfo> PeriodInfo([FromQuery] DateTime from, [FromQuery] DateTime to)
         {
             //CultureInfo provider = CultureInfo.InvariantCulture;
             //Convert.ToDateTime(from);
-            var fromDate = new DateTime(from);
-            var toDate = new DateTime(to);
-            return _hotelService.GetPeriodInfo(fromDate, toDate);
+            return _hotelService.GetPeriodInfo(from, to);
         }
 
         [HttpGet("{id}")]
