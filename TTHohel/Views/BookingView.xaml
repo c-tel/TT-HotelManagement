@@ -49,7 +49,7 @@
                     ToolTip="До головної сторінки">
                 <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
             </Button>
-            <Button Style="{StaticResource BtnMenuStyle}">Сплатити</Button>
+            <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding PayCommand}">Сплатити</Button>
             <Button Style="{StaticResource BtnMenuStyle}"
                     Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Історія</Button>
             <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>

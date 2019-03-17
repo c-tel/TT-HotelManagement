@@ -17,6 +17,7 @@ namespace TTHohel.ViewModels
         private BookingModel Model { get; }
 
         private ICommand _backCommand;
+        private ICommand _payCommand;
 
         public BookingViewModel()
         {
@@ -29,9 +30,7 @@ namespace TTHohel.ViewModels
             get
             {
                 if (_backCommand == null)
-                {
                     _backCommand = new RelayCommand<object>(BackExecute, BackCanExecute);
-                }
                 return _backCommand;
             }
             set
@@ -49,6 +48,31 @@ namespace TTHohel.ViewModels
         private void BackExecute(object obj)
         {
             Model.GoToMain();
+        }
+        public ICommand PayCommand
+        {
+            get
+            {
+                if (_payCommand == null)
+                    _payCommand = new RelayCommand<object>(PayExecute, PayCanExecute);
+                return _payCommand;
+            }
+            set
+            {
+                _payCommand = value;
+                InvokePropertyChanged(nameof(PayCommand));
+            }
+        }
+
+        private bool PayCanExecute(object obj)
+        {
+            return true;
+            //return BookingDTO.Payed != (BookingDTO.PricePeriod+BookingDTO.SumFees);
+        }
+
+        private void PayExecute(object obj)
+        {
+            Model.GoToPay();
         }
 
         private void OnBookingChanged(BookingDTO obj)

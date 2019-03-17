@@ -21,5 +21,10 @@ namespace TTHohel.Models
         {
             NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
+
+        internal void GoToPay()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Pay);
+        }
     }
 }
