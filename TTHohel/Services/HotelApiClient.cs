@@ -14,7 +14,6 @@ namespace TTHohel.Services
         private HttpClient Client;
         private static HotelApiClient ApiClient;
 
-        public event Action<User> UserChanged;
         public User User { get; private set; }
 
         private HotelApiClient()

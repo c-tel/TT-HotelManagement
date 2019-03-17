@@ -86,6 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\BookingModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\RightsEnum.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Tools\RoomsConverter.cs" />
     <Compile Include="Tools\RoomsDataGrid.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
+    <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
