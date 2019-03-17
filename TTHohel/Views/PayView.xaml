@@ -40,12 +40,18 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Center">
+                    <!--<StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="0" Grid.RowSpan="4" Grid.Column="1" HorizontalAlignment="Center">
                         
-                    </StackPanel>
+                    </StackPanel>-->
+                    
                     <TextBlock Text="Оплата за проживання" HorizontalAlignment="Center" FontSize="17" FontWeight="DemiBold" Margin="0 0 0 10"/>
                     
-                    <Button Grid.Row="1" Grid.ColumnSpan="2"
+                    <Label Grid.Row="1" Grid.Column="0" Margin="40,5,0,5" Content="Сума:" FontSize="16" HorizontalContentAlignment="Left"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="txtUserId" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
+                                 Text="{Binding Amonut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <Label Grid.Row="2" Grid.Column="0" Margin="40,5,0,5" Content="Тип оплати:" FontSize="16" HorizontalContentAlignment="Left"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1"/>
+                    <Button Grid.Row="3" Grid.ColumnSpan="2"
                             Background="#17A210">Сплатити</Button>
                 </Grid>
             </StackPanel>
