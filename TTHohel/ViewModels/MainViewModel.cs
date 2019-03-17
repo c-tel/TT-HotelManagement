@@ -3,7 +3,6 @@ using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
 using System;
-using System.Windows;
 using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
 
@@ -13,11 +12,13 @@ namespace TTHohel.ViewModels
     {
         private DateTime _dateFrom;
         private DateTime _dateTo;
-        private Visibility _settingsVisibility;
 
         private ICommand _exitCommand;
         private ICommand _settCommand;
         private ICommand _refreshCommand;
+
+        private bool _userHasSettRight;
+        private bool _userHasStatisticRight;
 
         private ObservableCollection<string> _columnHeaders;
         private ObservableCollection<RoomInfo> _infoTable;
@@ -27,7 +28,8 @@ namespace TTHohel.ViewModels
         public MainViewModel()
         {
             Model = new MainModel();
-            SettingsVisibility = Visibility.Collapsed;
+
+            Model.UserChanged += OnUserChanged;
 
             DateFrom  = DateTime.Today.Date;
             DateTo = DateTime.Today.AddDays(10);
@@ -36,16 +38,23 @@ namespace TTHohel.ViewModels
             ColumnHeaders = Model.ChangeCollumnHeaders(DateFrom, DateTo);
         }
 
-        public Visibility SettingsVisibility
+        public bool UserHasSettRight
         {
-            get { return _settingsVisibility; }
+            get { return _userHasSettRight; }
             set
             {
-                if (_settingsVisibility != value)
-                {
-                    _settingsVisibility = value;
-                    InvokePropertyChanged(nameof(SettingsVisibility));
-                }
+                _userHasSettRight = value;
+                InvokePropertyChanged(nameof(UserHasSettRight));
+            }
+        }
+
+        public bool UserHasStatisticRight
+        {
+            get { return _userHasStatisticRight; }
+            set
+            {
+                _userHasStatisticRight = value;
+                InvokePropertyChanged(nameof(UserHasStatisticRight));
             }
         }
 
@@ -173,6 +182,12 @@ namespace TTHohel.ViewModels
         private bool SettCanExecute(object obj)
         {
             return true;
+        }
+
+        public void OnUserChanged(RightsEnum rights)
+        {
+            UserHasSettRight = rights.HasFlag(RightsEnum.Settings);
+            UserHasStatisticRight = rights.HasFlag(RightsEnum.Statistic);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

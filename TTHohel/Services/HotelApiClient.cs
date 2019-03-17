@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using TTHohel.Contracts.Bookings;
+using TTHohel.Models;
 using TTHotel.Contracts.Auth;
 
 namespace TTHohel.Services
@@ -13,6 +14,9 @@ namespace TTHohel.Services
         private HttpClient Client;
         private static HotelApiClient ApiClient;
 
+        public event Action<User> UserChanged;
+        public User User { get; private set; }
+
         private HotelApiClient()
         {
             Client = new HttpClient
@@ -20,6 +24,12 @@ namespace TTHohel.Services
                 BaseAddress = new Uri("https://tt-hotel.herokuapp.com/api")
             };
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        public void ChangeUser(User user)
+        {
+            User = user;
+            UserChanged?.Invoke(user);
         }
 
         public static HotelApiClient GetInstance()

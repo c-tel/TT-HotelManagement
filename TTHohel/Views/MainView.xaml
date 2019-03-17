@@ -9,6 +9,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
         <localVM:RoomsConverter x:Key="dateConverter"/>
         <Style TargetType="Button" x:Key="BtnMenuStyle">
             <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -29,10 +31,11 @@
         <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="80" HorizontalAlignment="Center" Margin="0 10">
                 <Button Style="{StaticResource BtnMenuStyle}">Додати</Button>
-                <Button Style="{StaticResource BtnMenuStyle}">Статистика</Button>
+                <Button Style="{StaticResource BtnMenuStyle}"
+                    Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Статистика</Button>
                 <Button Style="{StaticResource BtnMenuStyle}">Звіт</Button>
                 <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Налаштування" Command="{Binding SettCommand}"
-                        Visibility="{Binding SettingsVisibility}">
+                        Visibility="{Binding UserHasSettRight, Converter={StaticResource BoolToVis}}">
                     <fa:ImageAwesome Icon="Cogs" Foreground="WhiteSmoke" Height="26"/>
                 </Button>
                 <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Вийти" Command="{Binding ExitCommand}">

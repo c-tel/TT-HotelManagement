@@ -9,6 +9,18 @@ namespace TTHohel.Models
 {
     class MainModel
     {
+        public event Action<RightsEnum> UserChanged;
+
+        public MainModel()
+        {
+            HotelApiClient.GetInstance().UserChanged += OnUserChanged;
+        }
+
+        private void OnUserChanged(User user)
+        {
+            UserChanged?.Invoke(user.Rights);
+        }
+
         public void Exit()
         {
             NavigationManager.Instance.Navigate(ModesEnum.Login);

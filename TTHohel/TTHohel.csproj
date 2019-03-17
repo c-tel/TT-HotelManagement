@@ -88,7 +88,9 @@
     </ApplicationDefinition>
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MainModel.cs" />
+    <Compile Include="Models\RightsEnum.cs" />
     <Compile Include="Models\SettingsModel.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Services\HotelApiClient.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\RoomsConverter.cs" />
