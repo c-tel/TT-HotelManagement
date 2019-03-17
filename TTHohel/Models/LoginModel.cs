@@ -15,12 +15,12 @@ namespace TTHohel.Models
 
         public bool Login(string login, string pwd)
         {
-            
-            if (!HotelApiClient.GetInstance().Login(login, pwd))
+            var authResp = HotelApiClient.GetInstance().Login(login, pwd);
+            if (authResp == null)
                 return false;
 
-            var userRole = HotelApiClient.GetInstance().AuthorizationResponse.User.Role;
-            HotelApiClient.GetInstance().ChangeUser(new User(rightsDictionary[userRole]));
+            var userRole = authResp.User.Role;
+            Storage.Instance.ChangeUser(new User(rightsDictionary[userRole]));
 
             NavigationManager.Instance.Navigate(ModesEnum.Main);
 

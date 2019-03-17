@@ -1,6 +1,6 @@
 ﻿namespace TTHohel.Models
 {
-    class User
+    public class User
     {
         public RightsEnum Rights { get; }
 

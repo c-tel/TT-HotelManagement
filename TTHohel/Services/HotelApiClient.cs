@@ -10,7 +10,6 @@ namespace TTHohel.Services
 {
     class HotelApiClient
     {
-        public AuthorizationResponse AuthorizationResponse { get; private set; }
         private HttpClient Client;
         private static HotelApiClient ApiClient;
 
@@ -26,12 +25,6 @@ namespace TTHohel.Services
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public void ChangeUser(User user)
-        {
-            User = user;
-            UserChanged?.Invoke(user);
-        }
-
         public static HotelApiClient GetInstance()
         {
             if (ApiClient == null)
@@ -39,7 +32,7 @@ namespace TTHohel.Services
             return ApiClient;
         }
 
-        public bool Login(string login, string password)
+        public AuthorizationResponse Login(string login, string password)
         {
             var userCredentials = new Credentials
             {
@@ -49,9 +42,8 @@ namespace TTHohel.Services
 
             var resp = Client.PostAsJsonAsync("api/auth/authorize", userCredentials).Result;
             if (!resp.IsSuccessStatusCode)
-                return false;
-            AuthorizationResponse = resp.Content.ReadAsAsync<AuthorizationResponse>().Result;
-            return true;
+                return null;
+            return resp.Content.ReadAsAsync<AuthorizationResponse>().Result;
         }
 
         public List<RoomInfo> RoomInfos(DateTime from, DateTime to)

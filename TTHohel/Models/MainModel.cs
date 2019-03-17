@@ -13,7 +13,7 @@ namespace TTHohel.Models
 
         public MainModel()
         {
-            HotelApiClient.GetInstance().UserChanged += OnUserChanged;
+            Storage.Instance.UserChanged += OnUserChanged;
         }
 
         private void OnUserChanged(User user)
