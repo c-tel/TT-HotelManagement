@@ -160,6 +160,11 @@ namespace TTHotel.API.Services
             ExecuteInternal(CreateBookingQuery(booking, persBook));
         }
 
+        public void UpdateBooking(BookingUpdateDTO booking, string persBook)
+        {
+            // TODO
+        }
+
         #region WRAPPERS
         private IEnumerable<T> QueryInternal<T>(string sql)
         {
