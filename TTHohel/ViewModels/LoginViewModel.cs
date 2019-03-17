@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,13 +16,23 @@ namespace TTHohel.ViewModels
         private Visibility _errorVisibility;
 
         private ICommand _loginCommand;
-
+        private ObservableCollection<object> _testSource { get; set; }
+        public ObservableCollection<object> TestSource
+        {
+            get { return _testSource; }
+            set
+            {
+                    _testSource = value;
+                    InvokePropertyChanged(nameof(TestSource));
+            }
+        }
         public LoginModel Model { get; private set; }
 
         public LoginViewModel()
         {
             Model = new LoginModel();
             ErrorVisibility = Visibility.Collapsed;
+            TestSource = new ObservableCollection<object>(new[] { "abc", "bcd" });
         }
 
         public string Name

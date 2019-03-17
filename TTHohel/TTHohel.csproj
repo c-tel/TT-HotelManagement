@@ -97,6 +97,11 @@
     <Compile Include="Tools\RoomsConverter.cs" />
     <Compile Include="Tools\RoomsDataGrid.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
+    <Compile Include="UserControls\DropdownAutocomplete\DropdownAutocomplete.xaml.cs">
+      <DependentUpon>DropdownAutocomplete.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DropdownAutocomplete\DropdownItem.cs" />
+    <Compile Include="UserControls\DropdownAutocomplete\IDropDownConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -119,6 +124,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\DropdownAutocomplete\DropdownAutocomplete.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
