@@ -18,7 +18,6 @@ namespace TTHohel.Models
         private ContentWindow _contentWindow;
         private readonly LoginView _loginView;
         private readonly MainView _mainView;
-        private readonly AdminMainView _adminMainView;
         private readonly SettingsView _settingsView;
 
         public NavigationModel(ContentWindow contentWindow)
@@ -26,7 +25,6 @@ namespace TTHohel.Models
             _contentWindow = contentWindow;
             _loginView = new LoginView();
             _mainView = new MainView();
-            _adminMainView = new AdminMainView();
             _settingsView = new SettingsView();
         }
 
@@ -39,9 +37,6 @@ namespace TTHohel.Models
                     break;
                 case ModesEnum.Main:
                     _contentWindow.ContentControl.Content = _mainView;
-                    break;
-                case ModesEnum.AdminMain:
-                    _contentWindow.ContentControl.Content = _adminMainView;
                     break;
                 case ModesEnum.Settings:
                     _contentWindow.ContentControl.Content = _settingsView;
