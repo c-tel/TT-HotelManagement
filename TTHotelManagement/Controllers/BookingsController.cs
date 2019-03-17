@@ -41,9 +41,9 @@ namespace TTHotel.API.Controllers
         [HttpPost()]
         public IActionResult Create([FromBody] BookingCreateDTO booking)
         {
-            if (!Request.Headers.ContainsKey("sessid"))
+            if (!Request.Cookies.ContainsKey("sessid"))
                 return BadRequest();
-            var sessid = Request.Headers["sessid"];
+            var sessid = Request.Cookies["sessid"];
             var persBook = _authService.GetAuthorized(sessid)?.EmplBook;
             if (persBook == null)
                 return Unauthorized();

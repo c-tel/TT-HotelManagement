@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using TTHotel.API.Services;
 using TTHotel.Contracts.Auth;
 
@@ -23,10 +24,11 @@ namespace TTHotel.API.Controllers
             var user = _hotelService.GetUser(creds.Login, creds.Password);
             if(user == null)
                 return Unauthorized();
-            var sess = _authService.Authorize(user);
+            var sessid = _authService.Authorize(user);
+            Response.Cookies.Append("sessid", sessid);
             return new AuthorizationResponse
             {
-                SessionKey = sess,
+                SessionKey = sessid,
                 User = user
             };
         }
