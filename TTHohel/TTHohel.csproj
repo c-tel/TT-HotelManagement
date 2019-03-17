@@ -169,9 +169,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TTHotel.Contracts\TTHotel.Contracts.csproj">
       <Project>{E7A916A0-0003-4103-A92E-F522263D38EB}</Project>

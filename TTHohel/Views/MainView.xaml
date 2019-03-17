@@ -51,7 +51,12 @@
             <localVM:RoomsDataGrid AutoGenerateColumns="False" FontSize="14" x:Name="MyDataGrid"
                       ColumnHeaders="{Binding ColumnHeaders}"
                       ItemsSource="{Binding InfoTable}"
-                       IsReadOnly="True" Background="Transparent" SelectionUnit="Cell" AlternatingRowBackground="WhiteSmoke"></localVM:RoomsDataGrid>
+                       IsReadOnly="True" Background="Transparent" SelectionUnit="Cell" AlternatingRowBackground="WhiteSmoke"
+                                   CurrentCell="{Binding CellInfo, Mode=OneWayToSource}">
+                <localVM:RoomsDataGrid.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding CellCommand}" CommandParameter="{Binding CellInfo}" />
+                </localVM:RoomsDataGrid.InputBindings>
+            </localVM:RoomsDataGrid>
             </ScrollViewer>
         </DockPanel>
 </UserControl>

@@ -5,6 +5,8 @@ using TTHohel.Tools;
 using System;
 using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace TTHohel.ViewModels
 {
@@ -16,6 +18,9 @@ namespace TTHohel.ViewModels
         private ICommand _exitCommand;
         private ICommand _settCommand;
         private ICommand _refreshCommand;
+        private ICommand _cellCommand;
+
+        //public DelegateCommand<DataGridItem> CellClickCommand { get; private set; }
 
         private bool _userHasSettRight;
         private bool _userHasStatisticRight;
@@ -162,7 +167,7 @@ namespace TTHohel.ViewModels
         private void RefreshExecute(object obj)
         {
             InfoTable = Model.ChangeInfoTable(DateFrom, DateTo);
-            ColumnHeaders= Model.ChangeCollumnHeaders(DateFrom, DateTo);
+            ColumnHeaders = Model.ChangeCollumnHeaders(DateFrom, DateTo);
         }
 
         private void ExitExecute(object obj)
@@ -183,6 +188,46 @@ namespace TTHohel.ViewModels
         {
             return true;
         }
+        public ICommand CellCommand
+        {
+            get
+            {
+                if (_cellCommand == null)
+                {
+                    _cellCommand = new RelayCommand<object>(CellClickExecute, CellClickCanExecute);
+                }
+                return _cellCommand;
+            }
+            set
+            {
+                _cellCommand = value;
+                InvokePropertyChanged(nameof(CellCommand));
+            }
+        }
+
+        private bool CellClickCanExecute(object obj)
+        {
+            return true;
+        }
+
+        private void CellClickExecute(object obj)
+        {
+            var _ = obj as DataGridCellInfo?;
+            var __ = _.Value.Item as RoomInfo;
+            
+           
+        }
+
+        private DataGridCellInfo _cellInfo;
+        public DataGridCellInfo CellInfo
+        {
+            get { return _cellInfo; }
+            set
+            {
+                _cellInfo = value;
+                InvokePropertyChanged("CellInfo");
+            }
+        }
 
         public void OnUserChanged(RightsEnum rights)
         {
@@ -197,5 +242,9 @@ namespace TTHohel.ViewModels
             var e = new PropertyChangedEventArgs(propertyName);
             PropertyChanged?.Invoke(this, e);
         }
+
+        //public void myDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //}
     }
 }

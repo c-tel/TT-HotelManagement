@@ -16,5 +16,10 @@ namespace TTHohel.Views
             _mainVM = new MainViewModel();
             DataContext = _mainVM;
         }
+
+        private void MyDataGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
