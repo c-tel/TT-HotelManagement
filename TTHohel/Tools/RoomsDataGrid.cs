@@ -32,7 +32,6 @@ namespace TTHohel.Tools
                 var column = new DataGridTextColumn()
                 {
                     Header = value,
-                    Width = 50,
                     Binding = new Binding("DailyInfo")
                     { ConverterParameter = value, Converter = new RoomsConverter() },
                     CellStyle = new Style
