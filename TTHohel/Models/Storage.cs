@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TTHotel.Contracts.Bookings;
 
 namespace TTHohel.Models
 {
@@ -25,6 +26,15 @@ namespace TTHohel.Models
         {
             User = user;
             UserChanged?.Invoke(user);
+        }
+
+        public event Action<BookingDTO> BookingChanged;
+        public BookingDTO SelectedBooking { get; private set; }
+
+        public void ChangeBooking(BookingDTO nextBooking)
+        {
+            SelectedBooking = nextBooking;
+            BookingChanged?.Invoke(SelectedBooking);
         }
     }
 }

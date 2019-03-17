@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using TTHohel.Contracts.Bookings;
 using TTHohel.Models;
 using TTHotel.Contracts.Auth;
+using TTHotel.Contracts.Bookings;
 
 namespace TTHohel.Services
 {
@@ -61,6 +62,15 @@ namespace TTHohel.Services
                 return result;
             }
         }
+
+        public BookingDTO GetBookingById(int bookingId)
+        {
+            var resp = Client.GetAsync($"api/bookings/{bookingId}").Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<BookingDTO>().Result;
+        }
+
         private string ToQueryArgument(DateTime dateTime)
         {
             return $"{dateTime.Month}%2F{dateTime.Day}%2F{dateTime.Year}";

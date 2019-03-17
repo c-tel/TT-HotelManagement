@@ -57,5 +57,12 @@ namespace TTHohel.Models
             }
             return datesList;
         }
+
+        public void ProcessBookingSelection(int bookingId)
+        {
+            var res = HotelApiClient.GetInstance().GetBookingById(bookingId);
+            Storage.Instance.ChangeBooking(res);
+            // TODO navigate to BookingDetails View
+        }
     }
 }

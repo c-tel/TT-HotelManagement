@@ -11,8 +11,8 @@ namespace TTHotel.Contracts.Bookings
         public int BookingId{ get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime StartDateReal { get; set; }
-        public DateTime EndDateReal { get; set; }
+        public DateTime? StartDateReal { get; set; }
+        public DateTime? EndDateReal { get; set; }
         public double BookedPrice { get; set; }
         public double PricePeriod { get; set; }
         public double SumFees { get; set; }

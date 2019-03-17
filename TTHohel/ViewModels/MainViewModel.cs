@@ -214,6 +214,7 @@ namespace TTHohel.ViewModels
         {
             var _ = obj as DataGridCellInfo?;
             var __ = _.Value.Item as RoomInfo;
+            Model.ProcessBookingSelection(2);
             
            
         }
