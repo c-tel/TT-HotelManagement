@@ -14,12 +14,12 @@ namespace TTHohel.Views
     /// </summary>
     public partial class SettingsView : UserControl
     {
-        private SettingViewModel _settVM;
+        private SettingsViewModel _settVM;
 
         public SettingsView()
         {
             InitializeComponent();
-            _settVM = new SettingViewModel();
+            _settVM = new SettingsViewModel();
             DataContext = _settVM;
         }
     }

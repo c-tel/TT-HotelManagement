@@ -5,13 +5,13 @@ using TTHohel.Tools;
 
 namespace TTHohel.ViewModels
 {
-    class SettingViewModel : INotifyPropertyChanged
+    class SettingsViewModel : INotifyPropertyChanged
     {
         private ICommand _backCommand;
 
         public SettingsModel Model { get; private set; }
 
-        public SettingViewModel()
+        public SettingsViewModel()
         {
             Model = new SettingsModel();
         }
@@ -29,7 +29,7 @@ namespace TTHohel.ViewModels
             set
             {
                 _backCommand = value;
-                InvokePropertyChanged("BackCommand");
+                InvokePropertyChanged(nameof(BackCommand));
             }
         }
 
