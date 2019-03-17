@@ -3,9 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TTHohel.Models;
-using TTHohel.Services;
 using TTHohel.Tools;
-using TTHotel.Contracts.Auth;
 
 namespace TTHohel.ViewModels
 {

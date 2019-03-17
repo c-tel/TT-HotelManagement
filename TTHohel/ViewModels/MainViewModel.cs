@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace TTHohel.ViewModels
 {
@@ -212,11 +213,15 @@ namespace TTHohel.ViewModels
 
         private void CellClickExecute(object obj)
         {
-            var _ = obj as DataGridCellInfo?;
-            var __ = _.Value.Item as RoomInfo;
-            Model.ProcessBookingSelection(2);
-            
-           
+            var selectedSell = obj as DataGridCellInfo?;
+            var selectedRoomInfo = selectedSell.Value.Item as RoomInfo;
+            var column = selectedSell.Value.Column.Header.ToString();
+
+            var dateColumn = selectedRoomInfo.DailyInfo.FirstOrDefault(x => x.BookDate.ToString("dd-MM-yyyy") == column);
+            int? bookId = dateColumn.BookID;
+
+            if(bookId != null)
+                Model.ProcessBookingSelection(bookId.Value);
         }
 
         private DataGridCellInfo _cellInfo;
@@ -243,9 +248,5 @@ namespace TTHohel.ViewModels
             var e = new PropertyChangedEventArgs(propertyName);
             PropertyChanged?.Invoke(this, e);
         }
-
-        //public void myDataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //}
     }
 }

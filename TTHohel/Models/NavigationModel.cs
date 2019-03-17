@@ -8,8 +8,8 @@ namespace TTHohel.Models
     {
         Login,
         Main,
-        AdminMain,
-        Settings
+        Settings,
+        Booking
     }
 
     public class NavigationModel
@@ -19,6 +19,7 @@ namespace TTHohel.Models
         private readonly LoginView _loginView;
         private readonly MainView _mainView;
         private readonly SettingsView _settingsView;
+        private readonly BookingView _bookingView;
 
         public NavigationModel(ContentWindow contentWindow)
         {
@@ -26,6 +27,7 @@ namespace TTHohel.Models
             _loginView = new LoginView();
             _mainView = new MainView();
             _settingsView = new SettingsView();
+            _bookingView = new BookingView();
         }
 
         public void Navigate(ModesEnum mode)
@@ -40,6 +42,9 @@ namespace TTHohel.Models
                     break;
                 case ModesEnum.Settings:
                     _contentWindow.ContentControl.Content = _settingsView;
+                    break;
+                case ModesEnum.Booking:
+                    _contentWindow.ContentControl.Content = _bookingView;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

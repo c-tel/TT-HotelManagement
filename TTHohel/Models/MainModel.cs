@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 using TTHohel.Contracts.Bookings;
 using TTHohel.Manager;
 using TTHohel.Services;
@@ -62,7 +63,8 @@ namespace TTHohel.Models
         {
             var res = HotelApiClient.GetInstance().GetBookingById(bookingId);
             Storage.Instance.ChangeBooking(res);
-            // TODO navigate to BookingDetails View
+            MessageBox.Show(res.BookingId.ToString());
+            NavigationManager.Instance.Navigate(ModesEnum.Booking);
         }
     }
 }

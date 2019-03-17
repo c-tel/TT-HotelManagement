@@ -28,26 +28,26 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-        <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="80" HorizontalAlignment="Center" Margin="0 10">
-                <Button Style="{StaticResource BtnMenuStyle}">Додати</Button>
-                <Button Style="{StaticResource BtnMenuStyle}"
+    <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="80" HorizontalAlignment="Center" Margin="0 10">
+            <Button Style="{StaticResource BtnMenuStyle}">Додати</Button>
+            <Button Style="{StaticResource BtnMenuStyle}"
                     Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Статистика</Button>
-                <Button Style="{StaticResource BtnMenuStyle}">Звіт</Button>
-                <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Налаштування" Command="{Binding SettCommand}"
+            <Button Style="{StaticResource BtnMenuStyle}">Звіт</Button>
+            <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Налаштування" Command="{Binding SettCommand}"
                         Visibility="{Binding UserHasSettRight, Converter={StaticResource BoolToVis}}">
-                    <fa:ImageAwesome Icon="Cogs" Foreground="WhiteSmoke" Height="26"/>
-                </Button>
-                <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Вийти" Command="{Binding ExitCommand}">
-                    <fa:ImageAwesome Icon="SignOut" Foreground="WhiteSmoke" Height="20"/>
-                </Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
-                <DatePicker Name="DateFrom" FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}"></DatePicker>
-                <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}"></DatePicker>
-                <Button Style="{StaticResource BtnMenuStyle}" Height="26" FontSize="14" Background="#2DA46F" Command="{Binding RefreshCommand}">Оновити</Button>
-            </StackPanel>
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <fa:ImageAwesome Icon="Cogs" Foreground="WhiteSmoke" Height="26"/>
+            </Button>
+            <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Вийти" Command="{Binding ExitCommand}">
+                <fa:ImageAwesome Icon="SignOut" Foreground="WhiteSmoke" Height="20"/>
+            </Button>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+            <DatePicker Name="DateFrom" FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}"></DatePicker>
+            <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}"></DatePicker>
+            <Button Style="{StaticResource BtnMenuStyle}" Height="26" FontSize="14" Background="#2DA46F" Command="{Binding RefreshCommand}">Оновити</Button>
+        </StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <localVM:RoomsDataGrid AutoGenerateColumns="False" FontSize="14" x:Name="MyDataGrid"
                       ColumnHeaders="{Binding ColumnHeaders}"
                       ItemsSource="{Binding InfoTable}"
@@ -57,6 +57,6 @@
                     <MouseBinding Gesture="LeftDoubleClick" Command="{Binding CellCommand}" CommandParameter="{Binding CellInfo}" />
                 </localVM:RoomsDataGrid.InputBindings>
             </localVM:RoomsDataGrid>
-            </ScrollViewer>
-        </DockPanel>
+        </ScrollViewer>
+    </DockPanel>
 </UserControl>

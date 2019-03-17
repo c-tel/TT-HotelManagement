@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace TTHohel.Tools
 {
@@ -48,8 +49,13 @@ namespace TTHohel.Tools
                             },
                             new Setter
                             {
+                                Property = BorderBrushProperty,
+                                Value = Brushes.Black
+            },
+                            new Setter
+                            {
                                 Property = BorderThicknessProperty,
-                                Value = new Thickness (1)
+                                Value = new Thickness (0.6)
                             }
                         }
                     }
