@@ -22,5 +22,10 @@ namespace TTHohel.Views
             _settVM = new SettingsViewModel();
             DataContext = _settVM;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

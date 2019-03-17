@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TTHohel.Manager;
 using TTHotel.Contracts.Bookings;
 
 namespace TTHohel.Models
@@ -18,6 +15,11 @@ namespace TTHohel.Models
         private void OnBookingChanged(BookingDTO booking)
         {
             BookingChanged?.Invoke(booking);
+        }
+
+        public void GoToMain()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
     }
 }

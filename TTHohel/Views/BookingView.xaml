@@ -24,6 +24,16 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
     </UserControl.Resources>
 
     <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
@@ -35,7 +45,8 @@
             <TextBlock Text="Settled by" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="80" HorizontalAlignment="Center" Margin="0 10">
-            <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Вийти" Command="{Binding ExitCommand}">
+            <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding BackCommand}"
+                    ToolTip="До головної сторінки">
                 <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
             </Button>
             <Button Style="{StaticResource BtnMenuStyle}">Сплатити</Button>
@@ -43,29 +54,43 @@
                     Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Історія</Button>
             <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
         </StackPanel>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label Grid.Column="0" Content="Номер" FontSize="16" HorizontalAlignment="Center"/>
-            <Label Grid.Column="1" Content="Заброньовано з" FontSize="16" HorizontalAlignment="Center"/>
-            <Label Grid.Column="2" Content="По" FontSize="16" HorizontalAlignment="Center"/>
-            <Label Grid.Column="3" Content="Ціна/добу" FontSize="16" HorizontalAlignment="Center"/>
-            <Label Grid.Column="4" Content="Загальна" FontSize="16" HorizontalAlignment="Center"/>
-            <Label Grid.Column="5" Content="Штраф" FontSize="16" HorizontalAlignment="Center"/>
-            <TextBlock Grid.Row="1" x:Name="txtUserId" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
-                                 Text="1"/>
+        <Border BorderBrush="Black" BorderThickness="2" Margin="60 0" DockPanel.Dock="Top">
+            <Grid Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-        </Grid>
+                <Label Grid.Column="0" Content="Номер"/>
+                <Label Grid.Column="1" Content="З"/>
+                <Label Grid.Column="2" Content="По"/>
+                <Label Grid.Column="3" Content="Ціна/добу"/>
+                <Label Grid.Column="4" Content="Загальна"/>
+                <Label Grid.Column="5" Content="Штраф"/>
+
+                <TextBlock Grid.Row="1"
+                                 Text="{Binding BookingDTO.BookedRoomNum}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                                 Text="{Binding BookingDTO.StartDate}"/>
+                <TextBlock Grid.Row="1" Grid.Column="2"
+                                 Text="{Binding BookingDTO.EndDate}"/>
+                <TextBlock Grid.Row="1" Grid.Column="3"
+                                 Text="{Binding BookingDTO.BookedPrice}"/>
+                <TextBlock Grid.Row="1" Grid.Column="4"
+                                 Text="{Binding BookingDTO.PricePeriod}"/>
+                <TextBlock Grid.Row="1" Grid.Column="5"
+                                 Text="{Binding BookingDTO.SumFees}"/>
+            </Grid>
+        </Border>
+        <StackPanel></StackPanel>
     </DockPanel>
     
 </UserControl>

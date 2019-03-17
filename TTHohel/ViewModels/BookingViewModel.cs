@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using TTHohel.Models;
+using TTHohel.Tools;
 using TTHotel.Contracts.Bookings;
 
 namespace TTHohel.ViewModels
@@ -14,10 +16,39 @@ namespace TTHohel.ViewModels
         private BookingDTO _bookingDTO;
         private BookingModel Model { get; }
 
+        private ICommand _backCommand;
+
         public BookingViewModel()
         {
             Model = new BookingModel();
             Model.BookingChanged += OnBookingChanged;
+        }
+
+        public ICommand BackCommand
+        {
+            get
+            {
+                if (_backCommand == null)
+                {
+                    _backCommand = new RelayCommand<object>(BackExecute, BackCanExecute);
+                }
+                return _backCommand;
+            }
+            set
+            {
+                _backCommand = value;
+                InvokePropertyChanged(nameof(BackCommand));
+            }
+        }
+
+        private bool BackCanExecute(object obj)
+        {
+            return true;
+        }
+
+        private void BackExecute(object obj)
+        {
+            Model.GoToMain();
         }
 
         private void OnBookingChanged(BookingDTO obj)
