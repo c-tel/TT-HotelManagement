@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Payments;
 
 namespace TTHotel.API.Services
 {
@@ -19,5 +20,8 @@ namespace TTHotel.API.Services
         // TODO process conflicts
         void CreateBooking(BookingCreateDTO booking, string persBook);
         void UpdateBooking(BookingUpdateDTO booking, string persBook, int bookId);
+
+        // payments
+        IEnumerable<PaymentDTO> GetPayments(int bookingId);
     }
 }

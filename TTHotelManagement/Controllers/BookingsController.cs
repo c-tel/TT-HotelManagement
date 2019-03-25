@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.Services;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Payments;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,6 +37,12 @@ namespace TTHotel.API.Controllers
         public BookingDTO ById([FromRoute] int id)
         {
             return _hotelService.GetBooking(id);
+        }
+
+        [HttpGet("{id}/payments")]
+        public IEnumerable<PaymentDTO> PaymentsById([FromRoute] int id)
+        {
+            return _hotelService.GetPayments(id);
         }
 
         [HttpPut("{id}")]

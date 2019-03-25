@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.DBEntities;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Payments;
 
 namespace TTHotel.API.Services
 {
@@ -54,6 +54,20 @@ namespace TTHotel.API.Services
             return "INSERT INTO bookings (start_date, end_date, book_comment, room_num, cl_tel_num, pers_book) " +
                    $"VALUES ({booking.StartDate.ToString("yyyy-mm-dd")}, {booking.EndDate.ToString("yyyy-mm-dd")}, " +
                    $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
+        }
+
+        private static string UpdateBookingQuery(BookingCreateDTO booking, string person_book)
+        {
+            // ATTENTION! Fails.
+            return "UPDATE bookings " +
+                   $"VALUES ({booking.StartDate.ToString("yyyy-mm-dd")}, {booking.EndDate.ToString("yyyy-mm-dd")}, " +
+                   $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
+        }
+        private static string PaymentsQuery(int bookingId)
+        {
+            return "SELECT * " +
+                   "FROM payments " +
+                   $"WHERE book_num = {bookingId};";
         }
 
         #endregion
@@ -165,6 +179,18 @@ namespace TTHotel.API.Services
             // TODO
         }
 
+        public IEnumerable<PaymentDTO> GetPayments(int bookingId)
+        {
+            var payments = QueryInternal<Payment>(PaymentsQuery(bookingId));
+            return payments.Select(p => new PaymentDTO
+            {
+                Amount = p.Amount,
+                Book_num = bookingId,
+                Payment_date = p.Payment_date,
+                Type = p.Type
+            });
+        }
+
         #region WRAPPERS
         private IEnumerable<T> QueryInternal<T>(string sql)
         {
@@ -211,7 +237,7 @@ namespace TTHotel.API.Services
 
         #endregion
 
-        private RoomDailyStatus MapToStatus(BookStates? state)
+        private static RoomDailyStatus MapToStatus(BookStates? state)
         {
             switch(state)
             {
