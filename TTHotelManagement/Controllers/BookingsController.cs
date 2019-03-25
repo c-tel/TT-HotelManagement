@@ -38,6 +38,12 @@ namespace TTHotel.API.Controllers
             return _hotelService.GetBooking(id);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateBooking([FromRoute] int id, [FromBody] BookingUpdateDTO updateDTO)
+        {
+            return NoContent();
+        }
+
         [HttpPost()]
         public IActionResult Create([FromBody] BookingCreateDTO booking)
         {

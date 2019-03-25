@@ -160,7 +160,7 @@ namespace TTHotel.API.Services
             ExecuteInternal(CreateBookingQuery(booking, persBook));
         }
 
-        public void UpdateBooking(BookingUpdateDTO booking, string persBook)
+        public void UpdateBooking(BookingUpdateDTO booking, string persBook, int bookId)
         {
             // TODO
         }

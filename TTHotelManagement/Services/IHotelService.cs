@@ -18,6 +18,6 @@ namespace TTHotel.API.Services
         BookingDTO GetBooking(int id);
         // TODO process conflicts
         void CreateBooking(BookingCreateDTO booking, string persBook);
-        void UpdateBooking(BookingUpdateDTO booking, string persBook);
+        void UpdateBooking(BookingUpdateDTO booking, string persBook, int bookId);
     }
 }
