@@ -78,6 +78,13 @@ namespace TTHotel.API.Services
                    "FROM clients";
         }
 
+        private static string ClientQuery(string telNum)
+        {
+            return "SELECT * " +
+                   "FROM clients " +
+                   $"WHERE tel_num = '{telNum}';";
+        }
+
         private static string CreateClientQuery(ClientDTO newcomer)
         {
             return "INSERT INTO clients " +
@@ -215,15 +222,15 @@ namespace TTHotel.API.Services
 
         public IEnumerable<ClientDTO> GetClients()
         {
-            return QueryInternal<Client>(ClientsQuery()).Select(cl => new ClientDTO
-            {
-                Name = cl.Cl_name,
-                Discount = cl.Discount,
-                Passport = cl.Passport,
-                Patronym = cl.Patronym,
-                Surname = cl.Surname,
-                TelNum = cl.Tel_num
-            });
+            return QueryInternal<Client>(ClientsQuery()).Select(MapToClient);
+        }
+
+        
+
+        public ClientDTO GetClient(string telnum)
+        {
+            var dbres = QuerySingleOrDefaultInternal<Client>(ClientQuery(telnum));
+            return MapToClient(dbres);
         }
 
         public void CreateClient(ClientDTO toCreate)
@@ -279,6 +286,8 @@ namespace TTHotel.API.Services
 
         #endregion
 
+        #region MAPPERS
+
         private static RoomDailyStatus MapToStatus(BookStates? state)
         {
             switch(state)
@@ -291,6 +300,20 @@ namespace TTHotel.API.Services
                     return RoomDailyStatus.Free;
             }
         }
+
+        private static ClientDTO MapToClient(Client cl)
+        {
+            return new ClientDTO
+            {
+                Name = cl.Cl_name,
+                Discount = cl.Discount,
+                Passport = cl.Passport,
+                Patronym = cl.Patronym,
+                Surname = cl.Surname,
+                TelNum = cl.Tel_num
+            };
+        }
+        #endregion
 
         private static string Hash(string value)
         {
@@ -307,8 +330,6 @@ namespace TTHotel.API.Services
 
             return sb.ToString();
         }
-
-        
     }
 
     internal class RoomInfoComparer : EqualityComparer<RoomInfo>

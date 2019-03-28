@@ -24,6 +24,12 @@ namespace TTHotel.API.Controllers
             return _hotelService.GetClients();
         }
 
+        [HttpGet("{telnum}")]
+        public ClientDTO Get([FromRoute] string telnum)
+        {
+            return _hotelService.GetClient('+' + telnum);
+        }
+
         [HttpPost()]
         public ActionResult<IEnumerable<ClientDTO>> GetAll([FromBody] ClientDTO client)
         {
