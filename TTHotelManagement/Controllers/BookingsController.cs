@@ -48,6 +48,7 @@ namespace TTHotel.API.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateBooking([FromRoute] int id, [FromBody] BookingUpdateDTO updateDTO)
         {
+            // TODO 
             return NoContent();
         }
 
@@ -63,7 +64,5 @@ namespace TTHotel.API.Controllers
             _hotelService.CreateBooking(booking, persBook);
             return NoContent();
         }
-
-        
     }
 }
