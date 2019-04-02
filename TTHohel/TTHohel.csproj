@@ -89,6 +89,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\AddBookingModel.cs" />
+    <Compile Include="Models\AllClientsModel.cs" />
     <Compile Include="Models\BookingModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MainModel.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Tools\RoomsDataGrid.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
     <Compile Include="ViewModels\AddBookingViewModel.cs" />
+    <Compile Include="ViewModels\AllClientsViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

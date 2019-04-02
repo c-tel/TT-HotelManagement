@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
 using TTHohel.Contracts.Bookings;
 using TTHohel.Manager;
 using TTHohel.Services;

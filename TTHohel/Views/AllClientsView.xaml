@@ -3,16 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView Name="phonesList" ItemsSource="{Binding Path=UserList}" >
+        <ListView Name="phonesList" ItemsSource="{Binding Path=ClientsList}" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Телефон</GridViewColumn>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="100">Ім'я</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Цена</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Прізвище</GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

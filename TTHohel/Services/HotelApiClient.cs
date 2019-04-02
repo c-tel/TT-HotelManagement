@@ -6,6 +6,7 @@ using TTHohel.Contracts.Bookings;
 using TTHohel.Models;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Clients;
 
 namespace TTHohel.Services
 {
@@ -69,6 +70,14 @@ namespace TTHohel.Services
             if (!resp.IsSuccessStatusCode)
                 return null;
             return resp.Content.ReadAsAsync<BookingDTO>().Result;
+        }
+
+        public List<ClientDTO> AllClients()
+        {
+            var resp = Client.GetAsync($"api/clients").Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<List<ClientDTO>>().Result;
         }
 
         private string ToQueryArgument(DateTime dateTime)
