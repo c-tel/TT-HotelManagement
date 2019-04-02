@@ -104,14 +104,16 @@ namespace TTHotel.API.Services
                                            $"AND({availiableFrom.ToPostgresDateFormat()} BETWEEN start_date AND end_date " +
                                                $"OR {availiableTo.ToPostgresDateFormat()} BETWEEN start_date AND end_date) " +
                                             "AND book_state <> 'canceled') " +
-                        $"AND room_places >= {guests};";
+                        $"AND room_places >= {guests}" +
+                    $"ORDER BY room_num;";
         }
 
         private static string AllRoomsQuery(int guests)
         {
             return   "SELECT * " +
                      "FROM rooms " +
-                    $"WHERE room_places >= {guests};";
+                    $"WHERE room_places >= {guests} " +
+                    $"ORDER BY room_num;";
         }
         private static string RoomQuery(int roomNum)
         {

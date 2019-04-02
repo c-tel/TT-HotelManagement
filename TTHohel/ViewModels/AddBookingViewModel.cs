@@ -28,7 +28,8 @@ namespace TTHohel.ViewModels
         {
             Model = new AddBookingModel();
 
-            _clientsList = Model.GetClientsList();
+            ClientsList = Model.GetClientsList();
+            RoomsList = Model.GetRoomsList();
         }
 
         #region Properties
