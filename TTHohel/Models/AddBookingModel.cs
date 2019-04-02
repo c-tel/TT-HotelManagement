@@ -15,9 +15,9 @@ namespace TTHohel.Models
             return HotelApiClient.GetInstance().GetAllClients();
         }
 
-        public List<RoomDTO> GetRoomsList()
+        public List<RoomDTO> GetRoomsList(DateTime dateFrom, DateTime dateTo)
         {
-            return HotelApiClient.GetInstance().GetRooms();
+            return HotelApiClient.GetInstance().GetFreeRooms(dateFrom, dateTo);
         }
     }
 }

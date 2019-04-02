@@ -28,11 +28,42 @@ namespace TTHohel.ViewModels
         {
             Model = new AddBookingModel();
 
+            DateFrom = DateTime.Today.Date;
+            DateTo = DateTime.Today.AddDays(1);
+
             ClientsList = Model.GetClientsList();
-            RoomsList = Model.GetRoomsList();
         }
 
         #region Properties
+
+        public DateTime DateFrom
+        {
+            get { return _dateFrom; }
+            set
+            {
+                if (_dateFrom != value)
+                {
+                    _dateFrom = value;
+                    InvokePropertyChanged(nameof(DateFrom));
+                    RefreshFreeRooms();
+                }
+            }
+        }
+
+        public DateTime DateTo
+        {
+            get { return _dateTo; }
+            set
+            {
+                if (_dateTo != value)
+                {
+                    _dateTo = value;
+                    InvokePropertyChanged(nameof(DateTo));
+                    RefreshFreeRooms();
+                }
+            }
+        }
+
         public List<ClientDTO> ClientsList
         {
             get { return _clientsList; }
@@ -49,8 +80,15 @@ namespace TTHohel.ViewModels
             set
             {
                 _roomsList = value;
-                InvokePropertyChanged(nameof(RoomDTO));
+                InvokePropertyChanged(nameof(RoomsList));
             }
+        }
+        #endregion
+
+        #region Private Methods
+        private void RefreshFreeRooms()
+        {
+            RoomsList = Model.GetRoomsList(DateFrom, DateTo);
         }
         #endregion
 

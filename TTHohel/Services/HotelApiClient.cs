@@ -51,7 +51,8 @@ namespace TTHohel.Services
 
         public List<RoomInfo> RoomInfos(DateTime from, DateTime to)
         {
-            UriBuilder builder = new UriBuilder("https://tt-hotel.herokuapp.com/api/bookings")
+            //UriBuilder builder = new UriBuilder("https://tt-hotel.herokuapp.com/api/bookings")
+            UriBuilder builder = new UriBuilder("https://localhost:44358/api/bookings")
             {
                 Query = $"from={ToQueryArgument(from)}&to={ToQueryArgument(to)}"
             };
@@ -81,9 +82,10 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<List<ClientDTO>>().Result;
         }
 
-        public List<RoomDTO> GetRooms()
+        public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to)
         {
-            var resp = Client.GetAsync($"api/rooms").Result;
+            var _ = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}";
+            var resp = Client.GetAsync(_).Result;
             if (!resp.IsSuccessStatusCode)
                 return null;
             return resp.Content.ReadAsAsync<List<RoomDTO>>().Result;
