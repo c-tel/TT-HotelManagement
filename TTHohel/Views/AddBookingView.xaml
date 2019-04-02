@@ -79,16 +79,16 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Ціна/добу:"/>
-                    <Label Content="0"/>
+                    <Label Content="{Binding SelectedRoom.Price}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
                     <Label Content="Загальна вартість:"/>
-                    <Label Content="0"/>
+                    <Label Content="{Binding PeriodPrice}"/>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="1">
-                <ComboBox ItemsSource="{Binding RoomsList}"
+                <ComboBox ItemsSource="{Binding RoomsList}" SelectedItem="{Binding SelectedRoom}"
                           DisplayMemberPath="Num" SelectedValuePath="Num">
                 </ComboBox>
             </StackPanel>
