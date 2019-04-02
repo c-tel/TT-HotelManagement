@@ -36,11 +36,28 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Margin="30">
             <DockPanel LastChildFill="True">
-                <Button DockPanel.Dock="Top" ToolTip="До головної сторінки" HorizontalAlignment="Left">
-                    <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
-                </Button>
+                <TextBlock DockPanel.Dock="Top" Text="Нове бронювання"/>
+                <Button DockPanel.Dock="Top" Width="130" Command="{Binding AddClientCommand}">Карточка гостя</Button>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label Content="Заселення: " VerticalContentAlignment="Center"/>
+                    <DatePicker FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="30"></DatePicker>
+                    <Label Content="Виселення: " VerticalContentAlignment="Center"/>
+                    <DatePicker FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="30"></DatePicker>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Top">
+                    <Label Content="Коментар" Target="{Binding ElementName=CommentBox}"/>
+                    <TextBox Name="CommentBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap"
+                             Text="{Binding CommentText}"/>
+                </StackPanel>
+                <StackPanel></StackPanel>
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button ToolTip="До головної сторінки" HorizontalAlignment="Left">
+                        <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
+                    </Button>
+                    <Button>Додати</Button>
+                </StackPanel>
                 <StackPanel/>
             </DockPanel>
         </StackPanel>
