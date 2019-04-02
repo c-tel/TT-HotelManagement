@@ -63,8 +63,13 @@ namespace TTHohel.Models
         {
             var res = HotelApiClient.GetInstance().GetBookingById(bookingId);
             Storage.Instance.ChangeBooking(res);
-            MessageBox.Show(res.BookingId.ToString());
+
             NavigationManager.Instance.Navigate(ModesEnum.Booking);
+        }
+
+        internal void AddBooking()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.AddBooking);
         }
     }
 }

@@ -4,9 +4,9 @@ namespace TTHohel.Models
 {
     class PayModel
     {
-        public void GoToMain()
+        public void GoToBooking()
         {
-            NavigationManager.Instance.Navigate(ModesEnum.Main);
+            NavigationManager.Instance.Navigate(ModesEnum.Booking);
         }
     }
 }

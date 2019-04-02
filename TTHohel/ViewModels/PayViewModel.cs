@@ -38,7 +38,7 @@ namespace TTHohel.ViewModels
 
         private void BackExecute(object obj)
         {
-            Model.GoToMain();
+            Model.GoToBooking();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

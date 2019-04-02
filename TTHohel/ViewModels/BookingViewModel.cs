@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
@@ -13,11 +8,13 @@ namespace TTHohel.ViewModels
 {
     class BookingViewModel : INotifyPropertyChanged
     {
+        #region Private Fields
         private BookingDTO _bookingDTO;
         private BookingModel Model { get; }
 
         private ICommand _backCommand;
         private ICommand _payCommand;
+        #endregion
 
         public BookingViewModel()
         {
@@ -25,6 +22,20 @@ namespace TTHohel.ViewModels
             Model.BookingChanged += OnBookingChanged;
         }
 
+        public BookingDTO BookingDTO
+        {
+            get { return _bookingDTO; }
+            set
+            {
+                if (_bookingDTO != value)
+                {
+                    _bookingDTO = value;
+                    InvokePropertyChanged(nameof(BookingDTO));
+                }
+            }
+        }
+
+        #region Commands
         public ICommand BackCommand
         {
             get
@@ -49,6 +60,7 @@ namespace TTHohel.ViewModels
         {
             Model.GoToMain();
         }
+
         public ICommand PayCommand
         {
             get
@@ -74,25 +86,14 @@ namespace TTHohel.ViewModels
         {
             Model.GoToPay();
         }
+        #endregion
 
         private void OnBookingChanged(BookingDTO obj)
         {
             BookingDTO = obj;
         }
 
-        public BookingDTO BookingDTO
-        {
-            get { return _bookingDTO; }
-            set
-            {
-                if (_bookingDTO != value)
-                {
-                    _bookingDTO = value;
-                    InvokePropertyChanged(nameof(BookingDTO));
-                }
-            }
-        }
-
+        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void InvokePropertyChanged(string propertyName)
@@ -100,5 +101,6 @@ namespace TTHohel.ViewModels
             var e = new PropertyChangedEventArgs(propertyName);
             PropertyChanged?.Invoke(this, e);
         }
+        #endregion
     }
 }

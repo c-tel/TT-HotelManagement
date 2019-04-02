@@ -12,6 +12,7 @@ namespace TTHohel.Models
         {
             Storage.Instance.BookingChanged += OnBookingChanged;
         }
+
         private void OnBookingChanged(BookingDTO booking)
         {
             BookingChanged?.Invoke(booking);

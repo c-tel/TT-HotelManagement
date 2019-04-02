@@ -5,7 +5,6 @@ using TTHohel.Tools;
 using System;
 using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
-using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 
@@ -13,6 +12,8 @@ namespace TTHohel.ViewModels
 {
     class MainViewModel : INotifyPropertyChanged
     {
+        #region Private fields
+
         private DateTime _dateFrom;
         private DateTime _dateTo;
 
@@ -20,14 +21,15 @@ namespace TTHohel.ViewModels
         private ICommand _settCommand;
         private ICommand _refreshCommand;
         private ICommand _cellCommand;
-
-        //public DelegateCommand<DataGridItem> CellClickCommand { get; private set; }
+        private ICommand _addBookingCommand;
 
         private bool _userHasSettRight;
         private bool _userHasStatisticRight;
 
         private ObservableCollection<string> _columnHeaders;
         private ObservableCollection<RoomInfo> _infoTable;
+        private DataGridCellInfo _cellInfo;
+        #endregion
 
         public MainModel Model { get; private set; }
 
@@ -44,6 +46,7 @@ namespace TTHohel.ViewModels
             ColumnHeaders = Model.ChangeCollumnHeaders(DateFrom, DateTo);
         }
 
+        #region User Rights Properties
         public bool UserHasSettRight
         {
             get { return _userHasSettRight; }
@@ -63,6 +66,7 @@ namespace TTHohel.ViewModels
                 InvokePropertyChanged(nameof(UserHasStatisticRight));
             }
         }
+        #endregion
 
         public ObservableCollection<string> ColumnHeaders {
             get { return _columnHeaders; }
@@ -107,6 +111,17 @@ namespace TTHohel.ViewModels
             }
         }
 
+        public DataGridCellInfo CellInfo
+        {
+            get { return _cellInfo; }
+            set
+            {
+                _cellInfo = value;
+                InvokePropertyChanged(nameof(CellInfo));
+            }
+        }
+
+        #region Commands
         public ICommand ExitCommand
         {
             get
@@ -189,6 +204,34 @@ namespace TTHohel.ViewModels
         {
             return true;
         }
+
+        public ICommand AddBookingCommand
+        {
+            get
+            {
+                if (_addBookingCommand == null)
+                {
+                    _addBookingCommand = new RelayCommand<object>(AddExecute, AddCanExecute);
+                }
+                return _addBookingCommand;
+            }
+            set
+            {
+                _addBookingCommand = value;
+                InvokePropertyChanged(nameof(AddBookingCommand));
+            }
+        }
+
+        private bool AddCanExecute(object obj)
+        {
+            return true;
+        }
+
+        private void AddExecute(object obj)
+        {
+            Model.AddBooking();
+        }
+
         public ICommand CellCommand
         {
             get
@@ -223,17 +266,7 @@ namespace TTHohel.ViewModels
             if(bookId != null)
                 Model.ProcessBookingSelection(bookId.Value);
         }
-
-        private DataGridCellInfo _cellInfo;
-        public DataGridCellInfo CellInfo
-        {
-            get { return _cellInfo; }
-            set
-            {
-                _cellInfo = value;
-                InvokePropertyChanged("CellInfo");
-            }
-        }
+        #endregion
 
         public void OnUserChanged(RightsEnum rights)
         {
@@ -241,6 +274,7 @@ namespace TTHohel.ViewModels
             UserHasStatisticRight = rights.HasFlag(RightsEnum.Statistic);
         }
 
+        #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void InvokePropertyChanged(string propertyName)
@@ -248,5 +282,6 @@ namespace TTHohel.ViewModels
             var e = new PropertyChangedEventArgs(propertyName);
             PropertyChanged?.Invoke(this, e);
         }
+        #endregion
     }
 }
