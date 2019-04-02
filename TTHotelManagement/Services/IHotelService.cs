@@ -7,6 +7,7 @@ using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
 using TTHotel.Contracts.Clients;
 using TTHotel.Contracts.Payments;
+using TTHotel.Contracts.Rooms;
 
 namespace TTHotel.API.Services
 {
@@ -27,6 +28,8 @@ namespace TTHotel.API.Services
         IEnumerable<PaymentDTO> GetPayments(int bookingId);
 
         // rooms
+        IEnumerable<RoomDTO> GetRooms(DateTime? availiableFrom, DateTime? availiableTo, int guests);
+        RoomDTO GetRoom(int roomNum);
 
         //clients
         IEnumerable<ClientDTO> GetClients();

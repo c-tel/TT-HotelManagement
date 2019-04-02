@@ -5,26 +5,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.DBEntities;
+using TTHotel.API.Helpers;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
 using TTHotel.Contracts.Clients;
 using TTHotel.Contracts.Payments;
+using TTHotel.Contracts.Rooms;
 
 namespace TTHotel.API.Services
 {
     public class PostgresHotelService: IHotelService
     {
-        private NpgsqlConnection _conn;
         private NpgsqlConnectionStringBuilder _builder;
 
         #region QUERIES
 
         private static string PeriodDataQuery(DateTime from, DateTime to)
         {
-            var fromStr = $"'{from.ToString("yyyy-MM-dd")}'";
-            var toStr = $"'{to.ToString("yyyy-MM-dd")}'";
+            var fromStr = from.ToPostgresDateFormat();
+            var toStr = to.ToPostgresDateFormat();
             var res =   "SELECT rooms.room_num, room_floor, start_date, end_date, book_state, book_num, " +
                         "(price_period+sum_fees-payed) AS debt " +
                         "FROM ( " +
@@ -53,7 +55,7 @@ namespace TTHotel.API.Services
         private static string CreateBookingQuery(BookingCreateDTO booking, string person_book)
         {
             return "INSERT INTO bookings (start_date, end_date, book_comment, room_num, cl_tel_num, pers_book) " +
-                   $"VALUES ({booking.StartDate.ToString("yyyy-mm-dd")}, {booking.EndDate.ToString("yyyy-mm-dd")}, " +
+                   $"VALUES ({booking.StartDate.ToPostgresDateFormat()}, {booking.EndDate.ToPostgresDateFormat()}, " +
                    $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
         }
 
@@ -61,7 +63,7 @@ namespace TTHotel.API.Services
         {
             // ATTENTION! Fails.
             return "UPDATE bookings " +
-                   $"VALUES ({booking.StartDate.ToString("yyyy-mm-dd")}, {booking.EndDate.ToString("yyyy-mm-dd")}, " +
+                   $"VALUES ({booking.StartDate.ToPostgresDateFormat()}, {booking.EndDate.ToPostgresDateFormat()}, " +
                    $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
         }
 
@@ -92,6 +94,39 @@ namespace TTHotel.API.Services
                            $"'{newcomer.Surname}', '{newcomer.Patronym}', {newcomer.Discount});";
         }
 
+        private static string AvailiableRoomsQuery(DateTime availiableFrom, DateTime availiableTo, int guests)
+        {
+            return "SELECT * " +
+                   "FROM rooms " +
+                   "WHERE NOT EXISTS(SELECT * " +
+                                    "FROM bookings " +
+                                    "WHERE rooms.room_num = room_num " +
+                                           $"AND({availiableFrom.ToPostgresDateFormat()} BETWEEN start_date AND end_date " +
+                                               $"OR {availiableTo.ToPostgresDateFormat()} BETWEEN start_date AND end_date) " +
+                                            "AND book_state <> 'canceled') " +
+                        $"AND room_places >= {guests};";
+        }
+
+        private static string AllRoomsQuery(int guests)
+        {
+            return   "SELECT * " +
+                     "FROM rooms " +
+                    $"WHERE room_places >= {guests};";
+        }
+        private static string RoomQuery(int roomNum)
+        {
+            return   "SELECT * " +
+                     "FROM rooms " +
+                    $"WHERE room_num = {roomNum};";
+        }
+
+        private static string ComfortsQuery(int room)
+        {
+            return "SELECT special_comfort " +
+                   "FROM comforts_room " +
+                   $"WHERE room_num = {room}";
+        }
+
         #endregion
 
 
@@ -108,6 +143,21 @@ namespace TTHotel.API.Services
                 Database = "dcvtt5pjns4r4v",
                 SslMode = SslMode.Require,
                 UseSslStream = true,
+            };
+        }
+
+        public UserDTO GetUser(string login, string pwd)
+        {
+            var sql = LoginQuery(login, Hash(pwd));
+            var qRes = QuerySingleOrDefaultInternal<Personnel>(sql);
+            if (qRes == null)
+                return null;
+            return new UserDTO
+            {
+                EmplBook = qRes.Book_num,
+                Name = qRes.Pers_name,
+                Role = qRes.Pers_role,
+                Surname = qRes.Surname
             };
         }
 
@@ -203,21 +253,6 @@ namespace TTHotel.API.Services
 
         #endregion
 
-        public UserDTO GetUser(string login, string pwd)
-        {
-            var sql = LoginQuery(login, Hash(pwd));
-            var qRes = QuerySingleOrDefaultInternal<Personnel>(sql);
-            if (qRes == null)
-                return null;
-            return new UserDTO
-            {
-                EmplBook = qRes.Book_num,
-                Name = qRes.Pers_name,
-                Role = qRes.Pers_role,
-                Surname = qRes.Surname
-            };
-        }
-
         #region CLIENTS
 
         public IEnumerable<ClientDTO> GetClients()
@@ -240,18 +275,56 @@ namespace TTHotel.API.Services
 
         #endregion
 
+        public IEnumerable<RoomDTO> GetRooms(DateTime? availiableFrom, DateTime? availiableTo, int guests)
+        {
+            IEnumerable<Room> rooms;
+            if (availiableFrom == null && availiableTo == null)
+            {
+                rooms = QueryInternal<Room>(AllRoomsQuery(guests));
+            }
+            else
+            {
+                rooms = QueryInternal<Room>(AvailiableRoomsQuery(availiableFrom.Value, availiableTo.Value, guests));
+            }
+            var mapTasks = rooms.Select(MapToRoom);
+            var all = Task.WhenAll(mapTasks);
+            return all.GetAwaiter().GetResult();
+        }
+
+        public RoomDTO GetRoom(int roomNum)
+        {
+            string sql = RoomQuery(roomNum);
+            var room = QuerySingleOrDefaultInternal<Room>(sql);
+            return MapToRoom(room).GetAwaiter().GetResult();
+        }
+
         #region WRAPPERS
         private IEnumerable<T> QueryInternal<T>(string sql)
         {
             IEnumerable<T> result;
-            _conn = new NpgsqlConnection(_builder.ToString())
+            var conn = new NpgsqlConnection(_builder.ToString())
             {
                 // dirty hack. must be removed later
                 UserCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
             };
-            using (_conn)
+            using (conn)
             {
-                result = _conn.Query<T>(sql);
+                result = conn.Query<T>(sql);
+            }
+            return result;
+        }
+
+        private async Task<IEnumerable<T>> QueryAsyncInternal<T>(string sql)
+        {
+            IEnumerable<T> result;
+            var conn = new NpgsqlConnection(_builder.ToString())
+            {
+                // dirty hack. must be removed later
+                UserCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+            };
+            using (conn)
+            {
+                result = await conn.QueryAsync<T>(sql);
             }
             return result;
         }
@@ -259,28 +332,28 @@ namespace TTHotel.API.Services
         private T QuerySingleOrDefaultInternal<T>(string sql)
         {
             T result;
-            _conn = new NpgsqlConnection(_builder.ToString())
+            var conn = new NpgsqlConnection(_builder.ToString())
             {
                 // dirty hack. must be removed later
                 UserCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
             };
-            using (_conn)
+            using (conn)
             {
-                result = _conn.QuerySingleOrDefault<T>(sql);
+                result = conn.QuerySingleOrDefault<T>(sql);
             }
             return result;
         }
 
         private void ExecuteInternal(string sql)
         {
-            _conn = new NpgsqlConnection(_builder.ToString())
+            var conn = new NpgsqlConnection(_builder.ToString())
             {
                 // dirty hack. must be removed later
                 UserCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
             };
-            using (_conn)
+            using (conn)
             {
-                _conn.Execute(sql);
+                conn.Execute(sql);
             }
         }
 
@@ -313,7 +386,21 @@ namespace TTHotel.API.Services
                 TelNum = cl.Tel_num
             };
         }
+
+        private async Task<RoomDTO> MapToRoom(Room room)
+        {
+            return new RoomDTO
+            {
+                Num = room.Room_num,
+                Price = room.Price,
+                Floor = room.Room_floor,
+                Places = room.Room_places,
+                Comforts = (await QueryAsyncInternal<string>(ComfortsQuery(room.Room_num))).ToList()
+            };
+        }
+
         #endregion
+
 
         private static string Hash(string value)
         {
