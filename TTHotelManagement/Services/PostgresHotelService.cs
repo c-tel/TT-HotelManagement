@@ -9,6 +9,7 @@ using TTHohel.Contracts.Bookings;
 using TTHotel.API.DBEntities;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Clients;
 using TTHotel.Contracts.Payments;
 
 namespace TTHotel.API.Services
@@ -63,11 +64,32 @@ namespace TTHotel.API.Services
                    $"VALUES ({booking.StartDate.ToString("yyyy-mm-dd")}, {booking.EndDate.ToString("yyyy-mm-dd")}, " +
                    $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
         }
+
         private static string PaymentsQuery(int bookingId)
         {
             return "SELECT * " +
                    "FROM payments " +
                    $"WHERE book_num = {bookingId};";
+        }
+
+        private static string ClientsQuery()
+        {
+            return "SELECT * " +
+                   "FROM clients";
+        }
+
+        private static string ClientQuery(string telNum)
+        {
+            return "SELECT * " +
+                   "FROM clients " +
+                   $"WHERE tel_num = '{telNum}';";
+        }
+
+        private static string CreateClientQuery(ClientDTO newcomer)
+        {
+            return "INSERT INTO clients " +
+                   $"VALUES ('{newcomer.TelNum}', '{newcomer.Passport}', '{newcomer.Name}', " +
+                           $"'{newcomer.Surname}', '{newcomer.Patronym}', {newcomer.Discount});";
         }
 
         #endregion
@@ -88,6 +110,8 @@ namespace TTHotel.API.Services
                 UseSslStream = true,
             };
         }
+
+        #region BOOKINGS
 
         public List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to)
         {
@@ -125,21 +149,6 @@ namespace TTHotel.API.Services
             }
 
             return infos;
-        }
-
-        public UserDTO GetUser(string login, string pwd)
-        {
-            var sql = LoginQuery(login, Hash(pwd));
-            var qRes = QuerySingleOrDefaultInternal<Personnel>(sql);
-            if (qRes == null)
-                return null;
-            return new UserDTO
-            {
-                EmplBook = qRes.Book_num,
-                Name = qRes.Pers_name,
-                Role = qRes.Pers_role,
-                Surname = qRes.Surname
-            };
         }
 
         public BookingDTO GetBooking(int id)
@@ -191,6 +200,46 @@ namespace TTHotel.API.Services
             });
         }
 
+
+        #endregion
+
+        public UserDTO GetUser(string login, string pwd)
+        {
+            var sql = LoginQuery(login, Hash(pwd));
+            var qRes = QuerySingleOrDefaultInternal<Personnel>(sql);
+            if (qRes == null)
+                return null;
+            return new UserDTO
+            {
+                EmplBook = qRes.Book_num,
+                Name = qRes.Pers_name,
+                Role = qRes.Pers_role,
+                Surname = qRes.Surname
+            };
+        }
+
+        #region CLIENTS
+
+        public IEnumerable<ClientDTO> GetClients()
+        {
+            return QueryInternal<Client>(ClientsQuery()).Select(MapToClient);
+        }
+
+        
+
+        public ClientDTO GetClient(string telnum)
+        {
+            var dbres = QuerySingleOrDefaultInternal<Client>(ClientQuery(telnum));
+            return MapToClient(dbres);
+        }
+
+        public void CreateClient(ClientDTO toCreate)
+        {
+            ExecuteInternal(CreateClientQuery(toCreate));
+        }
+
+        #endregion
+
         #region WRAPPERS
         private IEnumerable<T> QueryInternal<T>(string sql)
         {
@@ -237,6 +286,8 @@ namespace TTHotel.API.Services
 
         #endregion
 
+        #region MAPPERS
+
         private static RoomDailyStatus MapToStatus(BookStates? state)
         {
             switch(state)
@@ -249,6 +300,20 @@ namespace TTHotel.API.Services
                     return RoomDailyStatus.Free;
             }
         }
+
+        private static ClientDTO MapToClient(Client cl)
+        {
+            return new ClientDTO
+            {
+                Name = cl.Cl_name,
+                Discount = cl.Discount,
+                Passport = cl.Passport,
+                Patronym = cl.Patronym,
+                Surname = cl.Surname,
+                TelNum = cl.Tel_num
+            };
+        }
+        #endregion
 
         private static string Hash(string value)
         {
@@ -265,8 +330,6 @@ namespace TTHotel.API.Services
 
             return sb.ToString();
         }
-
-        
     }
 
     internal class RoomInfoComparer : EqualityComparer<RoomInfo>
