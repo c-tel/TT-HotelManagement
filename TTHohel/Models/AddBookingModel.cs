@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TTHohel.Manager;
+using TTHohel.Services;
+using TTHotel.Contracts.Clients;
 
 namespace TTHohel.Models
 {
     class AddBookingModel
     {
-        public void GoToAddClient()
+
+        public List<ClientDTO> GetClientsList()
         {
-            NavigationManager.Instance.Navigate(ModesEnum.AllClients);
+            return HotelApiClient.GetInstance().AllClients();
         }
     }
 }

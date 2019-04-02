@@ -36,30 +36,69 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <StackPanel Margin="30">
-            <DockPanel LastChildFill="True">
-                <TextBlock DockPanel.Dock="Top" Text="Нове бронювання"/>
-                <Button DockPanel.Dock="Top" Width="130" Command="{Binding AddClientCommand}">Карточка гостя</Button>
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Label Content="Заселення: " VerticalContentAlignment="Center"/>
-                    <DatePicker FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="30"></DatePicker>
-                    <Label Content="Виселення: " VerticalContentAlignment="Center"/>
-                    <DatePicker FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="30"></DatePicker>
+        <StackPanel Margin="30" VerticalAlignment="Center">
+            <TextBlock Text="Нове бронювання"/>
+            <Grid Margin="0 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="1">
+                    <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="360">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Телефон</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Ім'я</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Прізвище</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button ToolTip="Створити гостя">
+                            <fa:ImageAwesome Icon="UserPlus" Foreground="WhiteSmoke" Height="26"/>
+                        </Button>
+                        <Button ToolTip="Карточка гостя">
+                            <fa:ImageAwesome Icon="AddressCard" Foreground="WhiteSmoke" Height="26"/>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel DockPanel.Dock="Top">
+
+                <StackPanel Grid.RowSpan="2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 40">
+                        <Label Content="Заселення: " VerticalContentAlignment="Center"/>
+                        <DatePicker FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="30"></DatePicker>
+                        <Label Content="Виселення: " VerticalContentAlignment="Center"/>
+                        <DatePicker FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="30"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Ціна/добу:"/>
+                        <Label Content="0"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                        <Label Content="Загальна вартість:"/>
+                        <Label Content="0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                     <Label Content="Коментар" Target="{Binding ElementName=CommentBox}"/>
-                    <TextBox Name="CommentBox" Width="300" AcceptsReturn="True" TextWrapping="Wrap"
-                             Text="{Binding CommentText}"/>
+                    <TextBox Name="CommentBox" Width="360" AcceptsReturn="True" TextWrapping="Wrap"
+                             Text="{Binding CommentText}" MaxLength="100" FontSize="15"/>
                 </StackPanel>
-                <StackPanel></StackPanel>
-                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button ToolTip="До головної сторінки" HorizontalAlignment="Left">
+
+                <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button ToolTip="До головної сторінки">
                         <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
                     </Button>
                     <Button>Додати</Button>
                 </StackPanel>
-                <StackPanel/>
-            </DockPanel>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>
