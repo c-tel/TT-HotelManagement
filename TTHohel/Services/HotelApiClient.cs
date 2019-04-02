@@ -20,7 +20,8 @@ namespace TTHohel.Services
         {
             Client = new HttpClient
             {
-                BaseAddress = new Uri("https://tt-hotel.herokuapp.com/api")
+                //BaseAddress = new Uri("https://tt-hotel.herokuapp.com/api")
+                BaseAddress = new Uri("https://localhost:44358/api")
             };
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

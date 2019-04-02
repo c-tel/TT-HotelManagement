@@ -111,6 +111,9 @@
     <Compile Include="Views\AddBookingView.xaml.cs">
       <DependentUpon>AddBookingView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AllClientsView.xaml.cs">
+      <DependentUpon>AllClientsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BookingView.xaml.cs">
       <DependentUpon>BookingView.xaml</DependentUpon>
     </Compile>
@@ -137,6 +140,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddBookingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AllClientsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

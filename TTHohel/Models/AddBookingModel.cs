@@ -9,7 +9,7 @@ namespace TTHohel.Models
     {
         public void GoToAddClient()
         {
-            NavigationManager.Instance.Navigate(ModesEnum.Pay);
+            NavigationManager.Instance.Navigate(ModesEnum.AllClients);
         }
     }
 }
