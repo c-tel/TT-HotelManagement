@@ -30,7 +30,6 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="DarkSlateGray"/>
-            <Setter Property="FontSize" Value="17"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
@@ -73,9 +72,9 @@
             <StackPanel Grid.RowSpan="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 40">
                     <Label Content="Заселення: " VerticalContentAlignment="Center"/>
-                    <DatePicker FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="30"></DatePicker>
+                    <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="24"></DatePicker>
                     <Label Content="Виселення: " VerticalContentAlignment="Center"/>
-                    <DatePicker FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="30"></DatePicker>
+                    <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="24"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Ціна/добу:"/>
@@ -88,6 +87,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="1">
+                <Label Content="Номер:"/>
                 <ComboBox ItemsSource="{Binding RoomsList}" SelectedItem="{Binding SelectedRoom}"
                           DisplayMemberPath="Num" SelectedValuePath="Num">
                 </ComboBox>
