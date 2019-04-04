@@ -26,6 +26,7 @@ namespace TTHotel.API.Services
 
         // payments
         IEnumerable<PaymentDTO> GetPayments(int bookingId);
+        IEnumerable<ReportItem> GetReport(DateTime date);
 
         // rooms
         IEnumerable<RoomDTO> GetRooms(DateTime? availiableFrom, DateTime? availiableTo, int guests);

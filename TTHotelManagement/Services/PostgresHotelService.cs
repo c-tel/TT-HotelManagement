@@ -74,6 +74,13 @@ namespace TTHotel.API.Services
                    $"WHERE book_num = {bookingId};";
         }
 
+        private static string ReportQuery(DateTime date)
+        {
+            return "SELECT payment_type AS paymentType, payment_date AS paymentDate, amount, room_num AS roomNum "+
+                   "FROM payments INNER JOIN bookings ON payments.book_num = bookings.book_num " +
+                   $"WHERE date(payments.payment_date) = {date.ToPostgresDateFormat()};";
+        }
+
         private static string ClientsQuery()
         {
             return "SELECT * " +
@@ -245,15 +252,14 @@ namespace TTHotel.API.Services
         public IEnumerable<PaymentDTO> GetPayments(int bookingId)
         {
             var payments = QueryInternal<Payment>(PaymentsQuery(bookingId));
-            return payments.Select(p => new PaymentDTO
-            {
-                Amount = p.Amount,
-                Book_num = bookingId,
-                Payment_date = p.Payment_date,
-                Type = p.Type
-            });
+            return payments.Select(MapToPayment);
         }
 
+        public IEnumerable<ReportItem> GetReport(DateTime date)
+        {
+            var reportItems = QueryInternal<ReportItem>(ReportQuery(date));
+            return reportItems;
+        }
 
         #endregion
 
@@ -400,6 +406,17 @@ namespace TTHotel.API.Services
                 Floor = room.Room_floor,
                 Places = room.Room_places,
                 Comforts = (await QueryAsyncInternal<string>(ComfortsQuery(room.Room_num))).ToList()
+            };
+        }
+
+        private static PaymentDTO MapToPayment(Payment p)
+        {
+            return new PaymentDTO
+            {
+                Amount = p.Amount,
+                Book_num = p.Book_num,
+                Payment_date = p.Payment_date,
+                Type = p.Type
             };
         }
 
