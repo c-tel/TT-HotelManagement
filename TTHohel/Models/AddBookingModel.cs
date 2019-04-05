@@ -24,5 +24,21 @@ namespace TTHohel.Models
         {
             return ((dateTo - dateFrom).TotalDays+1) * price;
         }
+
+        public bool CreateNewBooking(DateTime dateFrom, DateTime dateTo, int num, string telNum, string commentText)
+        {
+            if(HotelApiClient.GetInstance().CreateBooking(dateFrom, dateTo, num, telNum, commentText))
+            {
+                Storage.Instance.ChangeBookings();
+                return true;
+            }
+            return false;
+        }
+
+        public void GoToMain()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Main);
+        }
+
     }
 }

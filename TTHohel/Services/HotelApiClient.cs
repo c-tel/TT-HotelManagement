@@ -22,8 +22,8 @@ namespace TTHohel.Services
         {
             Client = new HttpClient
             {
-                //BaseAddress = new Uri("https://tt-hotel.herokuapp.com/api")
-                BaseAddress = new Uri("https://localhost:44358/api")
+                BaseAddress = new Uri("https://tt-hotel.herokuapp.com/api")
+                //BaseAddress = new Uri("https://localhost:44358/api")
             };
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -51,8 +51,8 @@ namespace TTHohel.Services
 
         public List<RoomInfo> RoomInfos(DateTime from, DateTime to)
         {
-            //UriBuilder builder = new UriBuilder("https://tt-hotel.herokuapp.com/api/bookings")
-            UriBuilder builder = new UriBuilder("https://localhost:44358/api/bookings")
+            UriBuilder builder = new UriBuilder("https://tt-hotel.herokuapp.com/api/bookings")
+            //UriBuilder builder = new UriBuilder("https://localhost:44358/api/bookings")
             {
                 Query = $"from={ToQueryArgument(from)}&to={ToQueryArgument(to)}"
             };
@@ -89,6 +89,22 @@ namespace TTHohel.Services
             if (!resp.IsSuccessStatusCode)
                 return null;
             return resp.Content.ReadAsAsync<List<RoomDTO>>().Result;
+        }
+
+        public bool CreateBooking(DateTime from, DateTime to, int bookedRoomNum, string clientTel, string bookComment)
+        {
+            var booking = new BookingCreateDTO
+            {
+                StartDate = from,
+                EndDate = to,
+                BookComment = bookComment,
+                BookedRoomNum = bookedRoomNum,
+                ClientTel = clientTel
+            };
+
+            var resp = Client.PostAsJsonAsync("api/bookings", booking).Result;
+
+            return resp.IsSuccessStatusCode;
         }
 
         private string ToQueryArgument(DateTime dateTime)

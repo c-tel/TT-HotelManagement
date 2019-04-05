@@ -50,7 +50,7 @@
             </Grid.RowDefinitions>
             
             <StackPanel Grid.Column="1">
-                <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="360">
+                <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="360" SelectedItem="{Binding SelectedClient}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Телефон</GridViewColumn>
@@ -103,7 +103,7 @@
                 <Button ToolTip="До головної сторінки">
                     <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
                 </Button>
-                <Button>Додати</Button>
+                <Button Command="{Binding CreateBookingCommand}">Створити</Button>
             </StackPanel>
         </Grid>
     </StackPanel>

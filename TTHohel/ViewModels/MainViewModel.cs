@@ -38,6 +38,7 @@ namespace TTHohel.ViewModels
             Model = new MainModel();
 
             Model.UserChanged += OnUserChanged;
+            Model.BookingsChanged += OnBookingsChanged;
 
             DateFrom  = DateTime.Today.Date;
             DateTo = DateTime.Today.AddDays(10);
@@ -272,6 +273,12 @@ namespace TTHohel.ViewModels
         {
             UserHasSettRight = rights.HasFlag(RightsEnum.Settings);
             UserHasStatisticRight = rights.HasFlag(RightsEnum.Statistic);
+        }
+
+        public void OnBookingsChanged()
+        {
+            InfoTable = Model.ChangeInfoTable(DateFrom, DateTo);
+            ColumnHeaders = Model.ChangeCollumnHeaders(DateFrom, DateTo);
         }
 
         #region INotifyPropertyChanged

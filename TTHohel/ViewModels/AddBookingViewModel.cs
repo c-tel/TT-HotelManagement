@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
@@ -14,16 +15,18 @@ namespace TTHohel.ViewModels
         #region Private Fields
         private DateTime _dateFrom;
         private DateTime _dateTo;
+        private string _commentText;
         private double _periodPrice;
 
+        private ClientDTO _selectedClient;
         private RoomDTO _selectedRoom;
 
         private List<ClientDTO> _clientsList;
         private List<RoomDTO> _roomsList;
 
-        //private BookingDTO _bookingDTO;
         private AddBookingModel Model { get; }
 
+        private ICommand _createBookingCommand;
         //private ICommand _addClientCommand;
         #endregion
 
@@ -67,6 +70,19 @@ namespace TTHohel.ViewModels
             }
         }
 
+        public string CommentText
+        {
+            get { return _commentText; }
+            set
+            {
+                if (_commentText != value)
+                {
+                    _commentText = value;
+                    InvokePropertyChanged(nameof(CommentText));
+                }
+            }
+        }
+
         public double PeriodPrice
         {
             get { return _periodPrice; }
@@ -74,6 +90,20 @@ namespace TTHohel.ViewModels
             {
                 _periodPrice = value;
                 InvokePropertyChanged(nameof(PeriodPrice));
+            }
+        }
+
+        public ClientDTO SelectedClient
+        {
+            get { return _selectedClient; }
+            set
+            {
+                if (_selectedClient != value)
+                {
+                    _selectedClient = value;
+                    InvokePropertyChanged(nameof(SelectedClient));
+                    //RefreshPeriodPrice();
+                }
             }
         }
 
@@ -127,6 +157,35 @@ namespace TTHohel.ViewModels
         #endregion
 
         #region Commands
+
+        public ICommand CreateBookingCommand
+        {
+            get
+            {
+                if (_createBookingCommand == null)
+                    _createBookingCommand = new RelayCommand<object>(CreateBookingExecute, CreateBookingCanExecute);
+                return _createBookingCommand;
+            }
+            set
+            {
+                _createBookingCommand = value;
+                InvokePropertyChanged(nameof(CreateBookingCommand));
+            }
+        }
+
+        private bool CreateBookingCanExecute(object obj)
+        {
+            return SelectedRoom != null && SelectedClient != null;
+        }
+
+        private void CreateBookingExecute(object obj)
+        {
+            if (Model.CreateNewBooking(DateFrom, DateTo, SelectedRoom.Num, SelectedClient.TelNum, CommentText))
+                Model.GoToMain();
+            else
+                MessageBox.Show("Щось пішло не так...","Помилка");
+        }
+
         //public ICommand AddClientCommand
         //{
         //    get

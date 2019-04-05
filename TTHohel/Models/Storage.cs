@@ -9,6 +9,7 @@ namespace TTHohel.Models
 
         public event Action<BookingDTO> BookingChanged;
         public event Action<User> UserChanged;
+        public event Action BookingsChanged;
 
         public BookingDTO SelectedBooking { get; private set; }
         public User User { get; private set; }
@@ -34,6 +35,11 @@ namespace TTHohel.Models
         {
             SelectedBooking = nextBooking;
             BookingChanged?.Invoke(SelectedBooking);
+        }
+
+        public void ChangeBookings()
+        {
+            BookingsChanged?.Invoke();
         }
     }
 }

@@ -10,15 +10,22 @@ namespace TTHohel.Models
     class MainModel
     {
         public event Action<RightsEnum> UserChanged;
+        public event Action BookingsChanged;
 
         public MainModel()
         {
             Storage.Instance.UserChanged += OnUserChanged;
+            Storage.Instance.BookingsChanged += OnBookingsChanged;
         }
 
         private void OnUserChanged(User user)
         {
             UserChanged?.Invoke(user.Rights);
+        }
+
+        private void OnBookingsChanged()
+        {
+            BookingsChanged?.Invoke();
         }
 
         public void Exit()
