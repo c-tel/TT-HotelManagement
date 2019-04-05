@@ -27,7 +27,7 @@ namespace TTHohel.ViewModels
         private AddBookingModel Model { get; }
 
         private ICommand _createBookingCommand;
-        //private ICommand _addClientCommand;
+        private ICommand _addClientCommand;
         #endregion
 
         public AddBookingViewModel()
@@ -186,30 +186,30 @@ namespace TTHohel.ViewModels
                 MessageBox.Show("Щось пішло не так...","Помилка");
         }
 
-        //public ICommand AddClientCommand
-        //{
-        //    get
-        //    {
-        //        if (_addClientCommand == null)
-        //            _addClientCommand = new RelayCommand<object>(AddClientExecute, AddClientCanExecute);
-        //        return _addClientCommand;
-        //    }
-        //    set
-        //    {
-        //        _addClientCommand = value;
-        //        InvokePropertyChanged(nameof(AddClientCommand));
-        //    }
-        //}
+        public ICommand AddClientCommand
+        {
+            get
+            {
+                if (_addClientCommand == null)
+                    _addClientCommand = new RelayCommand<object>(AddClientExecute, AddClientCanExecute);
+                return _addClientCommand;
+            }
+            set
+            {
+                _addClientCommand = value;
+                InvokePropertyChanged(nameof(AddClientCommand));
+            }
+        }
 
-        //private bool AddClientCanExecute(object obj)
-        //{
-        //    return true;
-        //}
+        private bool AddClientCanExecute(object obj)
+        {
+            return true;
+        }
 
-        //private void AddClientExecute(object obj)
-        //{
-        //    Model.GoToAddClient();
-        //}
+        private void AddClientExecute(object obj)
+        {
+            Model.GoToAddClient();
+        }
         #endregion
 
         #region INotifyPropertyChanged

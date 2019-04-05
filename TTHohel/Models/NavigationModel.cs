@@ -13,7 +13,8 @@ namespace TTHohel.Models
         Pay,
         AddBooking,
         AllClients,
-        Report
+        Report,
+        AddClient
     }
 
     public class NavigationModel
@@ -26,6 +27,7 @@ namespace TTHohel.Models
         private readonly PayView _payView;
         private readonly ReportView _reportView;
         private readonly AddBookingView _addBookingView;
+        private readonly AddClientView _addClientView;
 
         public NavigationModel(ContentWindow contentWindow)
         {
@@ -37,6 +39,7 @@ namespace TTHohel.Models
             _payView = new PayView();
             _reportView = new ReportView();
             _addBookingView = new AddBookingView();
+            _addClientView = new AddClientView();
         }
 
         public void Navigate(ModesEnum mode)
@@ -63,6 +66,9 @@ namespace TTHohel.Models
                     break;
                 case ModesEnum.Report:
                     _contentWindow.ContentControl.Content = _reportView;
+                    break;
+                case ModesEnum.AddClient:
+                    _contentWindow.ContentControl.Content = _addClientView;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

@@ -40,5 +40,9 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
 
+        public void GoToAddClient()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.AddClient);
+        }
     }
 }

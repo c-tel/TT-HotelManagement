@@ -60,7 +60,7 @@
                     </ListView.View>
                 </ListView>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button ToolTip="Створити гостя">
+                    <Button ToolTip="Створити гостя" Command="{Binding AddClientCommand}">
                         <fa:ImageAwesome Icon="UserPlus" Foreground="WhiteSmoke" Height="26"/>
                     </Button>
                     <Button ToolTip="Карточка гостя">
