@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
 using TTHohel.Manager;
 using TTHohel.Services;
+using Microsoft.Office.Interop.Word;
 
 namespace TTHohel.Models
 {
@@ -69,6 +70,11 @@ namespace TTHohel.Models
         internal void AddBooking()
         {
             NavigationManager.Instance.Navigate(ModesEnum.AddBooking);
+        }
+
+        internal void GoToReport()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Report);
         }
     }
 }

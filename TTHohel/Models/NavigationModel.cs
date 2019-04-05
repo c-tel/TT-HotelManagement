@@ -12,7 +12,8 @@ namespace TTHohel.Models
         Booking,
         Pay,
         AddBooking,
-        AllClients
+        AllClients,
+        Report
     }
 
     public class NavigationModel
@@ -23,6 +24,7 @@ namespace TTHohel.Models
         private readonly SettingsView _settingsView;
         private readonly BookingView _bookingView;
         private readonly PayView _payView;
+        private readonly ReportView _reportView;
         private readonly AddBookingView _addBookingView;
 
         public NavigationModel(ContentWindow contentWindow)
@@ -33,6 +35,7 @@ namespace TTHohel.Models
             _settingsView = new SettingsView();
             _bookingView = new BookingView();
             _payView = new PayView();
+            _reportView = new ReportView();
             _addBookingView = new AddBookingView();
         }
 
@@ -57,6 +60,9 @@ namespace TTHohel.Models
                     break;
                 case ModesEnum.AddBooking:
                     _contentWindow.ContentControl.Content = _addBookingView;
+                    break;
+                case ModesEnum.Report:
+                    _contentWindow.ContentControl.Content = _reportView;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

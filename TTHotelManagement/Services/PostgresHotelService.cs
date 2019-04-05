@@ -56,7 +56,7 @@ namespace TTHotel.API.Services
         {
             return "INSERT INTO bookings (start_date, end_date, book_comment, room_num, cl_tel_num, pers_book) " +
                    $"VALUES ({booking.StartDate.ToPostgresDateFormat()}, {booking.EndDate.ToPostgresDateFormat()}, " +
-                   $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
+                   $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book});";
         }
 
         private static string UpdateBookingQuery(BookingCreateDTO booking, string person_book)

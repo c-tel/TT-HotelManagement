@@ -22,8 +22,8 @@ namespace TTHohel.Services
         {
             Client = new HttpClient
             {
-                //BaseAddress = new Uri("https://tt-hotel.herokuapp.com/api")
-                BaseAddress = new Uri("https://localhost:44358/api")
+                BaseAddress = new Uri("https://tt-hotel.herokuapp.com/api")
+                //BaseAddress = new Uri("https://localhost:44358/api")
             };
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -51,8 +51,8 @@ namespace TTHohel.Services
 
         public List<RoomInfo> RoomInfos(DateTime from, DateTime to)
         {
-            //UriBuilder builder = new UriBuilder("https://tt-hotel.herokuapp.com/api/bookings")
-            UriBuilder builder = new UriBuilder("https://localhost:44358/api/bookings")
+            UriBuilder builder = new UriBuilder("https://tt-hotel.herokuapp.com/api/bookings")
+            //UriBuilder builder = new UriBuilder("https://localhost:44358/api/bookings")
             {
                 Query = $"from={ToQueryArgument(from)}&to={ToQueryArgument(to)}"
             };
@@ -84,11 +84,20 @@ namespace TTHohel.Services
 
         public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to)
         {
-            var _ = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}";
-            var resp = Client.GetAsync(_).Result;
+            var route = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}";
+            var resp = Client.GetAsync(route).Result;
             if (!resp.IsSuccessStatusCode)
                 return null;
             return resp.Content.ReadAsAsync<List<RoomDTO>>().Result;
+        }
+
+        public List<ReportItem> GetReport(DateTime asOfDate)
+        {
+            var route = $"/api/bookings/report?date={ToQueryArgument(asOfDate)}";
+            var resp = Client.GetAsync(route).Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<List<ReportItem>>().Result;
         }
 
         private string ToQueryArgument(DateTime dateTime)
