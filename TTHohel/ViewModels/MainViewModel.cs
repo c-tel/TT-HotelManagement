@@ -22,6 +22,7 @@ namespace TTHohel.ViewModels
         private ICommand _refreshCommand;
         private ICommand _cellCommand;
         private ICommand _addBookingCommand;
+        private ICommand _reportCommand;
 
         private bool _userHasSettRight;
         private bool _userHasStatisticRight;
@@ -221,6 +222,30 @@ namespace TTHohel.ViewModels
                 _addBookingCommand = value;
                 InvokePropertyChanged(nameof(AddBookingCommand));
             }
+        }
+
+        public ICommand ReportCommand
+        {
+            get
+            {
+                if (_reportCommand == null)
+                {
+                    _reportCommand = new RelayCommand<object>(ReportExecute, ReportCanExecute);
+                }
+                return _reportCommand;
+            }
+            set
+            {
+                _reportCommand = value;
+                InvokePropertyChanged(nameof(ReportCommand));
+            }
+        }
+
+        private bool ReportCanExecute(object obj) => true;
+
+        private void ReportExecute(object obj)
+        {
+            Model.GoToReport();
         }
 
         private bool AddCanExecute(object obj)
