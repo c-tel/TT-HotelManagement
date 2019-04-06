@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Office.Interop.Word;
+using TTHohel.Manager;
 using TTHohel.Services;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Payments;
 
 namespace TTHohel.Models
 {
@@ -16,8 +18,9 @@ namespace TTHohel.Models
             return HotelApiClient.GetInstance().GetReport(selectedDate);
         }
 
-        public void CreateDocument(IEnumerable<ReportItem> report, DateTime asOfDate)
+        public void CreateDocument(IEnumerable<ReportItemModel> report, DateTime asOfDate)
         {
+            var reportItemsList = report.ToList();
             Application winword = new Application();
             winword.ShowAnimation = false;
             winword.Visible = false;
@@ -39,7 +42,7 @@ namespace TTHohel.Models
             Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
             para1.Range.InsertParagraphAfter();
 
-            Table firstTable = document.Tables.Add(para1.Range, report.Count(), 4, ref missing, ref missing);
+            Table firstTable = document.Tables.Add(para1.Range, reportItemsList.Count+1, 4, ref missing, ref missing);
 
             firstTable.Borders.Enable = 1;
             foreach (Row row in firstTable.Rows)
@@ -49,7 +52,7 @@ namespace TTHohel.Models
                     //Header row
                     if (cell.RowIndex == 1)
                     {
-                        cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+                        cell.Range.Text = Headers[cell.ColumnIndex - 1];
                         cell.Range.Font.Bold = 1;
                         //other format properties goes here
                         cell.Range.Font.Name = "verdana";
@@ -64,7 +67,24 @@ namespace TTHohel.Models
                     //Data row
                     else
                     {
-                        cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+                        var currItem = reportItemsList[cell.RowIndex - 2];
+                        string text = null;
+                        switch(cell.ColumnIndex)
+                        {
+                            case 1:
+                                text = currItem.RoomNum.ToString();
+                                break;
+                            case 2:
+                                text = currItem.Amount.ToString();
+                                break;
+                            case 3:
+                                text = currItem.PaymentType;
+                                break;
+                            case 4:
+                                text = currItem.PaymentTime;
+                                break;
+                        }
+                        cell.Range.Text = text;
                     }
                 }
             }
@@ -74,6 +94,11 @@ namespace TTHohel.Models
             document.Save();
             document.Close(ref missing, ref missing, ref missing);
             winword.Quit(ref missing, ref missing, ref missing);
+        }
+
+        public void Back()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
     }
 }
