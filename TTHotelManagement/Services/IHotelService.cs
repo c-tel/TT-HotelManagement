@@ -20,13 +20,13 @@ namespace TTHotel.API.Services
         List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to);
         BookingDTO GetBooking(int id);
         
-        // TODO process conflicts
         void CreateBooking(BookingCreateDTO booking, string persBook);
         void UpdateBooking(BookingUpdateDTO booking, string persBook, int bookId);
 
         // payments
         IEnumerable<PaymentDTO> GetPayments(int bookingId);
         IEnumerable<ReportItem> GetReport(DateTime date);
+        void CreatePayment(int bookingId, PaymentCreateDTO payment);
 
         // rooms
         IEnumerable<RoomDTO> GetRooms(DateTime? availiableFrom, DateTime? availiableTo, int guests);

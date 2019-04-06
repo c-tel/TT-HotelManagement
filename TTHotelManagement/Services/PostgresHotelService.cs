@@ -74,6 +74,12 @@ namespace TTHotel.API.Services
                    $"WHERE book_num = {bookingId};";
         }
 
+        private static string AddPaymentQuery(int bookingId, PaymentTypes paymentType, double amount)
+        {
+            return "INSERT INTO payments (payment_type, payment_date, amount, book_num) " +
+                   $"VALUES ('{paymentType.ToString().ToLower()}', {DateTime.Now.ToPostgresTimestampFormat()}, {amount}, {bookingId})";
+        }
+
         private static string ReportQuery(DateTime date)
         {
             return "SELECT payment_type AS paymentType, payment_date AS paymentDate, amount, room_num AS roomNum "+
@@ -242,6 +248,11 @@ namespace TTHotel.API.Services
         public void CreateBooking(BookingCreateDTO booking, string persBook)
         {
             ExecuteInternal(CreateBookingQuery(booking, persBook));
+        }
+
+        public void CreatePayment(int bookingId, PaymentCreateDTO payment)
+        {
+            ExecuteInternal(AddPaymentQuery(bookingId, payment.Type, payment.Amount));
         }
 
         public void UpdateBooking(BookingUpdateDTO booking, string persBook, int bookId)
@@ -416,7 +427,7 @@ namespace TTHotel.API.Services
                 Amount = p.Amount,
                 Book_num = p.Book_num,
                 Payment_date = p.Payment_date,
-                Type = p.Type
+                Type = p.Payment_type
             };
         }
 

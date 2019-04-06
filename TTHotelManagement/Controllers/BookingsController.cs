@@ -44,6 +44,12 @@ namespace TTHotel.API.Controllers
         {
             return _hotelService.GetPayments(id);
         }
+        [HttpPost("{id}/payments")]
+        public IActionResult Pay([FromRoute] int id, [FromBody] PaymentCreateDTO payment)
+        {
+            _hotelService.CreatePayment(id, payment);
+            return NoContent();
+        }
 
         [HttpGet("report")]
         public IEnumerable<ReportItem> PaymentsByDate([FromQuery] DateTime date)
