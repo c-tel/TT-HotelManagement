@@ -69,6 +69,28 @@ namespace TTHotel.API.Services
                    $"WHERE book_num = {bookId} ";
         }
 
+        private static string SettleQuery(int bookId)
+        {
+            return "UPDATE bookings " +
+                   $"SET start_date_real = { DateTime.Now.ToPostgresTimestampFormat() }, " +
+                       $"book_state = 'settled' " +
+                   $"WHERE book_num = {bookId};";
+        }
+
+        private static string CloseQuery(int bookId)
+        {
+            return "UPDATE bookings " +
+                   $"SET end_date_real = { DateTime.Now.ToPostgresTimestampFormat() }, " +
+                   $"WHERE book_num = {bookId};";
+        }
+
+        private static string CancelQuery(int bookId)
+        {
+            return "UPDATE bookings " +
+                   $"SET book_state = 'canceled' " +
+                   $"WHERE book_num = {bookId}; ";
+        }
+
         private static string PaymentsQuery(int bookingId)
         {
             return "SELECT * " +
@@ -260,6 +282,21 @@ namespace TTHotel.API.Services
         public void UpdateBooking(BookingUpdateDTO booking, int bookId)
         {
             ExecuteInternal(UpdateBookingQuery(booking, bookId));
+        }
+
+        public void Settle(int bookId)
+        {
+            ExecuteInternal(SettleQuery(bookId));
+        }
+
+        public void Cancel(int bookId)
+        {
+            ExecuteInternal(CancelQuery(bookId));
+        }
+
+        public void Close(int bookId)
+        {
+            ExecuteInternal(SettleQuery(bookId));
         }
 
         public IEnumerable<PaymentDTO> GetPayments(int bookingId)
