@@ -114,6 +114,16 @@ namespace TTHohel.Services
             return resp.IsSuccessStatusCode;
         }
 
+        //public ClientDTO GetClient(string tel_num)
+        //{
+        //    var route = $"api/clients?telnum={tel_num}";
+        //    var resp = Client.GetAsync(route).Result;
+        //    if (!resp.IsSuccessStatusCode)
+        //        return null;
+
+        //    return resp.Content.ReadAsAsync<ClientDTO>().Result;
+        //}
+
         public List<ReportItem> GetReport(DateTime asOfDate)
         {
             var route = $"/api/bookings/report?date={ToQueryArgument(asOfDate)}";
@@ -121,7 +131,7 @@ namespace TTHohel.Services
             if (!resp.IsSuccessStatusCode)
                 return null;
             return resp.Content.ReadAsAsync<List<ReportItem>>().Result;
-            }
+        }
 
         private string ToQueryArgument(DateTime dateTime)
         {
