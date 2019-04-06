@@ -7,6 +7,7 @@ using TTHohel.Models;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
 using TTHotel.Contracts.Clients;
+using TTHotel.Contracts.Payments;
 using TTHotel.Contracts.Rooms;
 
 namespace TTHohel.Services
@@ -123,6 +124,19 @@ namespace TTHohel.Services
 
         //    return resp.Content.ReadAsAsync<ClientDTO>().Result;
         //}
+
+        public bool AddPayment(int bookingId, PaymentTypes paymentType, double amount)
+        {
+            var payment = new PaymentCreateDTO
+            {
+                Type = paymentType,
+                Amount = amount
+            };
+
+            var resp = Client.PostAsJsonAsync($"api/bookings/{bookingId}/payments", payment).Result;
+
+            return resp.IsSuccessStatusCode;
+        }
 
         public List<ReportItem> GetReport(DateTime asOfDate)
         {

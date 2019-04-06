@@ -1,12 +1,15 @@
 ﻿using TTHohel.Manager;
+using TTHohel.Services;
+using TTHotel.Contracts.Payments;
 
 namespace TTHohel.Models
 {
     class PayModel
     {
-        public bool AddPayment()
+        public bool AddPayment(PaymentTypes paymentType, double amount)
         {
-            return true;
+            var id = Storage.Instance.SelectedBooking.BookingId;
+            return HotelApiClient.GetInstance().AddPayment(id, paymentType, amount);
         }
 
         public void GoToBooking()

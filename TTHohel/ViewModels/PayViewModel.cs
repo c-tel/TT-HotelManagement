@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
@@ -110,7 +111,9 @@ namespace TTHohel.ViewModels
 
         private void PayExecute(object obj)
         {
-            Model.GoToBooking();
+            if (Model.AddPayment(SelectedPayment, Amount))
+                Model.GoToBooking();
+            else MessageBox.Show("Щось пішло не так...","Помилка");
         }
         #endregion
 
