@@ -29,7 +29,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="Label">
-            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="DarkSlateGray"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="14"/>
@@ -38,8 +38,8 @@
     
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid Background="#17252B">
-            <StackPanel Margin="30" VerticalAlignment="Center">
-                <TextBlock Text="Нове бронювання" Foreground="#2DA46F" FontWeight="Bold" FontSize="18"/>
+            <StackPanel Margin="30" VerticalAlignment="Center" Background="WhiteSmoke" Width="850">
+                <TextBlock Text="Нове бронювання" Foreground="#2DA46F" FontWeight="Bold" FontSize="20" Margin="0 10"/>
 
                 <Grid Margin="0 20">
                     <Grid.ColumnDefinitions>
@@ -54,7 +54,8 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Column="1">
-                        <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Width="360">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Телефон</GridViewColumn>
@@ -76,31 +77,31 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Label Content="Заселення: " VerticalContentAlignment="Center"/>
-                            <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="40"></DatePicker>
+                            <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="40" Width="110"></DatePicker>
                             <Label Content="Виселення: " VerticalContentAlignment="Center"/>
-                            <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="40"></DatePicker>
+                            <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="40" Width="110"></DatePicker>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
                             <Label Content="Загальна вартість:"/>
                             <Label Content="{Binding PeriodPrice}" Foreground="#17A210"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
                             <Label Content="Ціна/добу:"/>
                             <Label Content="{Binding SelectedRoom.Price}" Foreground="#17A210"/>
                         </StackPanel>
                     </StackPanel>
 
                     <StackPanel Grid.Row="1">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
                             <Label Content="Поверх:"/>
                             <Label Content="{Binding SelectedRoom.Floor}" Foreground="#17A210"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
                             <Label Content="Кількість місць:"/>
                             <Label Content="{Binding SelectedRoom.Places}" Foreground="#17A210"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
                             <Label Content="Тип:"/>
                             <Label Content="{Binding SelectedRoom.Type}" Foreground="#17A210"/>
                         </StackPanel>
@@ -113,7 +114,7 @@
                     <StackPanel Grid.Column="1" Grid.Row="1">
                         <Label Content="Номер:"/>
                         <ComboBox ItemsSource="{Binding RoomsList}" SelectedItem="{Binding SelectedRoom}"
-                          DisplayMemberPath="Num" SelectedValuePath="Num">
+                          DisplayMemberPath="Num" SelectedValuePath="Num" Width="120">
                         </ComboBox>
                     </StackPanel>
 
