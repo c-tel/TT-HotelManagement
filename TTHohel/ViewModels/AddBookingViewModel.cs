@@ -18,6 +18,7 @@ namespace TTHohel.ViewModels
         private DateTime _dateTo;
         private string _commentText;
         private double _periodPrice;
+        private int _places;
 
         private ClientDTO _selectedClient;
         private RoomDTO _selectedRoom;
@@ -96,6 +97,18 @@ namespace TTHohel.ViewModels
             }
         }
 
+        public int Places
+        {
+            get { return _places; }
+            set
+            {
+                _places = value;
+                InvokePropertyChanged(nameof(Places));
+
+                RefreshFreeRooms();
+            }
+        }
+
         public ClientDTO SelectedClient
         {
             get { return _selectedClient; }
@@ -147,7 +160,7 @@ namespace TTHohel.ViewModels
         #region Private Methods
         private void RefreshFreeRooms()
         {
-            RoomsList = Model.GetRoomsList(DateFrom, DateTo);
+            RoomsList = Model.GetRoomsList(DateFrom, DateTo, Places);
         }
 
         private void RefreshPeriodPrice()

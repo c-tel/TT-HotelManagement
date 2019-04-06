@@ -83,9 +83,9 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<List<ClientDTO>>().Result;
         }
 
-        public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to)
+        public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to, int places)
         {
-            var route = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}";
+            var route = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}&guests={places}";
             var resp = Client.GetAsync(route).Result;
             if (!resp.IsSuccessStatusCode)
                 return null;

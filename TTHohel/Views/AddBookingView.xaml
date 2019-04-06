@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -82,13 +83,13 @@
                             <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="40" Width="110"></DatePicker>
                         </StackPanel>
 
+                        <StackPanel Orientation="Horizontal" Margin="60 20 0 0">
+                            <Label Content="Ціна/добу:"/>
+                            <Label Content="{Binding SelectedRoom.Price}" Foreground="#17A210"/>
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
                             <Label Content="Загальна вартість:"/>
                             <Label Content="{Binding PeriodPrice}" Foreground="#17A210"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
-                            <Label Content="Ціна/добу:"/>
-                            <Label Content="{Binding SelectedRoom.Price}" Foreground="#17A210"/>
                         </StackPanel>
                     </StackPanel>
 
@@ -111,11 +112,17 @@
                     </StackPanel>-->
                     </StackPanel>
 
-                    <StackPanel Grid.Column="1" Grid.Row="1">
-                        <Label Content="Номер:"/>
-                        <ComboBox ItemsSource="{Binding RoomsList}" SelectedItem="{Binding SelectedRoom}"
-                          DisplayMemberPath="Num" SelectedValuePath="Num" Width="120">
-                        </ComboBox>
+                    <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel>
+                            <Label Content="Кількість місць:"/>
+                            <xctk:IntegerUpDown Height="30" Value="1" Maximum="4" Minimum="1" Padding="0" FontSize="14" Text="{Binding Places}"/>
+                        </StackPanel>
+                        <StackPanel Margin="8 0 0 0">
+                            <Label Content="Номер:"/>
+                            <ComboBox ItemsSource="{Binding RoomsList}" SelectedItem="{Binding SelectedRoom}" FontSize="14"
+                          DisplayMemberPath="Num" SelectedValuePath="Num" Width="120" Height="30" VerticalContentAlignment="Center">
+                            </ComboBox>
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
