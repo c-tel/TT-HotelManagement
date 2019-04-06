@@ -23,16 +23,16 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30">
+    <DockPanel LastChildFill="True" Background="#17252B" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30" DockPanel.Dock="Top">
             <DatePicker SelectedDate="{Binding SelectedDate, Mode=OneWayToSource}" Margin="0 0 10 0"></DatePicker>
             <Button Command="{Binding PrintCommand}">Відправити на друк</Button>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding ReportItems}" IsReadOnly="True">
+        <DataGrid ItemsSource="{Binding ReportItems}" IsReadOnly="True" DockPanel.Dock="Top">
 
         </DataGrid>
-        <Button VerticalAlignment="Bottom" Style="{StaticResource BtnMenuStyle}" ToolTip="До головної сторінки" DockPanel.Dock="Left" Command="{Binding BackCommand}">
-            <fa:ImageAwesome Icon="ArrowCircleRight" Foreground="WhiteSmoke" Height="26"/>
+        <Button VerticalAlignment="Bottom" Style="{StaticResource BtnMenuStyle}" ToolTip="До головної сторінки" DockPanel.Dock="Bottom" Command="{Binding BackCommand}">
+            <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
         </Button>
-    </StackPanel>
+    </DockPanel>
 </UserControl>
