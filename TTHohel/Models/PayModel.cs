@@ -9,7 +9,15 @@ namespace TTHohel.Models
         public bool AddPayment(PaymentTypes paymentType, double amount)
         {
             var id = Storage.Instance.SelectedBooking.BookingId;
-            return HotelApiClient.GetInstance().AddPayment(id, paymentType, amount);
+
+            if(HotelApiClient.GetInstance().AddPayment(id, paymentType, amount))
+            {
+                var booking = HotelApiClient.GetInstance().GetBookingById(id);
+                Storage.Instance.ChangeBooking(booking);
+                return true;
+            }
+
+            return false;
         }
 
         public void GoToBooking()

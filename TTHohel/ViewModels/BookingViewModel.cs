@@ -10,10 +10,12 @@ namespace TTHohel.ViewModels
     {
         #region Private Fields
         private BookingDTO _bookingDTO;
+        private double _toPay;
         private BookingModel Model { get; }
 
         private ICommand _backCommand;
         private ICommand _payCommand;
+        private ICommand _openClientCommand;
         #endregion
 
         public BookingViewModel()
@@ -31,7 +33,19 @@ namespace TTHohel.ViewModels
                 {
                     _bookingDTO = value;
                     InvokePropertyChanged(nameof(BookingDTO));
+
+                    ToPay = Model.CalculateToPay(BookingDTO);
                 }
+            }
+        }
+
+        public double ToPay
+        {
+            get { return _toPay; }
+            set
+            {
+                _toPay = value;
+                InvokePropertyChanged(nameof(ToPay));
             }
         }
 
@@ -78,13 +92,37 @@ namespace TTHohel.ViewModels
 
         private bool PayCanExecute(object obj)
         {
-            return true;
-            //return BookingDTO.Payed != (BookingDTO.PricePeriod+BookingDTO.SumFees);
+            return ToPay > 0;
         }
 
         private void PayExecute(object obj)
         {
             Model.GoToPay();
+        }
+
+        public ICommand OpenClientCommand
+        {
+            get
+            {
+                if (_openClientCommand == null)
+                    _openClientCommand = new RelayCommand<object>(OpenClientExecute, OpenClientCanExecute);
+                return _openClientCommand;
+            }
+            set
+            {
+                _openClientCommand = value;
+                InvokePropertyChanged(nameof(OpenClientCommand));
+            }
+        }
+
+        private bool OpenClientCanExecute(object obj)
+        {
+            return true;
+        }
+
+        private void OpenClientExecute(object obj)
+        {
+            Model.GoToClient();
         }
         #endregion
 

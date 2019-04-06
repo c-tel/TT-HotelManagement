@@ -23,9 +23,23 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(ModesEnum.Main);
         }
 
-        internal void GoToPay()
+        public void GoToPay()
         {
             NavigationManager.Instance.Navigate(ModesEnum.Pay);
         }
+
+        public void GoToClient()
+        {
+            // TODO
+            NavigationManager.Instance.Navigate(ModesEnum.AddClient);
+        }
+
+        public double CalculateToPay(BookingDTO bookingDTO)
+        {
+            if(bookingDTO != null)
+                return bookingDTO.PricePeriod + bookingDTO.SumFees - bookingDTO.Payed;
+            return 0;
+        }
+
     }
 }
