@@ -1,21 +1,68 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
+using TTHotel.Contracts.Payments;
 
 namespace TTHohel.ViewModels
 {
     class PayViewModel : INotifyPropertyChanged
     {
+        #region Private Fields
         private PayModel Model { get; }
 
+        private double _amount;
+        private PaymentTypes _selectedPayment;
+
         private ICommand _backCommand;
+        private ICommand _payCommand;
+        #endregion
 
         public PayViewModel()
         {
             Model = new PayModel();
         }
 
+        #region Properties
+        public double Amount
+        {
+            get { return _amount; }
+            set
+            {
+                _amount = value;
+                InvokePropertyChanged(nameof(Amount));
+            }
+        }
+
+        public PaymentTypes SelectedPayment
+        {
+            get { return _selectedPayment; }
+            set
+            {
+                _selectedPayment = value;
+                InvokePropertyChanged(nameof(SelectedPayment));
+            }
+        }
+
+        public List<DescriptionValueBinder> PaymentsList
+        {
+            get
+            {
+                return Enum.GetValues(typeof(PaymentTypes)).Cast<Enum>().Select(value => new
+                DescriptionValueBinder
+                {
+                    Description = (Attribute.GetCustomAttribute(value.GetType().GetField(value.ToString()), typeof(DescriptionAttribute))
+                    as DescriptionAttribute).Description,
+                    Value = (PaymentTypes)value
+                }).ToList();
+            }
+        }
+        #endregion
+
+        #region
         public ICommand BackCommand
         {
             get
@@ -40,6 +87,32 @@ namespace TTHohel.ViewModels
         {
             Model.GoToBooking();
         }
+
+        public ICommand PayCommand
+        {
+            get
+            {
+                if (_payCommand == null)
+                    _payCommand = new RelayCommand<object>(PayExecute, PayCanExecute);
+                return _payCommand;
+            }
+            set
+            {
+                _payCommand = value;
+                InvokePropertyChanged(nameof(PayCommand));
+            }
+        }
+
+        private bool PayCanExecute(object obj)
+        {
+            return Amount != 0;
+        }
+
+        private void PayExecute(object obj)
+        {
+            Model.GoToBooking();
+        }
+        #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
 

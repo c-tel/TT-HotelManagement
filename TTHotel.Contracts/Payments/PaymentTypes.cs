@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace TTHotel.Contracts.Payments
 {
     public enum PaymentTypes
     {
-        Cash, Card
+        [Description("Готівка")]
+        Cash,
+        [Description("Картка")]
+        Card
     }
 }
