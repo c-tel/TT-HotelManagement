@@ -50,7 +50,7 @@
             </Grid.RowDefinitions>
             
             <StackPanel Grid.Column="1">
-                <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="360" SelectedItem="{Binding SelectedClient}">
+                <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="360" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Телефон</GridViewColumn>

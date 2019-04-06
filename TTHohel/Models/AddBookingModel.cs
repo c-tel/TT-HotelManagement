@@ -9,6 +9,17 @@ namespace TTHohel.Models
 {
     class AddBookingModel
     {
+        public event Action<ClientDTO> AllClientsChanged;
+
+        public AddBookingModel()
+        {
+            Storage.Instance.AllClientsChanged += OnClientsChanged;
+        }
+
+        private void OnClientsChanged(ClientDTO clientDTO)
+        {
+            AllClientsChanged?.Invoke(clientDTO);
+        }
 
         public List<ClientDTO> GetClientsList()
         {

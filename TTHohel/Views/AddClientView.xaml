@@ -10,7 +10,7 @@
         <Style TargetType="Button">
             <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="Background" Value="#0D6C82"/>
-            <Setter Property="Height" Value="70"/>
+            <Setter Property="Height" Value="54"/>
             <Setter Property="Width" Value="90"/>
             <Setter Property="Margin" Value="10 0"/>
             <Setter Property="FontSize" Value="16"/>
@@ -20,6 +20,12 @@
                     <Setter Property="Foreground" Value="DarkSlateGray"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Margin" Value="0,5"/>
         </Style>
     </UserControl.Resources>
     <Grid Background="#17252B">
@@ -34,38 +40,39 @@
                             <ColumnDefinition Width="220"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition />
+                            <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Margin="40,5,0,5" Content="Ім'я:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtUserId" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
-                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="0" Margin="40,5,0,5" Content="Ім'я:" FontSize="16" HorizontalContentAlignment="Left"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtUserId"
+                                 Text="{Binding Client.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <Label Grid.Row="1" Grid.Column="0" Margin="40,5,0,5" Content="Прізвище:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <PasswordBox x:Name="MyPwdBox" Grid.Row="1" Grid.Column="1" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"/>
+                        <Label Grid.Row="1" Margin="40,5,0,5" Content="Прізвище:" FontSize="16" HorizontalContentAlignment="Left"/>
+                        <TextBox Grid.Row="1" Grid.Column="1"
+                                 Text="{Binding Client.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="2" Grid.Column="0" Margin="40,5,0,5" Content="По батькові:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
-                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="2" Grid.Column="1"
+                                 Text="{Binding Client.Patronym, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="3" Grid.Column="0" Margin="40,5,0,5" Content="Телефон:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="3" Grid.Column="1" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
-                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="3" Grid.Column="1"
+                                 Text="{Binding Client.TelNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="4" Grid.Column="0" Margin="40,5,0,5" Content="Паспорт:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" Margin="0,5" Width="160" VerticalAlignment="Center" Padding="2"
-                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Grid.Row="4" Grid.Column="1"
+                                 Text="{Binding Client.Passport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                            <Button Command="{Binding LoginCommand}" FontSize="17" Margin="5,10" Width="100"
+                            <Button Command="{Binding BackCommand}" FontSize="17" Margin="5,10"
                                     ToolTip="Назад">
                                 <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
                             </Button>
-                            <Button Content="Створити" FontSize="17" Margin="2,10" Width="100" Background="#17A210"/>
+                            <Button Content="Створити" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding AddClient}"/>
                         </StackPanel>
                     </Grid>
                 </StackPanel>

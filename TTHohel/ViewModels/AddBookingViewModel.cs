@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using TTHohel.Models;
@@ -33,6 +34,8 @@ namespace TTHohel.ViewModels
         public AddBookingViewModel()
         {
             Model = new AddBookingModel();
+
+            Model.AllClientsChanged += OnClientsChanged;
 
             DateFrom = DateTime.Today.Date;
             DateTo = DateTime.Today.AddDays(1);
@@ -102,7 +105,6 @@ namespace TTHohel.ViewModels
                 {
                     _selectedClient = value;
                     InvokePropertyChanged(nameof(SelectedClient));
-                    //RefreshPeriodPrice();
                 }
             }
         }
@@ -211,6 +213,12 @@ namespace TTHohel.ViewModels
             Model.GoToAddClient();
         }
         #endregion
+
+        public void OnClientsChanged(ClientDTO clientDTO)
+        {
+            ClientsList = Model.GetClientsList();
+            SelectedClient = ClientsList.FirstOrDefault(x => x.TelNum == clientDTO.TelNum);
+        }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

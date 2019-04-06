@@ -1,5 +1,6 @@
 ﻿using System;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Clients;
 
 namespace TTHohel.Models
 {
@@ -10,6 +11,7 @@ namespace TTHohel.Models
         public event Action<BookingDTO> BookingChanged;
         public event Action<User> UserChanged;
         public event Action BookingsChanged;
+        public event Action<ClientDTO> AllClientsChanged;
 
         public BookingDTO SelectedBooking { get; private set; }
         public User User { get; private set; }
@@ -40,6 +42,11 @@ namespace TTHohel.Models
         public void ChangeBookings()
         {
             BookingsChanged?.Invoke();
+        }
+
+        public void ChangeAllClients(ClientDTO clientDTO)
+        {
+            AllClientsChanged?.Invoke(clientDTO);
         }
     }
 }

@@ -106,8 +106,15 @@ namespace TTHohel.Services
 
             return resp.IsSuccessStatusCode;
         }
-        
-                public List<ReportItem> GetReport(DateTime asOfDate)
+
+        public bool CreateClient(ClientDTO clientDTO)
+        {
+            var resp = Client.PostAsJsonAsync("api/clients", clientDTO).Result;
+
+            return resp.IsSuccessStatusCode;
+        }
+
+        public List<ReportItem> GetReport(DateTime asOfDate)
         {
             var route = $"/api/bookings/report?date={ToQueryArgument(asOfDate)}";
             var resp = Client.GetAsync(route).Result;
