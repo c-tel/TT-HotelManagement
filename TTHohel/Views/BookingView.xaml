@@ -36,88 +36,104 @@
         </Style>
     </UserControl.Resources>
 
-    <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
-            <TextBlock Text="{Binding Path=BookingDTO.BookingId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
-        </StackPanel>
-
-        <DockPanel DockPanel.Dock="Top" Margin="50 10" >
-            <StackPanel DockPanel.Dock="Right">
-                <TextBlock Text="Booked by" Foreground="White"/>
-                <TextBlock Text="Settled by" Foreground="White"/>
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+                <TextBlock Text="{Binding Path=BookingDTO.BookingId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
             </StackPanel>
-            <StackPanel DockPanel.Dock="Left">
-                <Button Content="Клієнт" Style="{StaticResource BtnMenuStyle}" Command="{Binding OpenClientCommand}"/>
-            </StackPanel>
-            <StackPanel/>
-        </DockPanel>
-        
-        <Border BorderBrush="Black" BorderThickness="2" Margin="60 0" DockPanel.Dock="Top">
-            <Grid Background="WhiteSmoke">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
 
-                <Label Grid.Column="0" Content="Номер"/>
-                <Label Grid.Column="1" Content="З"/>
-                <Label Grid.Column="2" Content="По"/>
-                <Label Grid.Column="3" Content="Ціна/добу"/>
-                <Label Grid.Column="4" Content="Загальна"/>
-                <Label Grid.Column="5" Content="Штраф"/>
+            <DockPanel DockPanel.Dock="Top" Margin="50 10" >
+                <StackPanel DockPanel.Dock="Right">
+                    <TextBlock Text="Booked by" Foreground="White"/>
+                    <TextBlock Text="Settled by" Foreground="White"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Left">
+                    <Button Content="Клієнт" Style="{StaticResource BtnMenuStyle}" Command="{Binding OpenClientCommand}"/>
+                </StackPanel>
+                <StackPanel/>
+            </DockPanel>
 
-                <TextBlock Grid.Row="1"
+            <Border BorderBrush="Black" BorderThickness="2" Margin="60 0" DockPanel.Dock="Top">
+                <Grid Background="WhiteSmoke">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Content="Номер"/>
+                    <Label Grid.Column="1" Content="З"/>
+                    <Label Grid.Column="2" Content="По"/>
+                    <Label Grid.Column="3" Content="Ціна/добу"/>
+                    <Label Grid.Column="4" Content="Загальна"/>
+                    <Label Grid.Column="5" Content="Штраф"/>
+
+                    <TextBlock Grid.Row="1"
                                  Text="{Binding BookingDTO.BookedRoomNum}"/>
-                <TextBlock Grid.Row="1" Grid.Column="1"
+                    <TextBlock Grid.Row="1" Grid.Column="1"
                                  Text="{Binding BookingDTO.StartDate, StringFormat=d}"/>
-                <TextBlock Grid.Row="1" Grid.Column="2"
+                    <TextBlock Grid.Row="1" Grid.Column="2"
                                  Text="{Binding BookingDTO.EndDate, StringFormat=d}"/>
-                <TextBlock Grid.Row="1" Grid.Column="3"
+                    <TextBlock Grid.Row="1" Grid.Column="3"
                                  Text="{Binding BookingDTO.BookedPrice}"/>
-                <TextBlock Grid.Row="1" Grid.Column="4"
+                    <TextBlock Grid.Row="1" Grid.Column="4"
                                  Text="{Binding BookingDTO.PricePeriod}"/>
-                <TextBlock Grid.Row="1" Grid.Column="5"
+                    <TextBlock Grid.Row="1" Grid.Column="5"
                                  Text="{Binding BookingDTO.SumFees}"/>
 
-                <Label Grid.Row="2" Grid.Column="4" Content="Сплачено:" Margin="0 20 0 0"/>
-                <Label Grid.Row="3" Grid.Column="4" Content="До сплати:"/>
+                    <Label Grid.Row="2" Grid.Column="4" Content="Сплачено:" Margin="0 20 0 0"/>
+                    <Label Grid.Row="3" Grid.Column="4" Content="До сплати:"/>
 
-                <Label Grid.Row="2" Grid.Column="5" Margin="0 20 0 0" Content="{Binding BookingDTO.Payed}" HorizontalAlignment="Left"/>
-                <Label Grid.Row="3" Grid.Column="5" Content="{Binding ToPay}" HorizontalAlignment="Left"/>
-                
-            </Grid>
-        </Border>
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="80" HorizontalAlignment="Center" Margin="0 10">
-            <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding BackCommand}"
+                    <Label Grid.Row="2" Grid.Column="5" Margin="0 20 0 0" Content="{Binding BookingDTO.Payed}" HorizontalAlignment="Left"/>
+                    <Label Grid.Row="3" Grid.Column="5" Content="{Binding ToPay}" HorizontalAlignment="Left"/>
+
+                </Grid>
+            </Border>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="80" HorizontalAlignment="Center" Margin="0 10">
+                <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding BackCommand}"
                     ToolTip="До головної сторінки">
-                <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
-            </Button>
-            <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding PayCommand}">Сплатити</Button>
-            <Button Style="{StaticResource BtnMenuStyle}"
+                    <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
+                </Button>
+                <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding PayCommand}">Сплатити</Button>
+                <Button Style="{StaticResource BtnMenuStyle}"
                     Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Історія</Button>
-            <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
-        </StackPanel>
-        <StackPanel DockPanel.Dock="Bottom" Margin="60 20 60 0">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Коментар: "/>
-                <Label Content="{Binding BookingDTO.BookComment}" Foreground="WhiteSmoke" />
+                <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Скарга: "/>
-                <Label Content="{Binding BookingDTO.Complaint}" Foreground="WhiteSmoke"/>
+
+            <StackPanel DockPanel.Dock="Bottom" Margin="60 20 60 0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Коментар: "/>
+                    <Label Content="{Binding BookingDTO.BookComment}" Foreground="WhiteSmoke" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Скарга: "/>
+                    <Label Content="{Binding BookingDTO.Complaint}" Foreground="WhiteSmoke"/>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <StackPanel/>
-    </DockPanel>
-    
+
+            <StackPanel Margin="60 10" DockPanel.Dock="Top">
+                <Label Content="Історія оплат" Foreground="WhiteSmoke"/>
+                <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="100">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Дата</GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Час</GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Сума</GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Тип</GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </DockPanel>
+    </ScrollViewer>
+
 </UserControl>
