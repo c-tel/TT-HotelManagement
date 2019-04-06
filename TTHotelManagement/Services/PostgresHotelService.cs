@@ -456,8 +456,28 @@ namespace TTHotel.API.Services
                 Price = room.Price,
                 Floor = room.Room_floor,
                 Places = room.Room_places,
+                Type = MapToType(room.Type_name),
                 Comforts = (await QueryAsyncInternal<string>(ComfortsQuery(room.Room_num))).ToList()
             };
+        }
+
+        private RoomType MapToType(string typeName)
+        {
+            switch(typeName)
+            {
+                case "luxe":
+                    return RoomType.Luxe;
+                case "standard":
+                    return RoomType.Standard;
+                case "econom":
+                    return RoomType.Econom;
+                case "studio":
+                    return RoomType.Studio;
+                case "apartments":
+                    return RoomType.Apartments;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(typeName));
+            }
         }
 
         private static PaymentDTO MapToPayment(Payment p)
