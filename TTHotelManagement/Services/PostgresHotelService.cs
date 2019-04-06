@@ -437,6 +437,8 @@ namespace TTHotel.API.Services
 
         private static ClientDTO MapToClient(Client cl)
         {
+            if (cl == null)
+                return null;
             return new ClientDTO
             {
                 Name = cl.Cl_name,

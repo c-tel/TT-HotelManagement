@@ -33,6 +33,8 @@ namespace TTHotel.API.Controllers
         [HttpPost()]
         public ActionResult<IEnumerable<ClientDTO>> GetAll([FromBody] ClientDTO client)
         {
+            if (_hotelService.GetClient(client.TelNum) != null)
+                return Conflict();
             _hotelService.CreateClient(client);
             return NoContent();
         }
