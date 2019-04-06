@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.Collections.Generic;
+using TTHotel.Contracts.Payments;
 
 namespace TTHotel.Contracts.Bookings
 {
@@ -23,5 +25,6 @@ namespace TTHotel.Contracts.Bookings
         public string PersSettledBook { get; set; }
         [JsonConverter(typeof(StringEnumConverter))]
         public BookingStates Book_state { get; set; }
+        public List<PaymentDTO> Payments { get; set; }
     }
 }
