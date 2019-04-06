@@ -59,12 +59,14 @@ namespace TTHotel.API.Services
                    $"        {booking.BookComment ?? "null"}, {booking.BookedRoomNum}, '{booking.ClientTel}', '{person_book}');";
         }
 
-        private static string UpdateBookingQuery(BookingCreateDTO booking, string person_book)
+        private static string UpdateBookingQuery(BookingUpdateDTO booking, int bookId)
         {
-            // ATTENTION! Fails.
             return "UPDATE bookings " +
-                   $"VALUES ({booking.StartDate.ToPostgresDateFormat()}, {booking.EndDate.ToPostgresDateFormat()}, " +
-                   $"        {booking.BookComment}, {booking.BookedRoomNum}, {booking.ClientTel}, {person_book};)";
+                   $"SET book_comment = {(booking.BookComment != null ? $"'{booking.BookComment}'" : "book_comment")}, " +
+                       $"complaint    = {(booking.Complaint != null ? $"'{booking.Complaint}'" : "complaint")}, " +
+                       $"start_date   = {(booking.StartDate != null ? booking.StartDate.Value.ToPostgresDateFormat() : "start_date")}, " +
+                       $"end_date     = {(booking.EndDate != null ? booking.EndDate.Value.ToPostgresDateFormat() : "end_date")} " +
+                   $"WHERE book_num = {bookId} ";
         }
 
         private static string PaymentsQuery(int bookingId)
@@ -228,7 +230,7 @@ namespace TTHotel.API.Services
             {
                 BookComment = qRes.Book_comment,
                 BookedPrice = qRes.Booked_price,
-                BookedRoomNum = qRes.Book_num,
+                BookedRoomNum = qRes.Room_num,
                 BookingId = qRes.Book_num,
                 Book_state = (BookingStates)qRes.Book_state,
                 ClientTel = qRes.Cl_tel_num,
@@ -255,9 +257,9 @@ namespace TTHotel.API.Services
             ExecuteInternal(AddPaymentQuery(bookingId, payment.Type, payment.Amount));
         }
 
-        public void UpdateBooking(BookingUpdateDTO booking, string persBook, int bookId)
+        public void UpdateBooking(BookingUpdateDTO booking, int bookId)
         {
-            // TODO
+            ExecuteInternal(UpdateBookingQuery(booking, bookId));
         }
 
         public IEnumerable<PaymentDTO> GetPayments(int bookingId)

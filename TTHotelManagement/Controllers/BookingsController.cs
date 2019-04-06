@@ -60,7 +60,7 @@ namespace TTHotel.API.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateBooking([FromRoute] int id, [FromBody] BookingUpdateDTO updateDTO)
         {
-            // TODO 
+            _hotelService.UpdateBooking(updateDTO, id);
             return NoContent();
         }
 

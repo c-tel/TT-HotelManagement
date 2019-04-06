@@ -21,7 +21,7 @@ namespace TTHotel.API.Services
         BookingDTO GetBooking(int id);
         
         void CreateBooking(BookingCreateDTO booking, string persBook);
-        void UpdateBooking(BookingUpdateDTO booking, string persBook, int bookId);
+        void UpdateBooking(BookingUpdateDTO booking, int bookId);
 
         // payments
         IEnumerable<PaymentDTO> GetPayments(int bookingId);
