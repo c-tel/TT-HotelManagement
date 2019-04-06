@@ -19,6 +19,7 @@ namespace TTHohel.ViewModels
         private string _commentText;
         private double _periodPrice;
         private int _places;
+        private string _comforts;
 
         private ClientDTO _selectedClient;
         private RoomDTO _selectedRoom;
@@ -109,6 +110,16 @@ namespace TTHohel.ViewModels
             }
         }
 
+        public string Comforts
+        {
+            get { return _comforts; }
+            set
+            {
+                _comforts = value;
+                InvokePropertyChanged(nameof(Comforts));
+            }
+        }
+
         public ClientDTO SelectedClient
         {
             get { return _selectedClient; }
@@ -131,7 +142,7 @@ namespace TTHohel.ViewModels
                 {
                     _selectedRoom = value;
                     InvokePropertyChanged(nameof(SelectedRoom));
-                    RefreshPeriodPrice();
+                    RefreshDependentObjects();
                 }
             }
         }
@@ -163,10 +174,13 @@ namespace TTHohel.ViewModels
             RoomsList = Model.GetRoomsList(DateFrom, DateTo, Places);
         }
 
-        private void RefreshPeriodPrice()
+        private void RefreshDependentObjects()
         {
             if (SelectedRoom != null)
+            {
+                Comforts = Model.GetSelectedRoomComforts(SelectedRoom);
                 PeriodPrice = Model.CalculatePeriodPrice(DateFrom, DateTo, SelectedRoom.Price);
+            }
             else PeriodPrice = 0;
         }
         #endregion

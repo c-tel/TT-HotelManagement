@@ -106,10 +106,12 @@
                             <Label Content="Тип:"/>
                             <Label Content="{Binding SelectedRoom.Type}" Foreground="#17A210"/>
                         </StackPanel>
-                        <!--<StackPanel Orientation="Horizontal">
-                        <Label Content="Тип:"/>
-                        <Label Content="{Binding SelectedRoom.Type}"/>
-                    </StackPanel>-->
+                        <StackPanel Orientation="Horizontal" Margin="60 0 0 0">
+                            <Label Content="Вигоди:"/>
+                            <TextBox Text="{Binding Comforts}" Foreground="#17A210" TextWrapping="Wrap" Width="260"
+                                     IsReadOnly="True" FontWeight="Bold" FontSize="15" Background="WhiteSmoke"
+                                     BorderThickness="0" VerticalAlignment="Center"/>
+                        </StackPanel>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">

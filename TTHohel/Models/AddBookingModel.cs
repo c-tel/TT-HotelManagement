@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TTHohel.Manager;
 using TTHohel.Services;
 using TTHotel.Contracts.Clients;
@@ -54,6 +55,11 @@ namespace TTHohel.Models
         public void GoToAddClient()
         {
             NavigationManager.Instance.Navigate(ModesEnum.AddClient);
+        }
+
+        public string GetSelectedRoomComforts(RoomDTO selectedRoom)
+        {
+            return string.Join(", ", selectedRoom.Comforts);
         }
     }
 }
