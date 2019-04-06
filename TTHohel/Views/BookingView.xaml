@@ -122,13 +122,14 @@
 
             <StackPanel Margin="60 10" DockPanel.Dock="Top">
                 <Label Content="Історія оплат" Foreground="WhiteSmoke"/>
-                <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="100">
+                <ListView ItemsSource="{Binding Path=BookingDTO.Payments}" MaxHeight="120" Width="360"
+                          TextElement.FontSize="16" TextElement.Foreground="DarkSlateGray">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Дата</GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Час</GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Сума</GridViewColumn>
-                            <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Тип</GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Payment_date, StringFormat=d}" Width="60">Дата</GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Payment_date, StringFormat=t}" Width="100">Час</GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Amount}" Width="100">Сума</GridViewColumn>
+                            <GridViewColumn DisplayMemberBinding="{Binding Path=Type}" Width="60">Тип</GridViewColumn>
                         </GridView>
                     </ListView.View>
                 </ListView>
