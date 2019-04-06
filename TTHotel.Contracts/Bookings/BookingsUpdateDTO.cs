@@ -11,10 +11,6 @@ namespace TTHotel.Contracts.Bookings
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public string BookComment { get; set; }
-        [JsonConverter(typeof(StringEnumConverter))]
-        public BookingStates? Book_state { get; set; }
-        public DateTime? StartDateReal { get; set; }
-        public DateTime? EndDateReal { get; set; }
         public string Complaint { get; set; }
     }
 }

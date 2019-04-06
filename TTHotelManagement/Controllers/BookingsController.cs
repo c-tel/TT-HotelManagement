@@ -60,10 +60,30 @@ namespace TTHotel.API.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateBooking([FromRoute] int id, [FromBody] BookingUpdateDTO updateDTO)
         {
-            // TODO 
+            _hotelService.UpdateBooking(updateDTO, id);
             return NoContent();
         }
 
+        [HttpPut("{id}/settle")]
+        public IActionResult Settle([FromRoute] int id)
+        {
+            _hotelService.Settle(id);
+            return NoContent();
+        }
+
+        [HttpPut("{id}/close")]
+        public IActionResult Close([FromRoute] int id)
+        {
+            _hotelService.Close(id);
+            return NoContent();
+        }
+
+        [HttpPut("{id}/cancel")]
+        public IActionResult Cancel([FromRoute] int id)
+        {
+            _hotelService.Cancel(id);
+            return NoContent();
+        }
         [HttpPost()]
         public IActionResult Create([FromBody] BookingCreateDTO booking)
         {
