@@ -241,7 +241,8 @@ namespace TTHotel.API.Services
                 PricePeriod = qRes.Price_period,
                 StartDate = qRes.Start_date,
                 StartDateReal = qRes.Start_date_real,
-                SumFees = qRes.Sum_fees
+                SumFees = qRes.Sum_fees,
+                Payments = GetPayments(id).ToList()
             };
         }
 
