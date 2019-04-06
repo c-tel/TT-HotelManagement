@@ -108,11 +108,11 @@ namespace TTHohel.Services
             return resp.IsSuccessStatusCode;
         }
 
-        public bool CreateClient(ClientDTO clientDTO)
+        public System.Net.HttpStatusCode CreateClient(ClientDTO clientDTO)
         {
             var resp = Client.PostAsJsonAsync("api/clients", clientDTO).Result;
 
-            return resp.IsSuccessStatusCode;
+            return resp.StatusCode;
         }
 
         //public ClientDTO GetClient(string tel_num)

@@ -82,14 +82,24 @@ namespace TTHohel.ViewModels
 
         private bool AddClientCanExecute(object obj)
         {
-            return true;
+            return !(string.IsNullOrEmpty(Client.Name) ||
+                    string.IsNullOrEmpty(Client.Surname) ||
+                    string.IsNullOrEmpty(Client.TelNum) ||
+                    string.IsNullOrEmpty(Client.Patronym));
         }
 
         private void AddClientExecute(object obj)
         {
-            if (Model.CreateNewClient(Client))
+            var res = Model.CreateNewClient(Client);
+            if (res == 1)
+            {
+                MessageBox.Show("Клієнта створено");
                 Model.GoBack();
-            else MessageBox.Show("Не вдалося створити клієнта","Помилка");
+            } else if(res == 2)
+            {
+                MessageBox.Show("Клієнт з таким номером телефону вже є!", "Помилка");
+            }
+            else MessageBox.Show("Не вдалося створити клієнта", "Помилка");
         }
         #endregion
 

@@ -11,14 +11,19 @@ namespace TTHohel.Models
     class ClientModel
     {
 
-        public bool CreateNewClient(ClientDTO clientDTO)
+        public int CreateNewClient(ClientDTO clientDTO)
         {
-            if (HotelApiClient.GetInstance().CreateClient(clientDTO))
+            var res = HotelApiClient.GetInstance().CreateClient(clientDTO);
+
+            if (res == System.Net.HttpStatusCode.NoContent)
             {
                 Storage.Instance.ChangeAllClients(clientDTO);
-                return true;
+                return 1;
             }
-            return false;
+            if (res == System.Net.HttpStatusCode.Conflict)
+                return 2;
+
+            return 0;
         }
 
         public void GoBack()
