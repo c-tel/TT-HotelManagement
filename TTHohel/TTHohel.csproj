@@ -98,6 +98,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\PayModel.cs" />
+    <Compile Include="Models\ReportItemModel.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\RightsEnum.cs" />
     <Compile Include="Models\SettingsModel.cs" />
