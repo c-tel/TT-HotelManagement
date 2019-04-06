@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TTHohel.Contracts.Bookings;
 
 namespace TTHotel.Contracts.Rooms

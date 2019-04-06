@@ -29,85 +29,108 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="Label">
-            <Setter Property="Foreground" Value="DarkSlateGray"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
         </Style>
     </UserControl.Resources>
+    
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <StackPanel Margin="30" VerticalAlignment="Center">
-            <TextBlock Text="Нове бронювання"  Foreground="#2DA46F" FontWeight="Bold"/>
+        <Grid Background="#17252B">
+            <StackPanel Margin="30" VerticalAlignment="Center">
+                <TextBlock Text="Нове бронювання" Foreground="#2DA46F" FontWeight="Bold" FontSize="18"/>
 
-            <Grid Margin="0 20">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="70"/>
-                </Grid.RowDefinitions>
+                <Grid Margin="0 20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
 
-                <StackPanel Grid.Column="1">
-                    <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Телефон</GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Ім'я</GridViewColumn>
-                                <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Прізвище</GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button ToolTip="Створити гостя" Command="{Binding AddClientCommand}">
-                            <fa:ImageAwesome Icon="UserPlus" Foreground="WhiteSmoke" Height="26"/>
-                        </Button>
-                        <Button ToolTip="Карточка гостя">
-                            <fa:ImageAwesome Icon="AddressCard" Foreground="WhiteSmoke" Height="26"/>
-                        </Button>
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Label Content="Заселення: " VerticalContentAlignment="Center"/>
-                        <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="40"></DatePicker>
-                        <Label Content="Виселення: " VerticalContentAlignment="Center"/>
-                        <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="40"></DatePicker>
+                    <StackPanel Grid.Column="1">
+                        <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=TelNum}">Телефон</GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">Ім'я</GridViewColumn>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Surname}">Прізвище</GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
+                            <Button ToolTip="Створити гостя" Command="{Binding AddClientCommand}" Height="40" Width="40">
+                                <fa:ImageAwesome Icon="UserPlus" Foreground="WhiteSmoke" Height="18"/>
+                            </Button>
+                            <Button ToolTip="Карточка гостя" Height="40" Width="40">
+                                <fa:ImageAwesome Icon="AddressCard" Foreground="WhiteSmoke" Height="18"/>
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Загальна вартість:"/>
-                        <Label Content="{Binding PeriodPrice}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Ціна/добу:"/>
-                        <Label Content="{Binding SelectedRoom.Price}"/>
-                    </StackPanel>
-                </StackPanel>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Label Content="Заселення: " VerticalContentAlignment="Center"/>
+                            <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}" Height="40"></DatePicker>
+                            <Label Content="Виселення: " VerticalContentAlignment="Center"/>
+                            <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" Height="40"></DatePicker>
+                        </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.Row="1">
-                    <Label Content="Номер:"/>
-                    <ComboBox ItemsSource="{Binding RoomsList}" SelectedItem="{Binding SelectedRoom}"
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Загальна вартість:"/>
+                            <Label Content="{Binding PeriodPrice}" Foreground="#17A210"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Ціна/добу:"/>
+                            <Label Content="{Binding SelectedRoom.Price}" Foreground="#17A210"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Поверх:"/>
+                            <Label Content="{Binding SelectedRoom.Floor}" Foreground="#17A210"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Кількість місць:"/>
+                            <Label Content="{Binding SelectedRoom.Places}" Foreground="#17A210"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Тип:"/>
+                            <Label Content="{Binding SelectedRoom.Type}" Foreground="#17A210"/>
+                        </StackPanel>
+                        <!--<StackPanel Orientation="Horizontal">
+                        <Label Content="Тип:"/>
+                        <Label Content="{Binding SelectedRoom.Type}"/>
+                    </StackPanel>-->
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Grid.Row="1">
+                        <Label Content="Номер:"/>
+                        <ComboBox ItemsSource="{Binding RoomsList}" SelectedItem="{Binding SelectedRoom}"
                           DisplayMemberPath="Num" SelectedValuePath="Num">
-                    </ComboBox>
-                </StackPanel>
+                        </ComboBox>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
-                    <Label Content="Коментар" Target="{Binding ElementName=CommentBox}"/>
-                    <TextBox Name="CommentBox" Width="360" AcceptsReturn="True" TextWrapping="Wrap"
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                        <Label Content="Коментар" Target="{Binding ElementName=CommentBox}"/>
+                        <TextBox Name="CommentBox" Width="360" AcceptsReturn="True" TextWrapping="Wrap"
                              Text="{Binding CommentText}" MaxLength="100" FontSize="15"/>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button ToolTip="До головної сторінки">
-                        <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
-                    </Button>
-                    <Button Command="{Binding CreateBookingCommand}" Background="#17A210">Створити</Button>
-                </StackPanel>
-            </Grid>
-        </StackPanel>
+                    <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button ToolTip="До головної сторінки">
+                            <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
+                        </Button>
+                        <Button Command="{Binding CreateBookingCommand}" Background="#17A210">Створити</Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
     </ScrollViewer>
 </UserControl>
