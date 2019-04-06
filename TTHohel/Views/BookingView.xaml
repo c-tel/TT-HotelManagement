@@ -107,7 +107,17 @@
                     Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Історія</Button>
             <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
         </StackPanel>
-        <StackPanel></StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Margin="60 20 60 0">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Коментар: "/>
+                <Label Content="{Binding BookingDTO.BookComment}" Foreground="WhiteSmoke" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Скарга: "/>
+                <Label Content="{Binding BookingDTO.Complaint}" Foreground="WhiteSmoke"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel/>
     </DockPanel>
     
 </UserControl>
