@@ -75,6 +75,13 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<BookingDTO>().Result;
         }
 
+        public bool SetBookingToSettled(int bookingId)
+        {
+            var resp = Client.PutAsync($"api/bookings/{bookingId}/settle", null).Result;
+
+            return resp.IsSuccessStatusCode;
+        }
+
         public List<ClientDTO> GetAllClients()
         {
             var resp = Client.GetAsync($"api/clients").Result;

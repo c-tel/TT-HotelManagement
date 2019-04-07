@@ -52,5 +52,16 @@ namespace TTHohel.Models
             return Math.Max(calc, 0);
         }
 
+        public bool Settle(BookingDTO booking)
+        {
+            if (HotelApiClient.GetInstance().SetBookingToSettled(booking.BookingId))
+            {
+                var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
+                Storage.Instance.ChangeBooking(_);
+
+                return true;
+            }
+            return false;
+        }
     }
 }

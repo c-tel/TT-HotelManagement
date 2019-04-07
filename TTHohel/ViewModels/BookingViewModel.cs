@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
@@ -16,6 +18,7 @@ namespace TTHohel.ViewModels
         private ICommand _backCommand;
         private ICommand _payCommand;
         private ICommand _openClientCommand;
+        private ICommand _settleCommand;
         #endregion
 
         public BookingViewModel()
@@ -73,6 +76,35 @@ namespace TTHohel.ViewModels
         private void BackExecute(object obj)
         {
             Model.GoToMain();
+        }
+
+        public ICommand SettleCommand
+        {
+            get
+            {
+                if (_settleCommand == null)
+                    _settleCommand = new RelayCommand<object>(SettleExecute, SettleCanExecute);
+                return _settleCommand;
+            }
+            set
+            {
+                _settleCommand = value;
+                InvokePropertyChanged(nameof(SettleCommand));
+            }
+        }
+
+        private bool SettleCanExecute(object obj)
+        {
+            return BookingDTO?.Book_state != BookingStates.Settled;
+        }
+
+        private void SettleExecute(object obj)
+        {
+            if (Model.Settle(BookingDTO))
+            {
+
+            }
+            else MessageBox.Show("Не вдалося оновити стан бронювання.", "Помилка");
         }
 
         public ICommand PayCommand
