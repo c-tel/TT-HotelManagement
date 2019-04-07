@@ -112,25 +112,31 @@
 
                 </Grid>
             </Border>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="80" HorizontalAlignment="Center" Margin="0 10">
-                <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding BackCommand}"
+            <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="0 10">
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding SetleCommand}">Поселити</Button>
+                    <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Закрити бронювання" Command="{Binding CloseCommand}">Закрити</Button>
+                    <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding CancelCommand}">Скасувати</Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding BackCommand}"
                     ToolTip="До головної сторінки">
-                    <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
-                </Button>
-                <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding PayCommand}">Сплатити</Button>
-                <Button Style="{StaticResource BtnMenuStyle}"
-                    Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Історія</Button>
-                <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
+                        <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
+                    </Button>
+                    <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding PayCommand}">Сплатити</Button>
+                    <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
+                </StackPanel>
+                
             </StackPanel>
 
-            <StackPanel DockPanel.Dock="Bottom" Margin="60 20 60 0">
+            <StackPanel DockPanel.Dock="Bottom" Margin="60 20 60 0" HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Коментар: "/>
+                    <Label Content="Коментар: "  Foreground="WhiteSmoke"/>
                     <TextBox Text="{Binding BookingDTO.BookComment, Mode=TwoWay}" Foreground="WhiteSmoke"
                                TextWrapping="Wrap" Width="560" Background="#17252B"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Content="Скарга: "/>
+                    <Label Content="Скарга: "  Foreground="WhiteSmoke"/>
                     <TextBox Text="{Binding BookingDTO.Complaint, Mode=TwoWay}" Foreground="WhiteSmoke"
                                TextWrapping="Wrap" Width="586" Background="#17252B"/>
                 </StackPanel>
