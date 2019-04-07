@@ -6,5 +6,6 @@ namespace TTHohel.Models
     {
         public ClientDTO Client { get; set; }
         public ClientViewModes Mode { get; set; }
+        public ModesEnum CameFrom { get; set; }
     }
 }

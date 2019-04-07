@@ -122,7 +122,7 @@ namespace TTHohel.ViewModels
 
         private void OpenClientExecute(object obj)
         {
-            Model.GoToClient();
+            Model.GoToClient(BookingDTO.ClientTel);
         }
         #endregion
 

@@ -6,7 +6,6 @@ namespace TTHohel.Models
     public enum ClientViewModes
     {
         Creation = 1,
-        Info = 2,
-        Editing = 4,
+        Editing = 2,
     }
 }

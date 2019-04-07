@@ -83,6 +83,24 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<List<ClientDTO>>().Result;
         }
 
+        public ClientDTO GetClient(string tel_num)
+        {
+            var route = $"api/clients/{tel_num.TrimStart('+')}";
+
+            var resp = Client.GetAsync(route).Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+
+            return resp.Content.ReadAsAsync<ClientDTO>().Result;
+        }
+
+        public System.Net.HttpStatusCode CreateClient(ClientDTO clientDTO)
+        {
+            var resp = Client.PostAsJsonAsync("api/clients", clientDTO).Result;
+
+            return resp.StatusCode;
+        }
+
         public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to, int places)
         {
             var route = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}&guests={places}";
@@ -107,23 +125,6 @@ namespace TTHohel.Services
 
             return resp.IsSuccessStatusCode;
         }
-
-        public System.Net.HttpStatusCode CreateClient(ClientDTO clientDTO)
-        {
-            var resp = Client.PostAsJsonAsync("api/clients", clientDTO).Result;
-
-            return resp.StatusCode;
-        }
-
-        //public ClientDTO GetClient(string tel_num)
-        //{
-        //    var route = $"api/clients?telnum={tel_num}";
-        //    var resp = Client.GetAsync(route).Result;
-        //    if (!resp.IsSuccessStatusCode)
-        //        return null;
-
-        //    return resp.Content.ReadAsAsync<ClientDTO>().Result;
-        //}
 
         public bool AddPayment(int bookingId, PaymentTypes paymentType, double amount)
         {

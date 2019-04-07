@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using TTHohel.Manager;
 using TTHohel.Services;
 using TTHotel.Contracts.Clients;
@@ -56,8 +55,9 @@ namespace TTHohel.Models
         {
             var data = new ClientDisplayData
             {
-                Client = null,
-                Mode = ClientViewModes.Creation
+                Client = new ClientDTO(),
+                Mode = ClientViewModes.Creation,
+                CameFrom = ModesEnum.AddBooking
             };
             Storage.Instance.ChangeClientDisplayData(data);
 
@@ -74,7 +74,8 @@ namespace TTHohel.Models
             var data = new ClientDisplayData
             {
                 Client = selectedClient,
-                Mode = ClientViewModes.Info
+                Mode = ClientViewModes.Editing,
+                CameFrom = ModesEnum.AddBooking
             };
             Storage.Instance.ChangeClientDisplayData(data);
 

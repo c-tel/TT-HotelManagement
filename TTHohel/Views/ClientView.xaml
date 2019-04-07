@@ -33,8 +33,11 @@
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
             <Border CornerRadius="10" Background="WhiteSmoke" Width="380">
                 <StackPanel Orientation="Vertical">
-                    <Label Content="Новий клієнт" FontSize="20" HorizontalAlignment="Center" Foreground="#2DA46F" FontWeight="Bold" Margin="2,7,2,10"/>
-
+                    <Label Content="Новий клієнт" FontSize="20" HorizontalAlignment="Center" Foreground="#2DA46F"
+                           FontWeight="Bold" Margin="2,7,2,10" Visibility="{Binding IsCreation, Converter={StaticResource BoolToVis}}"/>
+                    <Label Content="Картка клієнта" FontSize="20" HorizontalAlignment="Center" Foreground="#2DA46F"
+                           FontWeight="Bold" Margin="2,7,2,10" Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"/>
+                    
                     <Grid Margin="5" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="140"/>
@@ -75,8 +78,6 @@
                             </Button>
                             <Button Content="Створити" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding AddClient}"
                                     Visibility="{Binding IsCreation, Converter={StaticResource BoolToVis}}"/>
-                            <Button Content="Редагувати" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding EditClient}"
-                                    Visibility="{Binding IsReadOnly, Converter={StaticResource BoolToVis}}"/>
                             <Button Content="Зберегти" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding SaveClient}"
                                     Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"/>
                         </StackPanel>

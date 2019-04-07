@@ -1,5 +1,6 @@
 ﻿using System;
 using TTHohel.Manager;
+using TTHohel.Services;
 using TTHotel.Contracts.Bookings;
 
 namespace TTHohel.Models
@@ -28,9 +29,18 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(ModesEnum.Pay);
         }
 
-        public void GoToClient()
+        public void GoToClient(string clientTel)
         {
-            // TODO
+            var client = HotelApiClient.GetInstance().GetClient(clientTel);
+
+            var data = new ClientDisplayData
+            {
+                Client = client,
+                Mode = ClientViewModes.Editing,
+                CameFrom = ModesEnum.Booking
+            };
+            Storage.Instance.ChangeClientDisplayData(data);
+
             NavigationManager.Instance.Navigate(ModesEnum.Client);
         }
 

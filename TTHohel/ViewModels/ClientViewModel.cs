@@ -11,15 +11,16 @@ namespace TTHohel.ViewModels
     {
         #region Private Fields
         private ClientDTO _client;
+        private string _oldTel;
 
         private bool _isCreation;
-        private bool _isReadOnly;
         private bool _isEditing;
 
         private ClientModel Model { get; }
 
         private ICommand _backCommand;
         private ICommand _addClient;
+        private ICommand _saveClient;
         #endregion
 
         public ClientViewModel()
@@ -53,16 +54,6 @@ namespace TTHohel.ViewModels
             {
                 _isCreation = value;
                 InvokePropertyChanged(nameof(IsCreation));
-            }
-        }
-
-        public bool IsReadOnly
-        {
-            get { return _isReadOnly; }
-            set
-            {
-                _isReadOnly = value;
-                InvokePropertyChanged(nameof(IsReadOnly));
             }
         }
 
@@ -132,7 +123,6 @@ namespace TTHohel.ViewModels
             if (res == 1)
             {
                 MessageBox.Show("Клієнта створено.");
-                //Model.ChangeDisplayData(Client, ClientViewModes.Info);
                 Model.GoBack();
             } else if(res == 2)
             {
@@ -140,13 +130,51 @@ namespace TTHohel.ViewModels
             }
             else MessageBox.Show("Не вдалося створити клієнта", "Помилка");
         }
+
+        public ICommand SaveClient
+        {
+            get
+            {
+                if (_saveClient == null)
+                    _saveClient = new RelayCommand<object>(SaveClientExecute, SaveClientCanExecute);
+                return _saveClient;
+            }
+            set
+            {
+                _saveClient = value;
+                InvokePropertyChanged(nameof(SaveClient));
+            }
+        }
+
+        private bool SaveClientCanExecute(object obj)
+        {
+            return !(string.IsNullOrEmpty(Client.Name) ||
+                    string.IsNullOrEmpty(Client.Surname) ||
+                    string.IsNullOrEmpty(Client.TelNum) ||
+                    string.IsNullOrEmpty(Client.Patronym));
+        }
+
+        private void SaveClientExecute(object obj)
+        {
+            Model.SaveClient(Client, _oldTel);
+            //var res = Model.SaveClient(Client, _oldTel);
+            //if (res == 1)
+            //{
+                MessageBox.Show("Інформацію змінено.");
+                Model.GoBack();
+            //}
+
+            //else MessageBox.Show("Не вдалося зберегти клієнта.", "Помилка");
+        }
         #endregion
 
-        public void OnModeChanged(ClientViewModes mode)
+        public void OnModeChanged(ClientDisplayData data)
         {
-            IsCreation = mode.HasFlag(ClientViewModes.Creation);
-            IsReadOnly = mode.HasFlag(ClientViewModes.Info);
-            IsEditing = mode.HasFlag(ClientViewModes.Editing);
+            Client = data.Client;
+            _oldTel = Client.TelNum;
+
+            IsCreation = data.Mode.HasFlag(ClientViewModes.Creation);
+            IsEditing = data.Mode.HasFlag(ClientViewModes.Editing);
         }
 
         #region INotifyPropertyChanged

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using TTHohel.Manager;
 using TTHohel.Services;
 using TTHotel.Contracts.Clients;
@@ -10,7 +11,9 @@ namespace TTHohel.Models
 {
     class ClientModel
     {
-        public event Action<ClientViewModes> ClientDisplayChanged;
+        private ModesEnum _cameFrom;
+
+        public event Action<ClientDisplayData> ClientDisplayChanged;
 
         public ClientModel()
         {
@@ -19,7 +22,8 @@ namespace TTHohel.Models
 
         private void OnDisplayDataChanged(ClientDisplayData data)
         {
-            ClientDisplayChanged?.Invoke(data.Mode);
+            _cameFrom = data.CameFrom;
+            ClientDisplayChanged?.Invoke(data);
         }
 
         public int CreateNewClient(ClientDTO clientDTO)
@@ -39,12 +43,12 @@ namespace TTHohel.Models
 
         public void GoBack()
         {
-            NavigationManager.Instance.Navigate(ModesEnum.AddBooking);
+            NavigationManager.Instance.Navigate(_cameFrom);
         }
 
-        internal void ChangeDisplayData(ClientDTO client, ClientViewModes info)
+        public void SaveClient(ClientDTO client, string oldTel)
         {
-            throw new NotImplementedException();
+            MessageBox.Show(oldTel);
         }
     }
 }
