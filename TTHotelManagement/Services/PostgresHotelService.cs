@@ -124,6 +124,15 @@ namespace TTHotel.API.Services
             return "SELECT * " +
                    "FROM clients";
         }
+        private static string ClientAnalyticsQuery()
+        {
+            return "SELECT clients.tel_num, clients.cl_name, clients.surname, clients.discount, " +
+                          "COUNT(bookings.book_num) as count_booked, " +
+				          "coalesce(SUM(bookings.payed), 0) as sum_payed " +
+                   "FROM clients LEFT OUTER JOIN bookings ON bookings.cl_tel_num = clients.tel_num " +
+                   "GROUP BY clients.tel_num, clients.cl_name, clients.surname, clients.discount " +
+                   "ORDER BY sum_payed DESC; ";
+        }
 
         private static string ClientQuery(string telNum)
         {
@@ -355,6 +364,19 @@ namespace TTHotel.API.Services
         public IEnumerable<ClientDTO> GetClients()
         {
             return QueryInternal<Client>(ClientsQuery()).Select(MapToClient);
+        }
+
+        public IEnumerable<ClientAnalisedDTO> GetClientAnalytics()
+        {
+            return QueryInternal<ClientAnalyticsQueryRes>(ClientAnalyticsQuery()).Select(c => new ClientAnalisedDTO
+            {
+                CountBooked = c.Count_booked,
+                Discount = c.Discount,
+                Name = c.Cl_name,
+                SumPayed = c.Sum_payed,
+                Surname = c.Surname,
+                TelNum = c.Tel_num
+            });
         }
 
         

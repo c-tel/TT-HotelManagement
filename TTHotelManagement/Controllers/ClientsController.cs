@@ -24,6 +24,12 @@ namespace TTHotel.API.Controllers
             return _hotelService.GetClients();
         }
 
+        [HttpGet("analytics")]
+        public IEnumerable<ClientAnalisedDTO> GetAnalytics()
+        {
+            return _hotelService.GetClientAnalytics();
+        }
+
         [HttpGet("{telnum}")]
         public ClientDTO Get([FromRoute] string telnum)
         {
@@ -31,7 +37,7 @@ namespace TTHotel.API.Controllers
         }
 
         [HttpPost()]
-        public ActionResult<IEnumerable<ClientDTO>> Create([FromBody] ClientDTO client)
+        public IActionResult Create([FromBody] ClientDTO client)
         {
             if (_hotelService.GetClient(client.TelNum) != null)
                 return Conflict();

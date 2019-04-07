@@ -111,6 +111,7 @@
     <Compile Include="Models\BookingModel.cs" />
     <Compile Include="Models\ClientDisplayData.cs" />
     <Compile Include="Models\ClientModel.cs" />
+    <Compile Include="Models\ClientsListModel.cs" />
     <Compile Include="Models\ClientViewModes.cs" />
     <Compile Include="Models\DescriptionValueBinder.cs" />
     <Compile Include="Models\LoginModel.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Tools\RoomsDataGrid.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
     <Compile Include="ViewModels\AddBookingViewModel.cs" />
+    <Compile Include="ViewModels\ClientsListViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -137,6 +139,9 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\AddBookingView.xaml.cs">
       <DependentUpon>AddBookingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClientsListView.xaml.cs">
+      <DependentUpon>ClientsListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClientView.xaml.cs">
       <DependentUpon>ClientView.xaml</DependentUpon>
@@ -170,6 +175,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddBookingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClientsListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
