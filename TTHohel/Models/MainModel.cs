@@ -38,6 +38,11 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(ModesEnum.Settings);
         }
 
+        public void GoToStatistic()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Statistic);
+        }
+
         public ObservableCollection<RoomInfo> ChangeInfoTable(DateTime dateFrom, DateTime dateTo)
         {
             var inp = HotelApiClient.GetInstance().RoomInfos(dateFrom, dateTo);

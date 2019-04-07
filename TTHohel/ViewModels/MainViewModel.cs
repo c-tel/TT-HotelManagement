@@ -19,6 +19,7 @@ namespace TTHohel.ViewModels
 
         private ICommand _exitCommand;
         private ICommand _settCommand;
+        private ICommand _statisticCommand;
         private ICommand _refreshCommand;
         private ICommand _cellCommand;
         private ICommand _addBookingCommand;
@@ -159,6 +160,43 @@ namespace TTHohel.ViewModels
             }
         }
 
+        private void SettExecute(object obj)
+        {
+            Model.GoToSett();
+        }
+
+        private bool SettCanExecute(object obj)
+        {
+            return true;
+        }
+
+        public ICommand StatisticCommand
+        {
+            get
+            {
+                if (_statisticCommand == null)
+                {
+                    _statisticCommand = new RelayCommand<object>(StatisticExecute, StatisticCanExecute);
+                }
+                return _statisticCommand;
+            }
+            set
+            {
+                _statisticCommand = value;
+                InvokePropertyChanged(nameof(StatisticCommand));
+            }
+        }
+
+        private void StatisticExecute(object obj)
+        {
+            Model.GoToStatistic();
+        }
+
+        private bool StatisticCanExecute(object obj)
+        {
+            return true;
+        }
+
         public ICommand RefreshCommand
         {
             get
@@ -195,15 +233,6 @@ namespace TTHohel.ViewModels
         }
 
         private bool ExitCanExecute(object obj)
-        {
-            return true;
-        }
-        private void SettExecute(object obj)
-        {
-            Model.GoToSett();
-        }
-
-        private bool SettCanExecute(object obj)
         {
             return true;
         }

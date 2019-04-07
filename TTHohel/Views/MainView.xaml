@@ -33,7 +33,8 @@
             <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding AddBookingCommand}">Додати</Button>
             <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding ClientsCommand}">Реєстр Клієнтів</Button>
             <Button Style="{StaticResource BtnMenuStyle}"
-                    Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}">Статистика</Button>
+                    Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}"
+                    Command="{Binding StatisticCommand}">Статистика</Button>
             <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding ReportCommand}">Звіт</Button>
             <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Налаштування" Command="{Binding SettCommand}"
                         Visibility="{Binding UserHasSettRight, Converter={StaticResource BoolToVis}}">
