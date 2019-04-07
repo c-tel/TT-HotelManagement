@@ -89,7 +89,7 @@ namespace TTHotel.API.Services
         private static string CloseQuery(int bookId)
         {
             return "UPDATE bookings " +
-                   $"SET end_date_real = { DateTime.Now.ToPostgresTimestampFormat() }, " +
+                   $"SET end_date_real = { DateTime.Now.ToPostgresTimestampFormat() } " +
                    $"WHERE book_num = {bookId};";
         }
 
