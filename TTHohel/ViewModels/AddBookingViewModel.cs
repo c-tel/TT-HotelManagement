@@ -32,6 +32,7 @@ namespace TTHohel.ViewModels
         private ICommand _createBookingCommand;
         private ICommand _addClientCommand;
         private ICommand _clientInfoCommand;
+        private ICommand _backCommand;
         #endregion
 
         public AddBookingViewModel()
@@ -40,9 +41,7 @@ namespace TTHohel.ViewModels
 
             Model.AllClientsChanged += OnClientsChanged;
 
-            DateFrom = DateTime.Today.Date;
-            DateTo = DateTime.Today.AddDays(1);
-
+            Init();
             ClientsList = Model.GetClientsList();
         }
 
@@ -169,24 +168,33 @@ namespace TTHohel.ViewModels
         }
         #endregion
 
-        #region Private Methods
-        private void RefreshFreeRooms()
-        {
-            RoomsList = Model.GetRoomsList(DateFrom, DateTo, Places);
-        }
-
-        private void RefreshDependentObjects()
-        {
-            if (SelectedRoom != null)
-            {
-                Comforts = Model.GetSelectedRoomComforts(SelectedRoom);
-                PeriodPrice = Model.CalculatePeriodPrice(DateFrom, DateTo, SelectedRoom.Price);
-            }
-            else PeriodPrice = 0;
-        }
-        #endregion
-
         #region Commands
+
+        public ICommand BackCommand
+        {
+            get
+            {
+                if (_backCommand == null)
+                    _backCommand = new RelayCommand<object>(BackExecute, BackCanExecute);
+                return _backCommand;
+            }
+            set
+            {
+                _backCommand = value;
+                InvokePropertyChanged(nameof(BackCommand));
+            }
+        }
+
+        private bool BackCanExecute(object obj)
+        {
+            return true;
+        }
+
+        private void BackExecute(object obj)
+        {
+            Model.GoToMain();
+            Init();
+        }
 
         public ICommand CreateBookingCommand
         {
@@ -211,9 +219,12 @@ namespace TTHohel.ViewModels
         private void CreateBookingExecute(object obj)
         {
             if (Model.CreateNewBooking(DateFrom, DateTo, SelectedRoom.Num, SelectedClient.TelNum, CommentText))
+            {
                 Model.GoToMain();
+                Init();
+            }
             else
-                MessageBox.Show("Щось пішло не так...","Помилка");
+                MessageBox.Show("Щось пішло не так...", "Помилка");
         }
 
         public ICommand AddClientCommand
@@ -267,11 +278,38 @@ namespace TTHohel.ViewModels
         }
         #endregion
 
-        public void OnClientsChanged(ClientDTO clientDTO)
+        #region Private Methods
+        private void OnClientsChanged(ClientDTO clientDTO)
         {
             ClientsList = Model.GetClientsList();
             SelectedClient = ClientsList.FirstOrDefault(x => x.TelNum == clientDTO.TelNum);
         }
+
+        private void RefreshFreeRooms()
+        {
+            RoomsList = Model.GetRoomsList(DateFrom, DateTo, Places);
+        }
+
+        private void RefreshDependentObjects()
+        {
+            if (SelectedRoom != null)
+            {
+                Comforts = Model.GetSelectedRoomComforts(SelectedRoom);
+                PeriodPrice = Model.CalculatePeriodPrice(DateFrom, DateTo, SelectedRoom.Price);
+            }
+            else PeriodPrice = 0;
+        }
+
+        private void Init()
+        {
+            DateFrom = DateTime.Today.Date;
+            DateTo = DateTime.Today.AddDays(1);
+            SelectedClient = null;
+            SelectedRoom = null;
+            Places = 1;
+            CommentText = null;
+        }
+        #endregion
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -87,6 +87,7 @@ namespace TTHohel.ViewModels
         private void BackExecute(object obj)
         {
             Model.GoToBooking();
+            Reset();
         }
 
         public ICommand PayCommand
@@ -112,10 +113,19 @@ namespace TTHohel.ViewModels
         private void PayExecute(object obj)
         {
             if (Model.AddPayment(SelectedPayment, Amount))
+            {
+                Reset();
                 Model.GoToBooking();
-            else MessageBox.Show("Щось пішло не так...","Помилка");
+            }
+            else MessageBox.Show("Щось пішло не так...", "Помилка");
         }
         #endregion
+
+        private void Reset()
+        {
+            Amount = 0;
+            SelectedPayment = default(PaymentTypes);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

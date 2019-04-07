@@ -134,7 +134,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Button ToolTip="До головної сторінки">
+                        <Button ToolTip="До головної сторінки" Command="{Binding BackCommand}">
                             <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
                         </Button>
                         <Button Command="{Binding CreateBookingCommand}" Background="#17A210">Створити</Button>

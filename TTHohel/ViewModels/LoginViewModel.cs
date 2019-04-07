@@ -73,6 +73,11 @@ namespace TTHohel.ViewModels
             {
                 ErrorVisibility = Visibility.Visible;
             }
+            else
+            {
+                Name = "";
+                btn.Password = "";
+            }
         }
 
         private bool LoginCanExecute(object obj)
