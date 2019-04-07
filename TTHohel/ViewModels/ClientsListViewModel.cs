@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Services;
@@ -25,7 +24,6 @@ namespace TTHohel.ViewModels
 
         private ICommand _addClientCommand;
         private ICommand _clientInfoCommand;
-        private ICommand _backCommand;
         #endregion
         public ClientsListViewModel()
         {

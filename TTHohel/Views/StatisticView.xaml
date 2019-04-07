@@ -22,7 +22,9 @@
             </TabControl.ContentTemplate>
         </TabControl>
 
-        <Button VerticalAlignment="Bottom" Width="60" Height="50" ToolTip="До головної сторінки" DockPanel.Dock="Bottom" Command="{Binding BackCommand}">
+        <Button VerticalAlignment="Bottom" Width="60" Height="50" ToolTip="До головної сторінки"
+                DockPanel.Dock="Bottom" Command="{Binding BackCommand}"
+                Background="#0D6C82" >
             <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
         </Button>
 
