@@ -23,7 +23,6 @@ namespace TTHohel.ViewModels
         private ICommand _refreshCommand;
         private ICommand _cellCommand;
         private ICommand _addBookingCommand;
-        private ICommand _clientsCommand;
         private ICommand _reportCommand;
 
         private bool _userHasSettRight;
@@ -252,28 +251,6 @@ namespace TTHohel.ViewModels
                 _addBookingCommand = value;
                 InvokePropertyChanged(nameof(AddBookingCommand));
             }
-        }
-
-        public ICommand ClientsCommand
-        {
-            get
-            {
-                if (_clientsCommand == null)
-                {
-                    _clientsCommand = new RelayCommand<object>(ClientsExecute, (_) => true);
-                }
-                return _clientsCommand;
-            }
-            set
-            {
-                _clientsCommand = value;
-                InvokePropertyChanged(nameof(ClientsCommand));
-            }
-        }
-
-        private void ClientsExecute(object obj)
-        {
-            Model.GoToClients();
         }
 
         public ICommand ReportCommand

@@ -46,8 +46,6 @@
                 <DataGridTextColumn Header="Знижка" Binding="{Binding Discount, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button VerticalAlignment="Bottom" Style="{StaticResource BtnMenuStyle}" ToolTip="До головної сторінки" DockPanel.Dock="Bottom" Command="{Binding BackCommand}">
-            <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
-        </Button>
+
     </DockPanel>
 </UserControl>

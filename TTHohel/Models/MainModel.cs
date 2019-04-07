@@ -78,20 +78,14 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(ModesEnum.Booking);
         }
 
-        internal void AddBooking()
+        public void AddBooking()
         {
             NavigationManager.Instance.Navigate(ModesEnum.AddBooking);
         }
 
-        internal void GoToReport()
+        public void GoToReport()
         {
             NavigationManager.Instance.Navigate(ModesEnum.Report);
-        }
-
-        internal void GoToClients()
-        {
-            NavigationManager.Instance.Navigate(ModesEnum.ClientsList);
-
         }
     }
 }

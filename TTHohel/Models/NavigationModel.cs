@@ -16,7 +16,6 @@ namespace TTHohel.Models
         AllClients,
         Report,
         Client,
-        ClientsList
     }
 
     public class NavigationModel
@@ -30,7 +29,6 @@ namespace TTHohel.Models
         private readonly ReportView _reportView;
         private readonly AddBookingView _addBookingView;
         private readonly ClientView _clientView;
-        private readonly ClientsListView _clientsListView;
         private readonly StatisticView _statisticView;
 
         public NavigationModel(ContentWindow contentWindow)
@@ -44,7 +42,6 @@ namespace TTHohel.Models
             _reportView = new ReportView();
             _addBookingView = new AddBookingView();
             _clientView = new ClientView();
-            _clientsListView = new ClientsListView();
             _statisticView = new StatisticView();
         }
 
@@ -75,9 +72,6 @@ namespace TTHohel.Models
                     break;
                 case ModesEnum.Client:
                     _contentWindow.ContentControl.Content = _clientView;
-                    break;
-                case ModesEnum.ClientsList:
-                    _contentWindow.ContentControl.Content = _clientsListView;
                     break;
                 case ModesEnum.Statistic:
                     _contentWindow.ContentControl.Content = _statisticView;

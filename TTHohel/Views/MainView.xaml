@@ -31,7 +31,6 @@
     <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="80" HorizontalAlignment="Center" Margin="0 10">
             <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding AddBookingCommand}">Додати</Button>
-            <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding ClientsCommand}">Реєстр Клієнтів</Button>
             <Button Style="{StaticResource BtnMenuStyle}"
                     Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}"
                     Command="{Binding StatisticCommand}">Статистика</Button>

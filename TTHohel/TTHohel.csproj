@@ -138,6 +138,7 @@
     <Compile Include="ViewModels\PayViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="Views\AddBookingView.xaml.cs">
       <DependentUpon>AddBookingView.xaml</DependentUpon>
     </Compile>
