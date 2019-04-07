@@ -12,7 +12,7 @@ namespace TTHohel.Models
     {
         public List<RoomStatisticsDTO> GetStatistics(DateTime dateFrom, DateTime dateTo)
         {
-            return new List<RoomStatisticsDTO> { new RoomStatisticsDTO {Num = 1, Type = RoomType.Apartments } };
+            return new List<RoomStatisticsDTO> { new RoomStatisticsDTO { Num = 1, Type = RoomType.Apartments } };
         }
     }
 }
