@@ -136,7 +136,17 @@ namespace TTHotel.API.Services
                    $"VALUES ('{newcomer.TelNum}', '{newcomer.Passport}', '{newcomer.Name}', " +
                            $"'{newcomer.Surname}', '{newcomer.Patronym}', {newcomer.Discount});";
         }
-
+        private static string UpdateClientQuery(ClientDTO toUpdate, string telnum)
+        {
+            return "UPDATE clients " +
+                   $"SET tel_num  = '{toUpdate.TelNum}', " +
+                       $"passport = '{toUpdate.Passport}', " +
+                       $"cl_name  = '{toUpdate.Name}', " +
+                       $"surname  = '{toUpdate.Surname}', " +
+                       $"patronym = '{toUpdate.Patronym}', " +
+                       $"discount = {toUpdate.Discount} " +
+                   $"WHERE tel_num = '{telnum}'; ";
+        }
         private static string AvailiableRoomsQuery(DateTime availiableFrom, DateTime availiableTo, int guests)
         {
             return "SELECT * " +
@@ -354,6 +364,12 @@ namespace TTHotel.API.Services
         {
             ExecuteInternal(CreateClientQuery(toCreate));
         }
+
+        public void UpdateClient(ClientDTO toCreate, string telnum)
+        {
+            ExecuteInternal(UpdateClientQuery(toCreate, telnum));
+        }
+       
 
         #endregion
 

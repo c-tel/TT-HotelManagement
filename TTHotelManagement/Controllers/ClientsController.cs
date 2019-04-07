@@ -31,12 +31,23 @@ namespace TTHotel.API.Controllers
         }
 
         [HttpPost()]
-        public ActionResult<IEnumerable<ClientDTO>> GetAll([FromBody] ClientDTO client)
+        public ActionResult<IEnumerable<ClientDTO>> Create([FromBody] ClientDTO client)
         {
             if (_hotelService.GetClient(client.TelNum) != null)
                 return Conflict();
             _hotelService.CreateClient(client);
             return NoContent();
         }
+
+        [HttpPut("{telnum}")]
+        public ActionResult<IEnumerable<ClientDTO>> Update([FromRoute] string telnum, [FromBody] ClientDTO client)
+        {
+            if ('+' + telnum != client.TelNum && _hotelService.GetClient(client.TelNum) != null)
+                return Conflict();
+            _hotelService.UpdateClient(client, '+' + telnum);
+            return NoContent();
+        }
+
+
     }
 }
