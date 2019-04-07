@@ -2,6 +2,7 @@
 using TTHohel.Manager;
 using TTHohel.Services;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Clients;
 
 namespace TTHohel.Models
 {
@@ -31,7 +32,7 @@ namespace TTHohel.Models
 
         public void GoToClient(string clientTel)
         {
-            var client = HotelApiClient.GetInstance().GetClient(clientTel);
+            var client = GetClient(clientTel);
 
             var data = new ClientDisplayData
             {
@@ -54,14 +55,35 @@ namespace TTHohel.Models
 
         public bool Settle(BookingDTO booking)
         {
-            if (HotelApiClient.GetInstance().SetBookingToSettled(booking.BookingId))
+
+            if (HotelApiClient.GetInstance().SetBookingStatus(booking.BookingId, BookingStates.Settled))
             {
                 var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
                 Storage.Instance.ChangeBooking(_);
+                Storage.Instance.ChangeBookings();
 
                 return true;
             }
             return false;
+        }
+
+        public bool Cancel(BookingDTO booking)
+        {
+
+            if (HotelApiClient.GetInstance().SetBookingStatus(booking.BookingId, BookingStates.Canceled))
+            {
+                var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
+                Storage.Instance.ChangeBooking(_);
+                Storage.Instance.ChangeBookings();
+
+                return true;
+            }
+            return false;
+        }
+
+        public ClientDTO GetClient(string clientTel)
+        {
+            return HotelApiClient.GetInstance().GetClient(clientTel);
         }
     }
 }

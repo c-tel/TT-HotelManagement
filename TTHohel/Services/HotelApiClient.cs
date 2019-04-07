@@ -75,9 +75,25 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<BookingDTO>().Result;
         }
 
-        public bool SetBookingToSettled(int bookingId)
+        public bool SetBookingStatus(int bookingId, BookingStates state)
         {
-            var resp = Client.PutAsync($"api/bookings/{bookingId}/settle", null).Result;
+            var route = "";
+            switch (state)
+            {
+                case BookingStates.Settled:
+                    route = "settle";
+                    break;
+                case BookingStates.Canceled:
+                    route = "cancel";
+                    break;
+                case BookingStates.Non_settle:
+                    route = "close";
+                    break;
+                default:
+                    return false;
+            }
+
+            var resp = Client.PutAsync($"api/bookings/{bookingId}/{route}", null).Result;
 
             return resp.IsSuccessStatusCode;
         }

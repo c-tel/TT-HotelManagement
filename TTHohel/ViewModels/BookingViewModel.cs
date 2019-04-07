@@ -19,6 +19,8 @@ namespace TTHohel.ViewModels
         private ICommand _payCommand;
         private ICommand _openClientCommand;
         private ICommand _settleCommand;
+        private ICommand _closeCommand;
+        private ICommand _cancelCommand;
         #endregion
 
         public BookingViewModel()
@@ -106,7 +108,44 @@ namespace TTHohel.ViewModels
 
         private void SettleExecute(object obj)
         {
-            if (Model.Settle(BookingDTO))
+            if (string.IsNullOrWhiteSpace(Model.GetClient(BookingDTO.ClientTel).Passport))
+            {
+                MessageBox.Show("Щоб поселити клієнта, додайте паспортні дані.", "Помилка");
+            }
+            else
+            {
+                if (Model.Settle(BookingDTO))
+                {
+
+                }
+                else MessageBox.Show("Не вдалося оновити стан бронювання.", "Помилка");
+            }
+        }
+
+        public ICommand CancelCommand
+        {
+            get
+            {
+                if (_cancelCommand == null)
+                    _cancelCommand = new RelayCommand<object>(CancelExecute, CancelCanExecute);
+                return _cancelCommand;
+            }
+            set
+            {
+                _cancelCommand = value;
+                InvokePropertyChanged(nameof(CancelCommand));
+            }
+        }
+
+        private bool CancelCanExecute(object obj)
+        {
+            return BookingDTO?.Book_state != BookingStates.Settled &&
+                    BookingDTO?.Book_state != BookingStates.Canceled;
+        }
+
+        private void CancelExecute(object obj)
+        {
+            if (Model.Cancel(BookingDTO))
             {
 
             }
