@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="TTHohel.Views.RoomStatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TTHohel.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
+            <DatePicker Name="DateFrom" FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}"></DatePicker>
+            <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}"></DatePicker>
+            <Button  Height="26" FontSize="14" Background="#2DA46F" Command="{Binding RefreshCommand}">Оновити</Button>
+        </StackPanel>
+        <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False" FontSize="14"
+                        ItemsSource="{Binding RoomStatistics}"
+                        IsReadOnly="True" Background="Transparent">
+            <DataGrid.Columns>
+                <DataGridTextColumn/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>
