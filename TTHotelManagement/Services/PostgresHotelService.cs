@@ -81,7 +81,7 @@ namespace TTHotel.API.Services
         {
             return "UPDATE bookings " +
                    $"SET start_date_real = { DateTime.Now.ToPostgresTimestampFormat() }, " +
-                       $"book_state = 'settled' " +
+                       $"book_state = 'settled', " +
                        $"pers_settled = '{persBook}' " +
                    $"WHERE book_num = {bookId};";
         }

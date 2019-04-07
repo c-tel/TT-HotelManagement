@@ -7,7 +7,7 @@ namespace TTHohel.Models
 {
     class LoginModel
     {
-        private static Dictionary<UserRoles, RightsEnum> rightsDictionary = new Dictionary<UserRoles, RightsEnum>
+        public static Dictionary<UserRoles, RightsEnum> RightsDictionary = new Dictionary<UserRoles, RightsEnum>
         {
             {UserRoles.Head,  RightsEnum.All},
             {UserRoles.Administrator,  RightsEnum.None}
@@ -20,7 +20,7 @@ namespace TTHohel.Models
                 return false;
 
             var userRole = authResp.User.Role;
-            Storage.Instance.ChangeUser(new User(rightsDictionary[userRole]));
+            Storage.Instance.ChangeUser(new User(RightsDictionary[userRole]));
 
             NavigationManager.Instance.Navigate(ModesEnum.Main);
 

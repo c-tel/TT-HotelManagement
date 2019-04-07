@@ -24,7 +24,9 @@
         </Style>
     </UserControl.Resources>
     <DockPanel LastChildFill="True" Background="#17252B" >
+        <Label DockPanel.Dock="Top" FontSize="20" Margin="0 30 0 0" HorizontalAlignment="Center">РЕЄСТР КЛІЄНТІВ</Label>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30" DockPanel.Dock="Top">
+            <Label FontSize="14">Пошук: </Label>
             <TextBox Width="360" AcceptsReturn="True" TextWrapping="Wrap"
                                 Text="{Binding ClientsFilter, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" 
                                 MaxLength="100" FontSize="15"/>
@@ -33,7 +35,17 @@
                   IsReadOnly="True" 
                   DockPanel.Dock="Top" 
                   HorizontalAlignment="Center"
-                  Width="500">
+                  AutoGenerateColumns="False"
+                  Width="700"
+                  FontSize="16">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер телефону" Binding="{Binding TelNum, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Ім'я" Binding="{Binding Name, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Прізвище" Binding="{Binding Surname, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Всього бронювань" Binding="{Binding CountBooked, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Загалом сплачено" Binding="{Binding SumPayed, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Знижка" Binding="{Binding Discount, Mode=OneWay}"/>
+            </DataGrid.Columns>
         </DataGrid>
         <Button VerticalAlignment="Bottom" Style="{StaticResource BtnMenuStyle}" ToolTip="До головної сторінки" DockPanel.Dock="Bottom" Command="{Binding BackCommand}">
             <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
