@@ -36,10 +36,16 @@ namespace TTHohel.ViewModels
                 {
                     _bookingDTO = value;
                     InvokePropertyChanged(nameof(BookingDTO));
+                    InvokePropertyChanged(nameof(BookingState));
 
                     ToPay = Model.CalculateToPay(BookingDTO);
                 }
             }
+        }
+
+        public string BookingState
+        {
+            get { return BookingDTO?.Book_state.GetDescription(); }
         }
 
         public double ToPay

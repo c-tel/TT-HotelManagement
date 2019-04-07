@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TTHotel.Contracts.Auth;
+﻿using System.ComponentModel;
 
 namespace TTHotel.Contracts.Bookings
 {
     public enum BookingStates
     {
-        Booked, Settled, Non_settle, Canceled
+        [Description("Заброньовано")]
+        Booked,
+        [Description("Поселено")]
+        Settled,
+        [Description("Закрито")]
+        Non_settle,
+        [Description("Скасовано")]
+        Canceled
     }
 }

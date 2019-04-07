@@ -42,7 +42,7 @@
                 <TextBlock Text="{Binding Path=BookingDTO.BookingId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="White"/>
             </StackPanel>
 
-            <DockPanel DockPanel.Dock="Top" Margin="50 10" >
+            <DockPanel DockPanel.Dock="Top" LastChildFill="True" Margin="60 0">
                 <StackPanel DockPanel.Dock="Right">
                     <TextBlock Foreground="White">
                         <TextBlock.Text>
@@ -62,9 +62,10 @@
                     </TextBlock>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Left">
-                    <Button Content="Клієнт" Style="{StaticResource BtnMenuStyle}" Command="{Binding OpenClientCommand}"/>
+                    <Button Content="Клієнт" Style="{StaticResource BtnMenuStyle}" Command="{Binding OpenClientCommand}" Margin="0"/>
                 </StackPanel>
-                <StackPanel/>
+
+                <TextBlock Text="{Binding BookingState, StringFormat=Статус бронювання: {0}}" Foreground="WhiteSmoke" FontSize="18"/>
             </DockPanel>
 
             <Border BorderBrush="Black" BorderThickness="2" Margin="60 0" DockPanel.Dock="Top">

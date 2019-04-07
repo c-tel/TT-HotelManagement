@@ -343,7 +343,7 @@ namespace TTHotel.API.Services
 
         public void Close(int bookId)
         {
-            ExecuteInternal(SettleQuery(bookId));
+            ExecuteInternal(CloseQuery(bookId));
         }
 
         public IEnumerable<PaymentDTO> GetPayments(int bookingId)
