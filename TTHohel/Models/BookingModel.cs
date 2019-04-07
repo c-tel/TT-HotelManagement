@@ -67,6 +67,20 @@ namespace TTHohel.Models
             return false;
         }
 
+        public bool Close(BookingDTO booking)
+        {
+
+            if (HotelApiClient.GetInstance().SetBookingStatus(booking.BookingId, BookingStates.Non_settle))
+            {
+                var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
+                Storage.Instance.ChangeBooking(_);
+                Storage.Instance.ChangeBookings();
+
+                return true;
+            }
+            return false;
+        }
+
         public bool Cancel(BookingDTO booking)
         {
 

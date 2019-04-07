@@ -122,6 +122,35 @@ namespace TTHohel.ViewModels
             }
         }
 
+        public ICommand CloseCommand
+        {
+            get
+            {
+                if (_closeCommand == null)
+                    _closeCommand = new RelayCommand<object>(CloseExecute, CloseCanExecute);
+                return _closeCommand;
+            }
+            set
+            {
+                _closeCommand = value;
+                InvokePropertyChanged(nameof(CloseCommand));
+            }
+        }
+
+        private bool CloseCanExecute(object obj)
+        {
+            return BookingDTO?.Book_state == BookingStates.Settled;
+        }
+
+        private void CloseExecute(object obj)
+        {
+            if (Model.Close(BookingDTO))
+            {
+
+            }
+            else MessageBox.Show("Не вдалося оновити стан бронювання.", "Помилка");
+        }
+
         public ICommand CancelCommand
         {
             get
