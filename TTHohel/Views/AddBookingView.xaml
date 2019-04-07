@@ -69,7 +69,7 @@
                             <Button ToolTip="Створити гостя" Command="{Binding AddClientCommand}" Height="40" Width="40">
                                 <fa:ImageAwesome Icon="UserPlus" Foreground="WhiteSmoke" Height="18"/>
                             </Button>
-                            <Button ToolTip="Карточка гостя" Height="40" Width="40">
+                            <Button ToolTip="Карточка гостя" Height="40" Width="40" Command="{Binding ClientInfoCommand}">
                                 <fa:ImageAwesome Icon="AddressCard" Foreground="WhiteSmoke" Height="18"/>
                             </Button>
                         </StackPanel>

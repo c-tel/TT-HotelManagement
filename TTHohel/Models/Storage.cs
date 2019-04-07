@@ -12,6 +12,7 @@ namespace TTHohel.Models
         public event Action<User> UserChanged;
         public event Action BookingsChanged;
         public event Action<ClientDTO> AllClientsChanged;
+        public event Action<ClientDisplayData> ClientDisplayChanged;
 
         public BookingDTO SelectedBooking { get; private set; }
         public User User { get; private set; }
@@ -47,6 +48,11 @@ namespace TTHohel.Models
         public void ChangeAllClients(ClientDTO clientDTO)
         {
             AllClientsChanged?.Invoke(clientDTO);
+        }
+
+        public void ChangeClientDisplayData(ClientDisplayData data)
+        {
+            ClientDisplayChanged?.Invoke(data);
         }
     }
 }

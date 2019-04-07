@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using TTHohel.Contracts.Bookings;
 using TTHohel.Manager;
 using TTHohel.Services;
-using Microsoft.Office.Interop.Word;
 
 namespace TTHohel.Models
 {

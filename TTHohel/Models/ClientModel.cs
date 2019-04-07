@@ -10,6 +10,17 @@ namespace TTHohel.Models
 {
     class ClientModel
     {
+        public event Action<ClientViewModes> ClientDisplayChanged;
+
+        public ClientModel()
+        {
+            Storage.Instance.ClientDisplayChanged += OnDisplayDataChanged;
+        }
+
+        private void OnDisplayDataChanged(ClientDisplayData data)
+        {
+            ClientDisplayChanged?.Invoke(data.Mode);
+        }
 
         public int CreateNewClient(ClientDTO clientDTO)
         {
@@ -29,6 +40,11 @@ namespace TTHohel.Models
         public void GoBack()
         {
             NavigationManager.Instance.Navigate(ModesEnum.AddBooking);
+        }
+
+        internal void ChangeDisplayData(ClientDTO client, ClientViewModes info)
+        {
+            throw new NotImplementedException();
         }
     }
 }

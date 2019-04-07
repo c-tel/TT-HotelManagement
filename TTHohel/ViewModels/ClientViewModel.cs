@@ -7,10 +7,14 @@ using TTHotel.Contracts.Clients;
 
 namespace TTHohel.ViewModels
 {
-    class AddClientViewModel : INotifyPropertyChanged
+    class ClientViewModel : INotifyPropertyChanged
     {
         #region Private Fields
         private ClientDTO _client;
+
+        private bool _isCreation;
+        private bool _isReadOnly;
+        private bool _isEditing;
 
         private ClientModel Model { get; }
 
@@ -18,10 +22,12 @@ namespace TTHohel.ViewModels
         private ICommand _addClient;
         #endregion
 
-        public AddClientViewModel()
+        public ClientViewModel()
         {
             Model = new ClientModel();
             Client = new ClientDTO();
+
+            Model.ClientDisplayChanged += OnModeChanged;
         }
 
         #region Properties
@@ -35,6 +41,38 @@ namespace TTHohel.ViewModels
                     _client = value;
                     InvokePropertyChanged(nameof(Client));
                 }
+            }
+        }
+        #endregion
+
+        #region Modes Properties
+        public bool IsCreation
+        {
+            get { return _isCreation; }
+            set
+            {
+                _isCreation = value;
+                InvokePropertyChanged(nameof(IsCreation));
+            }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return _isReadOnly; }
+            set
+            {
+                _isReadOnly = value;
+                InvokePropertyChanged(nameof(IsReadOnly));
+            }
+        }
+
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set
+            {
+                _isEditing = value;
+                InvokePropertyChanged(nameof(IsEditing));
             }
         }
         #endregion
@@ -93,7 +131,8 @@ namespace TTHohel.ViewModels
             var res = Model.CreateNewClient(Client);
             if (res == 1)
             {
-                MessageBox.Show("Клієнта створено");
+                MessageBox.Show("Клієнта створено.");
+                //Model.ChangeDisplayData(Client, ClientViewModes.Info);
                 Model.GoBack();
             } else if(res == 2)
             {
@@ -102,6 +141,13 @@ namespace TTHohel.ViewModels
             else MessageBox.Show("Не вдалося створити клієнта", "Помилка");
         }
         #endregion
+
+        public void OnModeChanged(ClientViewModes mode)
+        {
+            IsCreation = mode.HasFlag(ClientViewModes.Creation);
+            IsReadOnly = mode.HasFlag(ClientViewModes.Info);
+            IsEditing = mode.HasFlag(ClientViewModes.Editing);
+        }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -54,12 +54,31 @@ namespace TTHohel.Models
 
         public void GoToAddClient()
         {
-            NavigationManager.Instance.Navigate(ModesEnum.AddClient);
+            var data = new ClientDisplayData
+            {
+                Client = null,
+                Mode = ClientViewModes.Creation
+            };
+            Storage.Instance.ChangeClientDisplayData(data);
+
+            NavigationManager.Instance.Navigate(ModesEnum.Client);
         }
 
         public string GetSelectedRoomComforts(RoomDTO selectedRoom)
         {
             return string.Join(", ", selectedRoom.Comforts);
+        }
+
+        public void GoToClient(ClientDTO selectedClient)
+        {
+            var data = new ClientDisplayData
+            {
+                Client = selectedClient,
+                Mode = ClientViewModes.Info
+            };
+            Storage.Instance.ChangeClientDisplayData(data);
+
+            NavigationManager.Instance.Navigate(ModesEnum.Client);
         }
     }
 }

@@ -6,15 +6,15 @@ namespace TTHohel.Views
     /// <summary>
     /// Логика взаимодействия для AddClientView.xaml
     /// </summary>
-    public partial class AddClientView : UserControl
+    public partial class ClientView : UserControl
     {
-        private AddClientViewModel _addClVM;
+        private ClientViewModel _addClVM;
 
-        public AddClientView()
+        public ClientView()
         {
             InitializeComponent();
 
-            _addClVM = new AddClientViewModel();
+            _addClVM = new ClientViewModel();
             DataContext = _addClVM;
         }
     }

@@ -31,6 +31,7 @@ namespace TTHohel.ViewModels
 
         private ICommand _createBookingCommand;
         private ICommand _addClientCommand;
+        private ICommand _clientInfoCommand;
         #endregion
 
         public AddBookingViewModel()
@@ -238,6 +239,31 @@ namespace TTHohel.ViewModels
         private void AddClientExecute(object obj)
         {
             Model.GoToAddClient();
+        }
+
+        public ICommand ClientInfoCommand
+        {
+            get
+            {
+                if (_clientInfoCommand == null)
+                    _clientInfoCommand = new RelayCommand<object>(ClientInfoExecute, ClientInfoCanExecute);
+                return _clientInfoCommand;
+            }
+            set
+            {
+                _clientInfoCommand = value;
+                InvokePropertyChanged(nameof(ClientInfoCommand));
+            }
+        }
+
+        private bool ClientInfoCanExecute(object obj)
+        {
+            return SelectedClient != null;
+        }
+
+        private void ClientInfoExecute(object obj)
+        {
+            Model.GoToClient(SelectedClient);
         }
         #endregion
 

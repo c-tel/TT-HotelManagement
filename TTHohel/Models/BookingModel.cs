@@ -31,7 +31,7 @@ namespace TTHohel.Models
         public void GoToClient()
         {
             // TODO
-            NavigationManager.Instance.Navigate(ModesEnum.AddClient);
+            NavigationManager.Instance.Navigate(ModesEnum.Client);
         }
 
         public double CalculateToPay(BookingDTO bookingDTO)
