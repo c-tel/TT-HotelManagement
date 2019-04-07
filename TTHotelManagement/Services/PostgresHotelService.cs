@@ -31,7 +31,7 @@ namespace TTHotel.API.Services
                         "(price_period * (1 - (" +
                             "SELECT discount " +
                             "FROM clients " +
-                            "WHERE tel_num = B.tel_num)/100.0) + sum_fees-payed) AS debt " +
+                            "WHERE tel_num = B.cl_tel_num)/100.0) + sum_fees-payed) AS debt " +
                         "FROM ( " +
                             "select * " +
                             "FROM bookings " +
