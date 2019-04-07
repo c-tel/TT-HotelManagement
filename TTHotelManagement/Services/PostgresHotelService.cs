@@ -81,7 +81,7 @@ namespace TTHotel.API.Services
         {
             return "UPDATE bookings " +
                    $"SET start_date_real = { DateTime.Now.ToPostgresTimestampFormat() }, " +
-                       $"book_state = 'settled' " +
+                       $"book_state = 'settled', " +
                        $"pers_settled = '{persBook}' " +
                    $"WHERE book_num = {bookId};";
         }
@@ -145,7 +145,7 @@ namespace TTHotel.API.Services
         private static string CreateClientQuery(ClientDTO newcomer)
         {
             return "INSERT INTO clients " +
-                   $"VALUES ('{newcomer.TelNum}', '{newcomer.Passport}', '{newcomer.Name}', " +
+                   $"VALUES ('{newcomer.TelNum}', '{ newcomer.Passport?? "NULL" }', '{newcomer.Name}', " +
                            $"'{newcomer.Surname}', '{newcomer.Patronym}', {newcomer.Discount});";
         }
 
