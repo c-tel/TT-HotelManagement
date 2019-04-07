@@ -40,20 +40,20 @@ namespace TTHohel.ViewModels
                     _bookingDTO = value;
                     InvokePropertyChanged(nameof(BookingDTO));
                     InvokePropertyChanged(nameof(BookingState));
-                    InvokePropertyChanged(nameof(IsBookingClosed));
+                    InvokePropertyChanged(nameof(IsBookingActive));
 
                     ToPay = Model.CalculateToPay(BookingDTO);
                 }
             }
         }
 
-        public bool IsBookingClosed { get => BookingDTO?.EndDateReal != null; }
+        public bool IsBookingActive { get => BookingDTO?.EndDateReal == new DateTime(); }
 
         public string BookingState
         {
             get
             {
-                if (IsBookingClosed)
+                if (!IsBookingActive)
                     return "закрито";
                 return BookingDTO?.Book_state.GetDescription();
             }
@@ -176,8 +176,7 @@ namespace TTHohel.ViewModels
 
         private bool CloseCanExecute(object obj)
         {
-            return BookingDTO?.Book_state == BookingStates.Settled &&
-                    !IsBookingClosed;
+            return BookingDTO?.Book_state == BookingStates.Settled && IsBookingActive;
         }
 
         private void CloseExecute(object obj)
