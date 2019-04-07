@@ -28,8 +28,18 @@
             <DatePicker SelectedDate="{Binding SelectedDate, Mode=OneWayToSource}" Margin="0 0 10 0"></DatePicker>
             <Button Command="{Binding PrintCommand}">Відправити на друк</Button>
         </StackPanel>
-        <DataGrid ItemsSource="{Binding ReportItems}" IsReadOnly="True" DockPanel.Dock="Top">
-
+        <DataGrid ItemsSource="{Binding ReportItems}" 
+                  IsReadOnly="True" 
+                  DockPanel.Dock="Top" 
+                  AutoGenerateColumns="False"
+                  HorizontalAlignment="Center"
+                  Width="285">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер кімнати" Binding="{Binding RoomNum, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Сума" Binding="{Binding Amount, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Тип оплати" Binding="{Binding PaymentType, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Час оплати" Binding="{Binding PaymentTime, Mode=OneWay}"/>
+            </DataGrid.Columns>
         </DataGrid>
         <Button VerticalAlignment="Bottom" Style="{StaticResource BtnMenuStyle}" ToolTip="До головної сторінки" DockPanel.Dock="Bottom" Command="{Binding BackCommand}">
             <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
