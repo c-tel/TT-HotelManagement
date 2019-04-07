@@ -44,8 +44,22 @@
 
             <DockPanel DockPanel.Dock="Top" Margin="50 10" >
                 <StackPanel DockPanel.Dock="Right">
-                    <TextBlock Text="Booked by" Foreground="White"/>
-                    <TextBlock Text="Settled by" Foreground="White"/>
+                    <TextBlock Foreground="White">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Заброньовано: {0} {1}">
+                                <Binding Path="BookingDTO.PersBooked.Name"/>
+                                <Binding Path="BookingDTO.PersBooked.Surname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Foreground="White">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Поселено: {0} {1}">
+                                <Binding Path="BookingDTO.PersSettled.Name"/>
+                                <Binding Path="BookingDTO.PersSettled.Surname"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </StackPanel>
                 <StackPanel DockPanel.Dock="Left">
                     <Button Content="Клієнт" Style="{StaticResource BtnMenuStyle}" Command="{Binding OpenClientCommand}"/>
