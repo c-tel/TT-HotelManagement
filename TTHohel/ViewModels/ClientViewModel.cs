@@ -182,7 +182,7 @@ namespace TTHohel.ViewModels
 
         private void OnUserChanged(RightsEnum rights)
         {
-            IsAdministrator = rights.HasFlag(RightsEnum.None);
+            IsAdministrator = !rights.HasFlag(RightsEnum.ClientDiscount);
         }
 
         private void OnModeChanged(ClientDisplayData data)

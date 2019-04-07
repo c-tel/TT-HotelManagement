@@ -8,6 +8,7 @@ namespace TTHohel.Models
         None = 0,
         Settings = 1,
         Statistic = 2,
-        All = Settings | Statistic
+        ClientDiscount = 4,
+        All = Settings | Statistic | ClientDiscount
     }
 }

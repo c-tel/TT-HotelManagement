@@ -79,10 +79,10 @@
 
                     <TextBlock Grid.Row="1"
                                  Text="{Binding BookingDTO.BookedRoomNum}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1"
-                                 Text="{Binding BookingDTO.StartDate, StringFormat=d}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="2"
-                                 Text="{Binding BookingDTO.EndDate, StringFormat=d}"/>
+                    <DatePicker Grid.Row="1" Grid.Column="1"
+                                 Text="{Binding BookingDTO.StartDate, Mode=TwoWay, StringFormat=d}"/>
+                    <DatePicker Grid.Row="1" Grid.Column="2"
+                                 Text="{Binding BookingDTO.EndDate, Mode=TwoWay, StringFormat=d}"/>
                     <TextBlock Grid.Row="1" Grid.Column="3"
                                  Text="{Binding BookingDTO.BookedPrice}"/>
                     <TextBlock Grid.Row="1" Grid.Column="4"
@@ -112,11 +112,13 @@
             <StackPanel DockPanel.Dock="Bottom" Margin="60 20 60 0">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Коментар: "/>
-                    <Label Content="{Binding BookingDTO.BookComment}" Foreground="WhiteSmoke" />
+                    <TextBox Text="{Binding BookingDTO.BookComment, Mode=TwoWay}" Foreground="WhiteSmoke"
+                               TextWrapping="Wrap" Width="560" Background="#17252B"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Скарга: "/>
-                    <Label Content="{Binding BookingDTO.Complaint}" Foreground="WhiteSmoke"/>
+                    <TextBox Text="{Binding BookingDTO.Complaint, Mode=TwoWay}" Foreground="WhiteSmoke"
+                               TextWrapping="Wrap" Width="586" Background="#17252B"/>
                 </StackPanel>
             </StackPanel>
 
