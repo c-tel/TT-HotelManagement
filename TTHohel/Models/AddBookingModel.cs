@@ -32,9 +32,10 @@ namespace TTHohel.Models
             return HotelApiClient.GetInstance().GetFreeRooms(dateFrom, dateTo, places);
         }
 
-        public double CalculatePeriodPrice(DateTime dateFrom, DateTime dateTo, double price)
+        public double CalculatePeriodPrice(DateTime dateFrom, DateTime dateTo, double price, ClientDTO client)
         {
-            return ((dateTo - dateFrom).TotalDays+1) * price;
+            var calc = (((dateTo - dateFrom).TotalDays+1) * price) * (1 - (client?.Discount??0) / 100.0);
+            return Math.Max(calc, 0);
         }
 
         public bool CreateNewBooking(DateTime dateFrom, DateTime dateTo, int num, string telNum, string commentText)

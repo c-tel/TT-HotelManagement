@@ -44,6 +44,7 @@ namespace TTHohel.ViewModels
             Model.AllClientsChanged += OnClientsChanged;
 
             Init();
+            Today = DateTime.Now.ToString("yyyy/MM/dd");
             ClientsList = Model.GetClientsList();
         }
 
@@ -76,6 +77,8 @@ namespace TTHohel.ViewModels
                 }
             }
         }
+
+        public string Today { get; set; }
 
         public string CommentText
         {
@@ -237,7 +240,7 @@ namespace TTHohel.ViewModels
 
         private bool CreateBookingCanExecute(object obj)
         {
-            return SelectedRoom != null && SelectedClient != null;
+            return SelectedRoom != null && SelectedClient != null && DateFrom.Date <= DateTo.Date;
         }
 
         private void CreateBookingExecute(object obj)
@@ -319,7 +322,7 @@ namespace TTHohel.ViewModels
             if (SelectedRoom != null)
             {
                 Comforts = Model.GetSelectedRoomComforts(SelectedRoom);
-                PeriodPrice = Model.CalculatePeriodPrice(DateFrom, DateTo, SelectedRoom.Price);
+                PeriodPrice = Model.CalculatePeriodPrice(DateFrom, DateTo, SelectedRoom.Price, SelectedClient);
             }
             else PeriodPrice = 0;
         }
