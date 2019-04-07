@@ -41,6 +41,7 @@ namespace TTHohel.ViewModels
                     InvokePropertyChanged(nameof(BookingDTO));
                     InvokePropertyChanged(nameof(BookingState));
                     InvokePropertyChanged(nameof(IsBookingActive));
+                    InvokePropertyChanged(nameof(IsNotSettled));
 
                     ToPay = Model.CalculateToPay(BookingDTO);
                 }
@@ -48,6 +49,7 @@ namespace TTHohel.ViewModels
         }
 
         public bool IsBookingActive { get => BookingDTO?.EndDateReal == new DateTime(); }
+        public bool IsNotSettled{ get => BookingDTO?.Book_state != BookingStates.Settled; }
 
         public string BookingState
         {
@@ -176,14 +178,16 @@ namespace TTHohel.ViewModels
 
         private bool CloseCanExecute(object obj)
         {
-            return BookingDTO?.Book_state == BookingStates.Settled && IsBookingActive;
+            return BookingDTO?.Book_state == BookingStates.Settled &&
+                    IsBookingActive &&
+                    ToPay == 0;
         }
 
         private void CloseExecute(object obj)
         {
             if (Model.Close(BookingDTO))
             {
-
+                MessageBox.Show("Бронювання оновлено.");
             }
             else MessageBox.Show("Не вдалося оновити стан бронювання.", "Помилка");
         }

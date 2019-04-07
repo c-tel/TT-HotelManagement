@@ -69,7 +69,7 @@ namespace TTHohel.Models
 
         public bool Close(BookingDTO booking)
         {
-
+            
             if (HotelApiClient.GetInstance().SetBookingStatus(booking.BookingId, BookingStates.Non_settle))
             {
                 var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
