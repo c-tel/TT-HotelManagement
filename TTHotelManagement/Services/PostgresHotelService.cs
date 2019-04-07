@@ -46,6 +46,12 @@ namespace TTHotel.API.Services
                         $"WHERE login ='{login}' AND pwd = '{pwdHash}'";
         }
 
+        private static string IdentifyQuery(string personBookNum)
+        {
+            return $"SELECT * FROM personnel " +
+                   $"WHERE book_num ='{personBookNum}';";
+        }
+
         private static string BookingByIdQuery(int id)
         {
             return $"SELECT * FROM bookings " +
@@ -202,6 +208,21 @@ namespace TTHotel.API.Services
             };
         }
 
+        public UserDTO GetUser(string persBookNum)
+        {
+            var sql = IdentifyQuery(persBookNum);
+            var qRes = QuerySingleOrDefaultInternal<Personnel>(sql);
+            if (qRes == null)
+                return null;
+            return new UserDTO
+            {
+                EmplBook = qRes.Book_num,
+                Name = qRes.Pers_name,
+                Role = qRes.Pers_role,
+                Surname = qRes.Surname
+            };
+        }
+
         #region BOOKINGS
 
         public List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to)
@@ -260,8 +281,8 @@ namespace TTHotel.API.Services
                 EndDate = qRes.End_date,
                 EndDateReal = qRes.End_date_real,
                 Payed = qRes.Payed,
-                PersBook = qRes.Pers_book,
-                PersSettledBook = qRes.Pers_settled,
+                PersBooked = GetUser(qRes.Pers_book),
+                PersSettled = GetUser(qRes.Pers_settled),
                 PricePeriod = qRes.Price_period,
                 StartDate = qRes.Start_date,
                 StartDateReal = qRes.Start_date_real,
