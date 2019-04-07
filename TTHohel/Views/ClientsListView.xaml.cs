@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TTHohel.ViewModels;
 
 namespace TTHohel.Views
 {
@@ -23,6 +24,7 @@ namespace TTHohel.Views
         public ClientsListView()
         {
             InitializeComponent();
+            DataContext = new ClientsListViewModel();
         }
     }
 }

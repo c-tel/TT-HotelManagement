@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TTHohel.Models;
+using TTHohel.Services;
 using TTHotel.Contracts.Clients;
 
 namespace TTHohel.ViewModels
@@ -15,10 +16,10 @@ namespace TTHohel.ViewModels
         #region Private Fields
         private string _clientsFilter;
 
-        private ClientDTO _selectedClient;
+        private ClientAnalisedDTO _selectedClient;
 
-        private List<ClientDTO> _clientsList;
-        private List<ClientDTO> _filteredClientsList;
+        private List<ClientAnalisedDTO> _clientsList;
+        private List<ClientAnalisedDTO> _filteredClientsList;
 
         private ClientsListModel Model { get; }
 
@@ -26,9 +27,16 @@ namespace TTHohel.ViewModels
         private ICommand _clientInfoCommand;
         private ICommand _backCommand;
         #endregion
+        public ClientsListViewModel()
+        {
+            Model = new ClientsListModel();
+            ClientsList = Model.GetClientsList();
+            Model.AllClientsChanged += OnClientsChanged;
+        }
+        
 
         #region Properties
-        public ClientDTO SelectedClient
+        public ClientAnalisedDTO SelectedClient
         {
             get { return _selectedClient; }
             set
@@ -51,7 +59,7 @@ namespace TTHohel.ViewModels
             }
         }
 
-        public List<ClientDTO> ClientsList
+        public List<ClientAnalisedDTO> ClientsList
         {
             get { return _clientsList; }
             set
@@ -62,7 +70,7 @@ namespace TTHohel.ViewModels
             }
         }
 
-        public List<ClientDTO> FilteredClientsList
+        public List<ClientAnalisedDTO> FilteredClientsList
         {
             get { return _filteredClientsList; }
             set
@@ -75,7 +83,7 @@ namespace TTHohel.ViewModels
 
         private void OnClientsChanged(ClientDTO clientDTO)
         {
-            ClientsList = Enumerable.Empty<ClientDTO>().ToList();
+            ClientsList = Model.GetClientsList();
             SelectedClient = FilteredClientsList.FirstOrDefault(x => x.TelNum == clientDTO.TelNum);
         }
 
@@ -86,6 +94,8 @@ namespace TTHohel.ViewModels
             else
                 FilteredClientsList = Model.ApplyFilter(ClientsList, ClientsFilter);
         }
+
+        
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -77,11 +77,12 @@ namespace TTHotel.API.Services
                    $"WHERE book_num = {bookId} ";
         }
 
-        private static string SettleQuery(int bookId)
+        private static string SettleQuery(int bookId, string persBook)
         {
             return "UPDATE bookings " +
                    $"SET start_date_real = { DateTime.Now.ToPostgresTimestampFormat() }, " +
                        $"book_state = 'settled' " +
+                       $"pers_settled = '{persBook}' " +
                    $"WHERE book_num = {bookId};";
         }
 
@@ -330,9 +331,9 @@ namespace TTHotel.API.Services
             ExecuteInternal(UpdateBookingQuery(booking, bookId));
         }
 
-        public void Settle(int bookId)
+        public void Settle(int bookId, string persBook)
         {
-            ExecuteInternal(SettleQuery(bookId));
+            ExecuteInternal(SettleQuery(bookId, persBook));
         }
 
         public void Cancel(int bookId)

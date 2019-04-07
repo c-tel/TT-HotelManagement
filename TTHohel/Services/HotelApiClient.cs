@@ -90,6 +90,14 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<List<ClientDTO>>().Result;
         }
 
+        public List<ClientAnalisedDTO> GetAnalisedClients()
+        {
+            var resp = Client.GetAsync($"api/clients/analytics").Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<List<ClientAnalisedDTO>>().Result;
+        }
+
         public ClientDTO GetClient(string tel_num)
         {
             var route = $"api/clients/{tel_num.TrimStart('+')}";

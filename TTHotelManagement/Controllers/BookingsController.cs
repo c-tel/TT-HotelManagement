@@ -67,7 +67,13 @@ namespace TTHotel.API.Controllers
         [HttpPut("{id}/settle")]
         public IActionResult Settle([FromRoute] int id)
         {
-            _hotelService.Settle(id);
+            if (!Request.Cookies.ContainsKey("sessid"))
+                return BadRequest();
+            var sessid = Request.Cookies["sessid"];
+            var persBook = _authService.GetAuthorized(sessid)?.EmplBook;
+            if (persBook == null)
+                return Unauthorized();
+            _hotelService.Settle(id, persBook);
             return NoContent();
         }
 

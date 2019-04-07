@@ -82,5 +82,11 @@ namespace TTHohel.Models
         {
             NavigationManager.Instance.Navigate(ModesEnum.Report);
         }
+
+        internal void GoToClients()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.ClientsList);
+
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace TTHotel.API.Services
         void UpdateBooking(BookingUpdateDTO booking, int bookId);
         void Close(int bookId);
         void Cancel(int bookId);
-        void Settle(int bookId);
+        void Settle(int bookId, string pers_book);
 
         // payments
         IEnumerable<PaymentDTO> GetPayments(int bookingId);
