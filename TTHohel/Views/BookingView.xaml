@@ -134,12 +134,12 @@
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Коментар: "  Foreground="WhiteSmoke"/>
                     <TextBox Text="{Binding BookingDTO.BookComment, Mode=TwoWay}" Foreground="WhiteSmoke"
-                               TextWrapping="Wrap" Width="560" Background="#17252B"/>
+                               TextWrapping="Wrap" Width="560" Background="#17252B" FontSize="15"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Скарга: "  Foreground="WhiteSmoke"/>
                     <TextBox Text="{Binding BookingDTO.Complaint, Mode=TwoWay}" Foreground="WhiteSmoke"
-                               TextWrapping="Wrap" Width="586" Background="#17252B"/>
+                               TextWrapping="Wrap" Width="586" Background="#17252B" FontSize="15"/>
                 </StackPanel>
             </StackPanel>
 

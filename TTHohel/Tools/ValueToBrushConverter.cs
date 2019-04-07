@@ -21,7 +21,7 @@ namespace TTHohel.Tools
 
                 currStatus =  currInfo.Status;
 
-                if (currInfo.Debt != 0 && currInfo.Debt != null)
+                if (currInfo.Debt > 0 && currInfo.Debt != null)
                     return "#D81B0E";
                 else
                 {
