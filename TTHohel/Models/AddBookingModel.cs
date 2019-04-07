@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TTHohel.Manager;
 using TTHohel.Services;
 using TTHotel.Contracts.Clients;
@@ -80,6 +81,16 @@ namespace TTHohel.Models
             Storage.Instance.ChangeClientDisplayData(data);
 
             NavigationManager.Instance.Navigate(ModesEnum.Client);
+        }
+
+        public List<ClientDTO> ApplyFilter(List<ClientDTO> clientsList, string clientsFilter)
+        {
+            var lowerFilter = clientsFilter.ToLower();
+            return clientsList
+                    .Where(c => c.Name.ToLower().Contains(lowerFilter) ||
+                                c.Surname.ToLower().Contains(lowerFilter) ||
+                                c.TelNum.ToLower().Contains(lowerFilter))
+                    .ToList();
         }
     }
 }

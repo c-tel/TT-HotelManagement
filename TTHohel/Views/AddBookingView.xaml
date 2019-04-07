@@ -55,7 +55,9 @@
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Column="1">
-                        <ListView ItemsSource="{Binding Path=ClientsList}" MaxHeight="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBox Width="360" AcceptsReturn="True" TextWrapping="Wrap"
+                             Text="{Binding ClientsFilter, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" MaxLength="100" FontSize="15"/>
+                        <ListView ItemsSource="{Binding Path=FilteredClientsList}" Height="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   Width="360">
                             <ListView.View>
                                 <GridView>

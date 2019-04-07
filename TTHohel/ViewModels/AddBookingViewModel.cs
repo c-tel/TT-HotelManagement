@@ -20,11 +20,13 @@ namespace TTHohel.ViewModels
         private double _periodPrice;
         private int _places;
         private string _comforts;
+        private string _clientsFilter;
 
         private ClientDTO _selectedClient;
         private RoomDTO _selectedRoom;
 
         private List<ClientDTO> _clientsList;
+        private List<ClientDTO> _filteredClientsList;
         private List<RoomDTO> _roomsList;
 
         private AddBookingModel Model { get; }
@@ -147,13 +149,35 @@ namespace TTHohel.ViewModels
             }
         }
 
+        public string ClientsFilter
+        {
+            get { return _clientsFilter; }
+            set
+            {
+                _clientsFilter = value;
+                RefreshFilteredClients();
+                InvokePropertyChanged(nameof(ClientsFilter));
+            }
+        }
+
         public List<ClientDTO> ClientsList
         {
             get { return _clientsList; }
             set
             {
                 _clientsList = value;
+                RefreshFilteredClients();
                 InvokePropertyChanged(nameof(ClientsList));
+            }
+        }
+
+        public List<ClientDTO> FilteredClientsList
+        {
+            get { return _filteredClientsList; }
+            set
+            {
+                _filteredClientsList = value;
+                InvokePropertyChanged(nameof(FilteredClientsList));
             }
         }
 
@@ -282,7 +306,7 @@ namespace TTHohel.ViewModels
         private void OnClientsChanged(ClientDTO clientDTO)
         {
             ClientsList = Model.GetClientsList();
-            SelectedClient = ClientsList.FirstOrDefault(x => x.TelNum == clientDTO.TelNum);
+            SelectedClient = FilteredClientsList.FirstOrDefault(x => x.TelNum == clientDTO.TelNum);
         }
 
         private void RefreshFreeRooms()
@@ -298,6 +322,14 @@ namespace TTHohel.ViewModels
                 PeriodPrice = Model.CalculatePeriodPrice(DateFrom, DateTo, SelectedRoom.Price);
             }
             else PeriodPrice = 0;
+        }
+
+        private void RefreshFilteredClients()
+        {
+            if (string.IsNullOrEmpty(ClientsFilter))
+                FilteredClientsList = ClientsList;
+            else
+                FilteredClientsList = Model.ApplyFilter(ClientsList, ClientsFilter);
         }
 
         private void Init()
