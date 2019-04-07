@@ -294,13 +294,13 @@ namespace TTHohel.ViewModels
         }
         #endregion
 
-        public void OnUserChanged(RightsEnum rights)
+        private void OnUserChanged(RightsEnum rights)
         {
             UserHasSettRight = rights.HasFlag(RightsEnum.Settings);
             UserHasStatisticRight = rights.HasFlag(RightsEnum.Statistic);
         }
 
-        public void OnBookingsChanged()
+        private void OnBookingsChanged()
         {
             InfoTable = Model.ChangeInfoTable(DateFrom, DateTo);
             ColumnHeaders = Model.ChangeCollumnHeaders(DateFrom, DateTo);

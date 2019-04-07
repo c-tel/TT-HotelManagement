@@ -13,11 +13,18 @@ namespace TTHohel.Models
     {
         private ModesEnum _cameFrom;
 
+        public event Action<RightsEnum> UserChanged;
         public event Action<ClientDisplayData> ClientDisplayChanged;
 
         public ClientModel()
         {
+            Storage.Instance.UserChanged += OnUserChanged;
             Storage.Instance.ClientDisplayChanged += OnDisplayDataChanged;
+        }
+
+        private void OnUserChanged(User user)
+        {
+            UserChanged?.Invoke(user.Rights);
         }
 
         private void OnDisplayDataChanged(ClientDisplayData data)

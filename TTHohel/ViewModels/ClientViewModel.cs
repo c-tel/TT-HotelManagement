@@ -15,6 +15,7 @@ namespace TTHohel.ViewModels
 
         private bool _isCreation;
         private bool _isEditing;
+        private bool _isAdministrator;
 
         private ClientModel Model { get; }
 
@@ -28,6 +29,7 @@ namespace TTHohel.ViewModels
             Model = new ClientModel();
             Client = new ClientDTO();
 
+            Model.UserChanged += OnUserChanged;
             Model.ClientDisplayChanged += OnModeChanged;
         }
 
@@ -64,6 +66,16 @@ namespace TTHohel.ViewModels
             {
                 _isEditing = value;
                 InvokePropertyChanged(nameof(IsEditing));
+            }
+        }
+
+        public bool IsAdministrator
+        {
+            get { return _isAdministrator; }
+            set
+            {
+                _isAdministrator = value;
+                InvokePropertyChanged(nameof(IsAdministrator));
             }
         }
         #endregion
@@ -168,7 +180,12 @@ namespace TTHohel.ViewModels
         }
         #endregion
 
-        public void OnModeChanged(ClientDisplayData data)
+        private void OnUserChanged(RightsEnum rights)
+        {
+            IsAdministrator = rights.HasFlag(RightsEnum.None);
+        }
+
+        private void OnModeChanged(ClientDisplayData data)
         {
             Client = data.Client;
             _oldTel = Client.TelNum;
