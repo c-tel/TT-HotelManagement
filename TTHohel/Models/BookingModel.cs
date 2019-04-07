@@ -46,9 +46,10 @@ namespace TTHohel.Models
 
         public double CalculateToPay(BookingDTO bookingDTO)
         {
-            if(bookingDTO != null)
-                return bookingDTO.PricePeriod + bookingDTO.SumFees - bookingDTO.Payed;
-            return 0;
+            if(bookingDTO == null)
+                return 0;
+            var calc = bookingDTO.PricePeriod * (1 - bookingDTO.ClientDiscount / 100.0) + bookingDTO.SumFees - bookingDTO.Payed;
+            return Math.Max(calc, 0);
         }
 
     }

@@ -27,5 +27,6 @@ namespace TTHotel.Contracts.Bookings
         [JsonConverter(typeof(StringEnumConverter))]
         public BookingStates Book_state { get; set; }
         public List<PaymentDTO> Payments { get; set; }
+        public int ClientDiscount { get; set; }
     }
 }

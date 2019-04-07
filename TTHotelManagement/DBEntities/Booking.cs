@@ -23,5 +23,6 @@ namespace TTHotel.API.DBEntities
         public string Pers_book { get; set; }
         public string Pers_settled { get; set; }
         public BookStates Book_state { get; set; }
+        public int Discount { get; set; }
     }
 }

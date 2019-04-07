@@ -54,8 +54,10 @@ namespace TTHotel.API.Services
 
         private static string BookingByIdQuery(int id)
         {
-            return $"SELECT * FROM bookings " +
-                   $"WHERE book_num ={id}";
+            return $"SELECT * " +
+                   $"FROM (bookings INNER JOIN (SELECT tel_num, discount " +
+                                              "FROM clients) AS cls ON bookings.cl_tel_num = cls.tel_num)" +
+                   $"WHERE book_num = {id}";
         }
 
         private static string CreateBookingQuery(BookingCreateDTO booking, string person_book)
@@ -136,6 +138,7 @@ namespace TTHotel.API.Services
                    $"VALUES ('{newcomer.TelNum}', '{newcomer.Passport}', '{newcomer.Name}', " +
                            $"'{newcomer.Surname}', '{newcomer.Patronym}', {newcomer.Discount});";
         }
+
         private static string UpdateClientQuery(ClientDTO toUpdate, string telnum)
         {
             return "UPDATE clients " +
@@ -147,6 +150,7 @@ namespace TTHotel.API.Services
                        $"discount = {toUpdate.Discount} " +
                    $"WHERE tel_num = '{telnum}'; ";
         }
+
         private static string AvailiableRoomsQuery(DateTime availiableFrom, DateTime availiableTo, int guests)
         {
             return "SELECT * " +
@@ -297,7 +301,8 @@ namespace TTHotel.API.Services
                 StartDate = qRes.Start_date,
                 StartDateReal = qRes.Start_date_real,
                 SumFees = qRes.Sum_fees,
-                Payments = GetPayments(id).ToList()
+                Payments = GetPayments(id).ToList(),
+                ClientDiscount = qRes.Discount
             };
         }
 
