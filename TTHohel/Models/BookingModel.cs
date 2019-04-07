@@ -99,5 +99,18 @@ namespace TTHohel.Models
         {
             return HotelApiClient.GetInstance().GetClient(clientTel);
         }
+
+        public bool Edit(BookingDTO booking)
+        {
+            if (HotelApiClient.GetInstance().EditBooking(booking))
+            {
+                var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
+                Storage.Instance.ChangeBooking(_);
+                Storage.Instance.ChangeBookings();
+
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -95,9 +95,9 @@
                     <TextBlock Grid.Row="1"
                                  Text="{Binding BookingDTO.BookedRoomNum}"/>
                     <DatePicker Grid.Row="1" Grid.Column="1"
-                                 Text="{Binding BookingDTO.StartDate, Mode=TwoWay, StringFormat=d}"/>
+                                 SelectedDate="{Binding BookingDTO.StartDate, Mode=TwoWay}"/>
                     <DatePicker Grid.Row="1" Grid.Column="2"
-                                 Text="{Binding BookingDTO.EndDate, Mode=TwoWay, StringFormat=d}"/>
+                                 SelectedDate="{Binding BookingDTO.EndDate, Mode=TwoWay}"/>
                     <TextBlock Grid.Row="1" Grid.Column="3"
                                  Text="{Binding BookingDTO.BookedPrice}"/>
                     <TextBlock Grid.Row="1" Grid.Column="4"
@@ -125,7 +125,7 @@
                         <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
                     </Button>
                     <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding PayCommand}">Сплатити</Button>
-                    <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
+                    <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding EditCommand}">Редагувати</Button>
                 </StackPanel>
                 
             </StackPanel>

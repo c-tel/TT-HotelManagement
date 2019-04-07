@@ -98,6 +98,21 @@ namespace TTHohel.Services
             return resp.IsSuccessStatusCode;
         }
 
+        public bool EditBooking(BookingDTO booking)
+        {
+            var newBooking = new BookingUpdateDTO
+            {
+                StartDate = booking.StartDate,
+                EndDate = booking.EndDate,
+                BookComment = booking.BookComment,
+                Complaint = booking.Complaint
+            };
+
+            var resp = Client.PutAsJsonAsync($"api/bookings/{booking.BookingId}", newBooking).Result;
+
+            return resp.IsSuccessStatusCode;
+        }
+
         public List<ClientDTO> GetAllClients()
         {
             var resp = Client.GetAsync($"api/clients").Result;

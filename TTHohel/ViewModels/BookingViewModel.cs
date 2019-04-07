@@ -17,6 +17,7 @@ namespace TTHohel.ViewModels
 
         private ICommand _backCommand;
         private ICommand _payCommand;
+        private ICommand _editCommand;
         private ICommand _openClientCommand;
         private ICommand _settleCommand;
         private ICommand _closeCommand;
@@ -84,6 +85,34 @@ namespace TTHohel.ViewModels
         private void BackExecute(object obj)
         {
             Model.GoToMain();
+        }
+
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_editCommand == null)
+                    _editCommand = new RelayCommand<object>(EditExecute, EditCanExecute);
+                return _editCommand;
+            }
+            set
+            {
+                _editCommand = value;
+                InvokePropertyChanged(nameof(EditCommand));
+            }
+        }
+
+        private bool EditCanExecute(object obj)
+        {
+            return BookingDTO?.Book_state != BookingStates.Canceled;
+        }
+
+        private void EditExecute(object obj)
+        {
+            if (Model.Edit(BookingDTO))
+                MessageBox.Show("Бронювання змінено.");
+            else MessageBox.Show("Не вдалося оновити стан бронювання.", "Помилка");
+
         }
 
         public ICommand SettleCommand
