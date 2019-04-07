@@ -101,6 +101,13 @@ namespace TTHohel.Services
             return resp.StatusCode;
         }
 
+        public System.Net.HttpStatusCode UpdateClient(ClientDTO clientDTO, string oldNum)
+        {
+            var resp = Client.PutAsJsonAsync($"api/clients/{oldNum.TrimStart('+')}", clientDTO).Result;
+
+            return resp.StatusCode;
+        }
+
         public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to, int places)
         {
             var route = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}&guests={places}";

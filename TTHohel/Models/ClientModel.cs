@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using TTHohel.Manager;
 using TTHohel.Services;
@@ -53,9 +50,19 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(_cameFrom);
         }
 
-        public void SaveClient(ClientDTO client, string oldTel)
+        public int SaveClient(ClientDTO client, string oldTel)
         {
-            MessageBox.Show(oldTel);
+            var res = HotelApiClient.GetInstance().UpdateClient(client, oldTel);
+
+            if (res == System.Net.HttpStatusCode.NoContent)
+            {
+                Storage.Instance.ChangeAllClients(client);
+                return 1;
+            }
+            if (res == System.Net.HttpStatusCode.Conflict)
+                return 2;
+
+            return 0;
         }
     }
 }

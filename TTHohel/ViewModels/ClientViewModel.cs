@@ -168,15 +168,19 @@ namespace TTHohel.ViewModels
 
         private void SaveClientExecute(object obj)
         {
-            Model.SaveClient(Client, _oldTel);
-            //var res = Model.SaveClient(Client, _oldTel);
-            //if (res == 1)
-            //{
+            var res = Model.SaveClient(Client, _oldTel);
+            if (res == 1)
+            {
                 MessageBox.Show("Інформацію змінено.");
                 Model.GoBack();
-            //}
+            }
+            else if(res == 2)
+            {
+                MessageBox.Show("Клієнт з таким номером телефону вже є.", "Помилка");
+                Model.GoBack();
+            }
 
-            //else MessageBox.Show("Не вдалося зберегти клієнта.", "Помилка");
+            else MessageBox.Show("Не вдалося зберегти клієнта.", "Помилка");
         }
         #endregion
 
