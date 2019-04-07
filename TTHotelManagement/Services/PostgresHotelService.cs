@@ -28,14 +28,17 @@ namespace TTHotel.API.Services
             var fromStr = from.ToPostgresDateFormat();
             var toStr = to.ToPostgresDateFormat();
             var res =   "SELECT rooms.room_num, room_floor, start_date, end_date, book_state, book_num, " +
-                        "(price_period+sum_fees-payed) AS debt " +
+                        "(price_period * (1 - (" +
+                            "SELECT discount " +
+                            "FROM clients " +
+                            "WHERE tel_num = B.tel_num)/100.0) + sum_fees-payed) AS debt " +
                         "FROM ( " +
                             "select * " +
                             "FROM bookings " +
                             $"WHERE (end_date BETWEEN {fromStr} AND {toStr} " +
                             $"OR start_date BETWEEN {fromStr} AND {toStr}) " +
                             $"AND book_state <> 'canceled' " +
-                              ") AS B RIGHT OUTER JOIN rooms ON B.room_num = rooms.room_num " +
+                                ") AS B RIGHT OUTER JOIN rooms ON B.room_num = rooms.room_num " +
                         "ORDER BY room_num, start_date; ";
             return res;
         }
