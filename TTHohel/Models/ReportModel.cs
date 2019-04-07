@@ -91,7 +91,14 @@ namespace TTHohel.Models
 
             //Save the document
             document.Activate();
-            document.Save();
+            try
+            {
+                document.Save();
+            }
+            catch(Exception)
+            {
+
+            }
             document.Close(ref missing, ref missing, ref missing);
             winword.Quit(ref missing, ref missing, ref missing);
         }
