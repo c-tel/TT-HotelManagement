@@ -67,7 +67,7 @@
 
                             <Label Grid.Row="3" Grid.Column="0" Margin="40,5,0,5" Content="Телефон:" FontSize="16" HorizontalContentAlignment="Left"/>
                             <TextBox Grid.Row="3" Grid.Column="1"
-                                 Text="{Binding Personnel.TelNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding Personnel.TelNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="4" Grid.Column="0" Margin="40,5,0,5" Content="Паспорт:" FontSize="16" HorizontalContentAlignment="Left"/>
                             <TextBox Grid.Row="4" Grid.Column="1"
