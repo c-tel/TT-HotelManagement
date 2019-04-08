@@ -54,7 +54,7 @@ namespace TTHotel.API.Services
             return $"INSERT INTO personnel " +
                    $"VALUES ('{user.EmplBook}', '{user.TelNumber}', '{user.Passport}', '{user.Name}', '{user.Surname}', " +
                    $"        '{user.Patronym}', '{user.Role.ToString().ToLower()}', " +
-                   $"         {DateTime.Now.ToPostgresDateFormat()}, null, '{user.Login}', '{Hash(user.Password)}');";
+                   $"         {DateTime.Now.AddHours(3).ToPostgresDateFormat()}, null, '{user.Login}', '{Hash(user.Password)}');";
         }
 
         private static string IdentifyQuery(string personBookNum)
@@ -92,7 +92,7 @@ namespace TTHotel.API.Services
         private static string SettleQuery(int bookId, string persBook)
         {
             return "UPDATE bookings " +
-                   $"SET start_date_real = { DateTime.Now.ToPostgresTimestampFormat() }, " +
+                   $"SET start_date_real = { DateTime.Now.AddHours(3).ToPostgresTimestampFormat() }, " +
                        $"book_state = 'settled', " +
                        $"pers_settled = '{persBook}' " +
                    $"WHERE book_num = {bookId};";
@@ -101,7 +101,7 @@ namespace TTHotel.API.Services
         private static string CloseQuery(int bookId)
         {
             return "UPDATE bookings " +
-                   $"SET end_date_real = { DateTime.Now.ToPostgresTimestampFormat() } " +
+                   $"SET end_date_real = { DateTime.Now.AddHours(3).ToPostgresTimestampFormat() } " +
                    $"WHERE book_num = {bookId};";
         }
 
@@ -122,7 +122,7 @@ namespace TTHotel.API.Services
         private static string AddPaymentQuery(int bookingId, PaymentTypes paymentType, double amount)
         {
             return "INSERT INTO payments (payment_type, payment_date, amount, book_num) " +
-                   $"VALUES ('{paymentType.ToString().ToLower()}', {DateTime.Now.ToPostgresTimestampFormat()}, {amount}, {bookingId})";
+                   $"VALUES ('{paymentType.ToString().ToLower()}', {DateTime.Now.AddHours(3).ToPostgresTimestampFormat()}, {amount}, {bookingId})";
         }
 
         private static string ReportQuery(DateTime date)
@@ -471,7 +471,6 @@ namespace TTHotel.API.Services
             IEnumerable<T> result;
             var conn = new NpgsqlConnection(_builder.ToString())
             {
-                // dirty hack. must be removed later
                 UserCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
             };
             using (conn)
