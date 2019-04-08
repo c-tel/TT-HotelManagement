@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
+using TTHotel.Contracts;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Cleanings;
 using TTHotel.Contracts.Clients;
 using TTHotel.Contracts.Payments;
 using TTHotel.Contracts.Rooms;
@@ -38,7 +40,7 @@ namespace TTHotel.API.Services
         IEnumerable<RoomStatisticsDTO> GetRoomStats(DateTime from, DateTime to);
         RoomDTO GetRoom(int roomNum);
         void CreateRoom(RoomCreateDTO room);
-
+        IEnumerable<CleaningDTO> GetCleanings();
         //clients
         IEnumerable<ClientDTO> GetClients();
         IEnumerable<ClientAnalisedDTO> GetClientAnalytics();

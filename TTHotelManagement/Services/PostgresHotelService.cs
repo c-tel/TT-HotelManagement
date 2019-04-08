@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.DBEntities;
 using TTHotel.API.Helpers;
+using TTHotel.Contracts;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Cleanings;
 using TTHotel.Contracts.Clients;
 using TTHotel.Contracts.Payments;
 using TTHotel.Contracts.Rooms;
@@ -234,6 +236,17 @@ namespace TTHotel.API.Services
             return "SELECT special_comfort " +
                    "FROM comforts_room " +
                    $"WHERE room_num = {room}";
+        }
+
+        private static string CleaningsQuery()
+        {
+            return "SELECT room_num, (date(now()) - date(start_date_real)) % 3 = 0 AS with_linen " +
+                    "FROM bookings " +
+                    "WHERE date(now()) BETWEEN start_date AND end_date " +
+                               "AND start_date_real IS NOT NULL AND end_date_real IS NULL " +
+                               "AND room_num NOT IN(SELECT room_num " +
+                                                    "FROM cleanings " +
+                                                    "WHERE date(completed) = date(now()));";
         }
 
         #endregion
@@ -475,6 +488,19 @@ namespace TTHotel.API.Services
         public IEnumerable<RoomStatisticsDTO> GetRoomStats(DateTime from, DateTime to)
         {
             return QueryInternal<RoomStatisticsDTO>(RoomStatisticsQuery(from, to));
+        }
+
+        public IEnumerable<CleaningDTO> GetCleanings()
+        {
+            var ongoing = QueryInternal<CleaningsQueryRes>(CleaningsQuery());
+            var ongoingDTOs = ongoing.Select(c => new CleaningDTO
+            {
+                RoomNum = c.Room_num,
+                Type = c.With_linen ? CleaningTypes.WithLinen : CleaningTypes.Common
+            });
+
+
+            return ongoingDTOs;
         }
 
         #region WRAPPERS
