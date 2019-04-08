@@ -15,5 +15,8 @@ namespace TTHotel.Contracts.Auth
 
         [JsonConverter(typeof(StringEnumConverter))]
         public UserRoles Role { get; set; }
+
+        public string Login { get; set; }
+        public string Password { get; set; }
     }
 }
