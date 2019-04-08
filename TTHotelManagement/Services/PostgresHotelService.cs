@@ -262,6 +262,22 @@ namespace TTHotel.API.Services
                                                     "WHERE date(completed) = date(now()));";
         }
 
+        private static string DirtyRoomsQuery()
+        {
+            return  "SELECT room_num " +
+                    "FROM rooms " +
+                    "WHERE room_num IN(SELECT room_num " +
+                                      "FROM bookings " +
+                                      "WHERE end_date_real IS NOT NULL) " +
+                          "AND NOT EXISTS(SELECT * " +
+                                         "FROM cleanings " +
+                                         "WHERE rooms.room_num = room_num " +
+                                             "AND completed > (SELECT MAX(end_date_real) " +
+                                                            "FROM bookings " +
+                                                            "WHERE room_num = cleanings.room_num)); ";
+        }
+
+
         #endregion
 
 
@@ -521,9 +537,14 @@ namespace TTHotel.API.Services
                 RoomNum = c.Room_num,
                 Type = c.With_linen ? CleaningTypes.WithLinen : CleaningTypes.Common
             });
+            var dirtyroomnums = QueryInternal<int>(DirtyRoomsQuery());
 
 
-            return ongoingDTOs;
+            return ongoingDTOs.Union(dirtyroomnums.Select(n => new CleaningDTO
+            {
+                RoomNum = n,
+                Type = CleaningTypes.Unsettle
+            })).OrderBy(c => c.RoomNum);
         }
 
         #region WRAPPERS
