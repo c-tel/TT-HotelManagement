@@ -30,6 +30,12 @@ namespace TTHotel.API.Controllers
             return _hotelService.GetClientAnalytics();
         }
 
+        [HttpGet("suit")]
+        public IEnumerable<ClientDTO> GetClientSuit()
+        {
+            return _hotelService.GetClientSuit();
+        }
+
         [HttpGet("{telnum}")]
         public ClientDTO Get([FromRoute] string telnum)
         {

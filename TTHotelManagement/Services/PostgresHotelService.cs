@@ -149,6 +149,19 @@ namespace TTHotel.API.Services
                    "ORDER BY sum_payed DESC; ";
         }
 
+        private static string ClientsSuitQuery()
+        {
+            return "SELECT clients.tel_num, clients.cl_name, clients.surname " +
+                   "FROM clients " +
+                   "WHERE tel.num IN (SELECT cl_tel_num " +
+                                     "FROM bookings) AND NOT EXISTS (SELECT * " +
+                                                                    "FROM bookings " +
+                                                                    "WHERE cl_tel_num = clients.tel_num AND " +
+                                                                        "room_num NOT IN (SELECT room_num " +
+                                                                                         "FROM rooms " +
+                                                                                         "WHERE type_name = 'luxe'));";
+        }
+
         private static string ClientQuery(string telNum)
         {
             return "SELECT * " +
@@ -436,7 +449,17 @@ namespace TTHotel.API.Services
             });
         }
 
-        
+        public IEnumerable<ClientDTO> GetClientSuit()
+        {
+            return QueryInternal<ClientsSuitQueryRes>(ClientsSuitQuery()).Select(c => new ClientDTO
+            {
+                Name = c.Cl_name,
+                Surname = c.Surname,
+                TelNum = c.Tel_num
+            });
+        }
+
+
 
         public ClientDTO GetClient(string telnum)
         {

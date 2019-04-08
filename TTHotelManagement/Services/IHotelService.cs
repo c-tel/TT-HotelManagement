@@ -47,5 +47,6 @@ namespace TTHotel.API.Services
         ClientDTO GetClient(string telnum);
         void CreateClient(ClientDTO toCreate);
         void UpdateClient(ClientDTO client, string telnum);
+        IEnumerable<ClientDTO> GetClientSuit();
     }
 }
