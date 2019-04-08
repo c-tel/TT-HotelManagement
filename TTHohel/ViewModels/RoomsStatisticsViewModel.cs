@@ -13,8 +13,8 @@ namespace TTHohel.ViewModels
     {
         public RoomsStatisticsViewModel()
         {
-            DateFrom = DateTime.Now;
-            DateTo = DateTime.Now.AddDays(-7);
+            DateTo = DateTime.Now;
+            DateFrom = DateTime.Now.AddDays(-7);
             Model = new RoomStatisticsModel();
             RefreshStats();
         }

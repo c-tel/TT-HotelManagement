@@ -10,14 +10,15 @@
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
             <DatePicker Name="DateFrom" FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}"></DatePicker>
             <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}"></DatePicker>
-            <Button  Height="26" FontSize="14" Background="#2DA46F" Command="{Binding RefreshCommand}">Оновити</Button>
         </StackPanel>
-        <DataGrid DockPanel.Dock="Top" AutoGenerateColumns="False" FontSize="14"
-                        ItemsSource="{Binding RoomStatistics}"
-                        IsReadOnly="True" Background="Transparent">
-            <DataGrid.Columns>
-                <DataGridTextColumn/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <ListView ItemsSource="{Binding Statistics}" Height="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Width="200">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Type}">Тип</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Num}">Найприбутковіший номер</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </DockPanel>
 </UserControl>

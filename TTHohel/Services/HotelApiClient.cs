@@ -163,6 +163,15 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<List<RoomDTO>>().Result;
         }
 
+        public List<RoomStatisticsDTO> GetRoomsStats(DateTime from, DateTime to)
+        {
+            var route = $"api/rooms/statistics?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}";
+            var resp = Client.GetAsync(route).Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<List<RoomStatisticsDTO>>().Result;
+        }
+
         public bool CreateBooking(DateTime from, DateTime to, int bookedRoomNum, string clientTel, string bookComment)
         {
             var booking = new BookingCreateDTO
