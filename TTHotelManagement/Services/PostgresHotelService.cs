@@ -49,11 +49,19 @@ namespace TTHotel.API.Services
                         $"WHERE login ='{login}' AND pwd = '{pwdHash}'";
         }
 
+        private static string RegisterQuery(UserCreateDTO user)
+        {
+            return $"SELECT INTO personnel " +
+                   $"VALUES ('{user.EmplBook}', '{user.TelNumber}', '{user.Passport}', '{user.Name}', '{user.Surname}'" +
+                   $"        '{user.Patronym}', '{user.Role.ToString().ToLower()}', {DateTime.Now.ToPostgresDateFormat()}, null, '{user}')";
+        }
+
         private static string IdentifyQuery(string personBookNum)
         {
             return $"SELECT * FROM personnel " +
                    $"WHERE book_num ='{personBookNum}';";
         }
+
 
         private static string BookingByIdQuery(int id)
         {

@@ -15,6 +15,7 @@ namespace TTHotel.API.Services
     {
         // users
         UserDTO GetUser(string login, string pwd);
+        UserDTO GetUser(string emplBook);
 
         // bookings
         List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to);

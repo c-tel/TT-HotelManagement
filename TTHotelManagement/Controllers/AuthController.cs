@@ -32,5 +32,15 @@ namespace TTHotel.API.Controllers
             };
         }
 
+        [HttpPost()]
+        public IActionResult Register(UserCreateDTO user)
+        {
+            var conf = _hotelService.GetUser(user.EmplBook);
+            if (conf != null)
+                return Conflict();
+
+            return NoContent();
+        }
+
     }
 }
