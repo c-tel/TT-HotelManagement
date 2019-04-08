@@ -37,6 +37,7 @@ namespace TTHotel.API.Services
         IEnumerable<RoomDTO> GetRooms(DateTime? availiableFrom, DateTime? availiableTo, int guests);
         IEnumerable<RoomStatisticsDTO> GetRoomStats(DateTime from, DateTime to);
         RoomDTO GetRoom(int roomNum);
+        void CreateRoom(RoomCreateDTO room);
 
         //clients
         IEnumerable<ClientDTO> GetClients();

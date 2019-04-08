@@ -173,6 +173,13 @@ namespace TTHotel.API.Services
                    $"WHERE tel_num = '{telnum}'; ";
         }
 
+        private static string CreateRoomQuery(RoomCreateDTO room)
+        {
+            return "INSERT INTO rooms " +
+                   $"VALUES ({room.Num}, { room.Floor }, {room.Places}, " +
+                           $"{room.Price}, '{room.Type.ToString().ToLower()}');";
+        }
+
         private static string AvailiableRoomsQuery(DateTime availiableFrom, DateTime availiableTo, int guests)
         {
             return "SELECT * " +
@@ -460,6 +467,11 @@ namespace TTHotel.API.Services
             return MapToRoom(room).GetAwaiter().GetResult();
         }
 
+        public void CreateRoom(RoomCreateDTO room)
+        {
+            ExecuteInternal(CreateRoomQuery(room));
+        }
+
         public IEnumerable<RoomStatisticsDTO> GetRoomStats(DateTime from, DateTime to)
         {
             return QueryInternal<RoomStatisticsDTO>(RoomStatisticsQuery(from, to));
@@ -557,6 +569,8 @@ namespace TTHotel.API.Services
 
         private async Task<RoomDTO> MapToRoom(Room room)
         {
+            if (room == null)
+                return null;
             return new RoomDTO
             {
                 Num = room.Room_num,

@@ -36,5 +36,13 @@ namespace TTHotel.API.Controllers
             return new ActionResult<RoomDTO>(_hotelService.GetRoom(num));
         }
 
+        [HttpPost()]
+        public IActionResult Create([FromBody] RoomCreateDTO room)
+        {
+            if (_hotelService.GetRoom(room.Num) != null)
+                return Conflict();
+            _hotelService.CreateRoom(room);
+            return NoContent();
+        }
     }
 }
