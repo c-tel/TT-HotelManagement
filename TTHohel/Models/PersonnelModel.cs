@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TTHohel.Manager;
+﻿using TTHohel.Manager;
+using TTHohel.Services;
+using TTHotel.Contracts.Auth;
 
 namespace TTHohel.Models
 {
@@ -12,6 +9,21 @@ namespace TTHohel.Models
         public void GoBack()
         {
             NavigationManager.Instance.Navigate(ModesEnum.Settings);
+        }
+
+        public int CreateNewPersonnel(UserCreateDTO user)
+        {
+            var res = HotelApiClient.GetInstance().CreatePersonnel(user);
+
+            if (res == System.Net.HttpStatusCode.NoContent)
+            {
+                //Storage.Instance.ChangeAllClients(clientDTO);
+                return 1;
+            }
+            if (res == System.Net.HttpStatusCode.Conflict)
+                return 2;
+
+            return 0;
         }
     }
 }

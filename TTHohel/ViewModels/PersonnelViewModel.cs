@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using TTHohel.Models;
@@ -20,7 +18,7 @@ namespace TTHohel.ViewModels
 
         private UserRoles _selectedRole;
 
-        private UserDTO _personnel;
+        private UserCreateDTO _personnel;
 
         private PersonnelModel Model { get; }
 
@@ -32,12 +30,12 @@ namespace TTHohel.ViewModels
         {
             Model = new PersonnelModel();
 
-            Personnel = new UserDTO();
+            Personnel = new UserCreateDTO();
             
         }
 
         #region Properties
-        public UserDTO Personnel
+        public UserCreateDTO Personnel
         {
             get { return _personnel; }
             set
@@ -144,28 +142,22 @@ namespace TTHohel.ViewModels
 
         private bool AddPersonnelCanExecute(object obj)
         {
-            return !(string.IsNullOrEmpty(Personnel.Name) ||
-                    string.IsNullOrEmpty(Personnel.Surname) ||
-                    string.IsNullOrEmpty(Personnel.EmplBook) ||
-                    string.IsNullOrEmpty(Personnel.Patronym) ||
-                    string.IsNullOrEmpty(Personnel.TelNumber) ||
-                    string.IsNullOrEmpty(Password) ||
-                    string.IsNullOrEmpty(Login));
+            return true;
         }
 
         private void AddPersonnelExecute(object obj)
         {
-            //var res = Model.CreateNewClient(Client);
-            //if (res == 1)
-            //{
-            //    MessageBox.Show("Персонал створено.");
-            //    Model.GoBack();
-            //}
-            //else if (res == 2)
-            //{
-            //    MessageBox.Show("Персонал з такою трудовою книжкою вже є!", "Помилка");
-            //}
-            //else MessageBox.Show("Не вдалося створити клієнта", "Помилка");
+            var res = Model.CreateNewPersonnel(Personnel);
+            if (res == 1)
+            {
+                MessageBox.Show("Персонал створено.");
+                Model.GoBack();
+            }
+            else if (res == 2)
+            {
+                MessageBox.Show("Персонал з такою трудовою книжкою вже є!", "Помилка");
+            }
+            else MessageBox.Show("Не вдалося створити клієнта", "Помилка");
         }
 
         #endregion

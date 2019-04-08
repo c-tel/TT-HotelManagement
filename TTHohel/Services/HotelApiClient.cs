@@ -154,6 +154,13 @@ namespace TTHohel.Services
             return resp.StatusCode;
         }
 
+        public System.Net.HttpStatusCode CreatePersonnel(UserCreateDTO user)
+        {
+            var resp = Client.PostAsJsonAsync("api/auth", user).Result;
+
+            return resp.StatusCode;
+        }
+
         public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to, int places)
         {
             var route = $"api/rooms?from={ToQueryArgument(from)}&to={ToQueryArgument(to)}&guests={places}";
