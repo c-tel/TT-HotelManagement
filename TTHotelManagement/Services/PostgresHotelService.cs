@@ -51,7 +51,7 @@ namespace TTHotel.API.Services
 
         private static string RegisterQuery(UserCreateDTO user)
         {
-            return $"SELECT INTO personnel " +
+            return $"INSERT INTO personnel " +
                    $"VALUES ('{user.EmplBook}', '{user.TelNumber}', '{user.Passport}', '{user.Name}', '{user.Surname}'" +
                    $"        '{user.Patronym}', '{user.Role.ToString().ToLower()}', " +
                    $"         {DateTime.Now.ToPostgresDateFormat()}, null, '{user.Login}', '{Hash(user.Password)}');";
