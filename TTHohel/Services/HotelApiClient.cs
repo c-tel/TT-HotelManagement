@@ -147,6 +147,13 @@ namespace TTHohel.Services
             return resp.StatusCode;
         }
 
+        public System.Net.HttpStatusCode CreateRoom(RoomCreateDTO room)
+        {
+            var resp = Client.PostAsJsonAsync("api/rooms", room).Result;
+
+            return resp.StatusCode;
+        }
+
         public System.Net.HttpStatusCode UpdateClient(ClientDTO clientDTO, string oldNum)
         {
             var resp = Client.PutAsJsonAsync($"api/clients/{oldNum.TrimStart('+')}", clientDTO).Result;

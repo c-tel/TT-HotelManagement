@@ -9,6 +9,7 @@ namespace TTHohel.ViewModels
     {
         private ICommand _backCommand;
         private ICommand _addPersonnelCommand;
+        private ICommand _addRoomCommand;
 
         public SettingsModel Model { get; private set; }
 
@@ -69,6 +70,33 @@ namespace TTHohel.ViewModels
         private void AddPersonnelExecute(object obj)
         {
             Model.AddPersonnel();
+        }
+
+        public ICommand AddRoomCommand
+        {
+            get
+            {
+                if (_addRoomCommand == null)
+                {
+                    _addRoomCommand = new RelayCommand<object>(AddRoomExecute, AddRoomCanExecute);
+                }
+                return _addRoomCommand;
+            }
+            set
+            {
+                _addRoomCommand = value;
+                InvokePropertyChanged(nameof(AddRoomCommand));
+            }
+        }
+
+        private bool AddRoomCanExecute(object obj)
+        {
+            return true;
+        }
+
+        private void AddRoomExecute(object obj)
+        {
+            Model.AddRoom();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

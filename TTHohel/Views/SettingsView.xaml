@@ -43,7 +43,8 @@
                     </StackPanel>
                     <TextBlock Foreground="WhiteSmoke" Text="Налаштування номерів" HorizontalAlignment="Center" FontSize="17" FontWeight="DemiBold" Margin="0 0 0 10"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" >
-                        <Button Style="{StaticResource BtnMenuStyle}" Background="#17A210">Додати</Button>
+                        <Button Style="{StaticResource BtnMenuStyle}" Background="#17A210"
+                                Command="{Binding AddRoomCommand}">Додати</Button>
                         <Button Style="{StaticResource BtnMenuStyle}">Редагувати</Button>
                         <Button Style="{StaticResource BtnMenuStyle}" Background="#A3150A">Видалити</Button>
                     </StackPanel>

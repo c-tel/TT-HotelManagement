@@ -14,5 +14,10 @@ namespace TTHohel.Models
         {
             NavigationManager.Instance.Navigate(ModesEnum.Personnel);
         }
+
+        public void AddRoom()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Room);
+        }
     }
 }

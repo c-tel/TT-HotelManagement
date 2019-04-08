@@ -8,7 +8,11 @@ namespace TTHohel.Contracts.Bookings
 {
     public enum RoomType
     {
-        Standard, Econom, Luxe, Studio, Apartments
+        Standard,
+        Econom,
+        Luxe,
+        Studio,
+        Apartments
     }
 
     public enum RoomDailyStatus

@@ -122,6 +122,7 @@
     <Compile Include="Models\ReportItemModel.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\RightsEnum.cs" />
+    <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\RoomStatisticsModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\StatisticModel.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="ViewModels\PersonnelViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\RoomsStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\RoomViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="Views\AddBookingView.xaml.cs">
@@ -177,6 +179,9 @@
     </Compile>
     <Compile Include="Views\RoomStatisticsView.xaml.cs">
       <DependentUpon>RoomStatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RoomView.xaml.cs">
+      <DependentUpon>RoomView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -232,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RoomStatisticsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RoomView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
