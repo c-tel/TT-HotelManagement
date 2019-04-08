@@ -38,7 +38,7 @@ namespace TTHotel.API.Controllers
             var conf = _hotelService.GetUser(user.EmplBook);
             if (conf != null)
                 return Conflict();
-            Register(user);
+            _hotelService.Register(user);
             return NoContent();
         }
 
