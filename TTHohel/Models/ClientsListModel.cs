@@ -36,6 +36,11 @@ namespace TTHohel.Models
             return HotelApiClient.GetInstance().GetAnalisedClients();
         }
 
+        public List<ClientDTO> GetClientsSuitList()
+        {
+            return HotelApiClient.GetInstance().GetAnalisedSuitClients();
+        }
+
         public void GoToClient(ClientAnalisedDTO selectedClient)
         {
             var client = HotelApiClient.GetInstance().GetClient(selectedClient.TelNum);

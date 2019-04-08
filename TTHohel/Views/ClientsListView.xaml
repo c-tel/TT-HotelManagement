@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -47,6 +46,17 @@
                 <DataGridTextColumn Header="Знижка" Binding="{Binding Discount, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
-
+        <DataGrid DockPanel.Dock="Bottom"
+                  HorizontalAlignment="Center"
+                  AutoGenerateColumns="False"
+                  Width="400" FontSize="16" Margin="0 0 0 10"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding ClientsSuitList}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер телефону" Binding="{Binding TelNum, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Ім'я" Binding="{Binding Name, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Прізвище" Binding="{Binding Surname, Mode=OneWay}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </DockPanel>
 </UserControl>

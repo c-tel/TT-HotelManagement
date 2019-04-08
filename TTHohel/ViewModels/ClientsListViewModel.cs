@@ -17,9 +17,11 @@ namespace TTHohel.ViewModels
         private string _clientsFilter;
 
         private ClientAnalisedDTO _selectedClient;
+        private ClientDTO _selectedSuitClient;
         private DataGridCellInfo _cellInfo;
 
         private List<ClientAnalisedDTO> _clientsList;
+        private List<ClientDTO> _clientsSuitList;
         private List<ClientAnalisedDTO> _filteredClientsList;
 
         private ClientsListModel Model { get; }
@@ -30,6 +32,8 @@ namespace TTHohel.ViewModels
         {
             Model = new ClientsListModel();
             ClientsList = Model.GetClientsList();
+            ClientsSuitList = Model.GetClientsSuitList();
+
             Model.AllClientsChanged += OnClientsChanged;
         }
 
@@ -75,6 +79,16 @@ namespace TTHohel.ViewModels
             {
                 _clientsList = value;
                 RefreshFilteredClients();
+                InvokePropertyChanged(nameof(ClientsList));
+            }
+        }
+
+        public List<ClientDTO> ClientsSuitList
+        {
+            get { return _clientsSuitList; }
+            set
+            {
+                _clientsSuitList = value;
                 InvokePropertyChanged(nameof(ClientsList));
             }
         }
