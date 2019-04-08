@@ -153,7 +153,7 @@ namespace TTHotel.API.Services
         {
             return "SELECT clients.tel_num, clients.cl_name, clients.surname " +
                    "FROM clients " +
-                   "WHERE tel.num IN (SELECT cl_tel_num " +
+                   "WHERE tel_num IN (SELECT cl_tel_num " +
                                      "FROM bookings) AND NOT EXISTS (SELECT * " +
                                                                     "FROM bookings " +
                                                                     "WHERE cl_tel_num = clients.tel_num AND " +
