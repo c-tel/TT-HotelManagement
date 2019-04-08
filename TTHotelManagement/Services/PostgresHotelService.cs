@@ -53,7 +53,8 @@ namespace TTHotel.API.Services
         {
             return $"SELECT INTO personnel " +
                    $"VALUES ('{user.EmplBook}', '{user.TelNumber}', '{user.Passport}', '{user.Name}', '{user.Surname}'" +
-                   $"        '{user.Patronym}', '{user.Role.ToString().ToLower()}', {DateTime.Now.ToPostgresDateFormat()}, null, '{user}')";
+                   $"        '{user.Patronym}', '{user.Role.ToString().ToLower()}', " +
+                   $"         {DateTime.Now.ToPostgresDateFormat()}, null, '{user.Login}', '{Hash(user.Password)}');";
         }
 
         private static string IdentifyQuery(string personBookNum)
@@ -275,6 +276,11 @@ namespace TTHotel.API.Services
                 Role = qRes.Pers_role,
                 Surname = qRes.Surname
             };
+        }
+
+        public void Register(UserCreateDTO user)
+        {
+            ExecuteInternal(RegisterQuery(user));
         }
 
         #region BOOKINGS
