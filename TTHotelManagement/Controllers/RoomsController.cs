@@ -24,6 +24,12 @@ namespace TTHotel.API.Controllers
             return new ActionResult<IEnumerable<RoomDTO>>(_hotelService.GetRooms(from, to, guests));
         }
 
+        [HttpGet("statistics")]
+        public ActionResult<IEnumerable<RoomStatisticsDTO>> Statistics([FromQuery] DateTime from, [FromQuery] DateTime to)
+        {
+            return new ActionResult<IEnumerable<RoomStatisticsDTO>>(_hotelService.GetRoomStats(from, to));
+        }
+
         [HttpGet("{num}")]
         public ActionResult<RoomDTO> Room([FromRoute] int num)
         {

@@ -182,7 +182,21 @@ namespace TTHotel.API.Services
 
         private static string RoomStatisticsQuery(DateTime from, DateTime to)
         {
-            return null;
+            var fromstr = from.ToPostgresDateFormat();
+            var tostr = to.ToPostgresDateFormat();
+            return "SELECT type_name AS type, room_num AS num " +
+                    "FROM rooms AS R " +
+                    "WHERE(SELECT sum(price_period) " +
+                           "FROM bookings " +
+                           "WHERE room_num = R.room_num " +
+                                   $"AND(start_date BETWEEN {fromstr} AND {tostr} " +
+                                        $"OR end_date BETWEEN {fromstr} AND {tostr})) = (SELECT MAX(sum_payed) " +
+                                                                                             "FROM(SELECT bookings.room_num, SUM(price_period) as sum_payed " +
+                                                                                                    "FROM bookings INNER JOIN rooms ON bookings.room_num = rooms.room_num " +
+                                                                                                    "WHERE rooms.type_name = R.type_name " +
+                                                                                                        $"AND(start_date BETWEEN {fromstr} AND {tostr} " +
+                                                                                                                 $"OR end_date BETWEEN {fromstr} AND {tostr}) " +
+                                                                                                    "GROUP BY bookings.room_num) AS X);";
         }
 
         private static string AllRoomsQuery(int guests)
@@ -430,6 +444,11 @@ namespace TTHotel.API.Services
             string sql = RoomQuery(roomNum);
             var room = QuerySingleOrDefaultInternal<Room>(sql);
             return MapToRoom(room).GetAwaiter().GetResult();
+        }
+
+        public IEnumerable<RoomStatisticsDTO> GetRoomStats(DateTime from, DateTime to)
+        {
+            return QueryInternal<RoomStatisticsDTO>(RoomStatisticsQuery(from, to));
         }
 
         #region WRAPPERS

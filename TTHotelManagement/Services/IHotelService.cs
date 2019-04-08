@@ -33,6 +33,7 @@ namespace TTHotel.API.Services
 
         // rooms
         IEnumerable<RoomDTO> GetRooms(DateTime? availiableFrom, DateTime? availiableTo, int guests);
+        IEnumerable<RoomStatisticsDTO> GetRoomStats(DateTime from, DateTime to);
         RoomDTO GetRoom(int roomNum);
 
         //clients
