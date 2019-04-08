@@ -1,4 +1,5 @@
-﻿using TTHohel.Manager;
+﻿using System;
+using TTHohel.Manager;
 
 namespace TTHohel.Models
 {
@@ -7,6 +8,11 @@ namespace TTHohel.Models
         public void GoToMain()
         {
             NavigationManager.Instance.Navigate(ModesEnum.Main);
+        }
+
+        public void AddPersonnel()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.Personnel);
         }
     }
 }

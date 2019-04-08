@@ -117,6 +117,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\PayModel.cs" />
+    <Compile Include="Models\PersonnelModel.cs" />
     <Compile Include="Models\ReportItemModel.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\RightsEnum.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PayViewModel.cs" />
+    <Compile Include="ViewModels\PersonnelViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\RoomsStatisticsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -165,6 +167,9 @@
     </Compile>
     <Compile Include="Views\PayView.xaml.cs">
       <DependentUpon>PayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PersonnelView.xaml.cs">
+      <DependentUpon>PersonnelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ReportView.xaml.cs">
       <DependentUpon>ReportView.xaml</DependentUpon>
@@ -214,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PersonnelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
