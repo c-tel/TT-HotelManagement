@@ -31,12 +31,17 @@ namespace TTHohel.ViewModels
         public ClientsListViewModel()
         {
             Model = new ClientsListModel();
-            ClientsList = Model.GetClientsList();
-            ClientsSuitList = Model.GetClientsSuitList();
+            Init();
 
             Model.AllClientsChanged += OnClientsChanged;
+            Model.BookingsChanged += Init;
         }
 
+        private void Init()
+        {
+            ClientsList = Model.GetClientsList();
+            ClientsSuitList = Model.GetClientsSuitList();
+        }
 
         #region Properties
         public DataGridCellInfo CellInfo
@@ -139,7 +144,7 @@ namespace TTHohel.ViewModels
 
         private void OnClientsChanged(ClientDTO clientDTO)
         {
-            ClientsList = Model.GetClientsList();
+            Init();
             SelectedClient = FilteredClientsList.FirstOrDefault(x => x.TelNum == clientDTO.TelNum);
         }
 

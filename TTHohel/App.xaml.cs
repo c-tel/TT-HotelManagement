@@ -12,10 +12,10 @@ namespace TTHohel
     /// </summary>
     public partial class App : Application
     {
-        public static readonly Credentials AUTHORIZATION_STUB = new Credentials { Login = "admin1", Password = "admin1" };
+        //public static readonly Credentials AUTHORIZATION_STUB = new Credentials { Login = "admin1", Password = "admin1" };
         
         // uncomment for prod
-        // public static readonly Credentials AUTHORIZATION_STUB = null;
+        public static readonly Credentials AUTHORIZATION_STUB = null;
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
