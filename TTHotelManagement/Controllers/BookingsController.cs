@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using TTHohel.Contracts.Bookings;
 using TTHotel.API.Services;
 using TTHotel.Contracts.Bookings;
@@ -19,10 +20,13 @@ namespace TTHotel.API.Controllers
     {
         private IHotelService _hotelService;
         private IAuthService _authService;
-        public BookingsController(IHotelService hotelService, IAuthService authService)
+        private ILoggerFactory _logerFactory;
+        
+        public BookingsController(IHotelService hotelService, IAuthService authService, ILoggerFactory logerFactory)
         {
             _hotelService = hotelService;
             _authService = authService;
+            _logerFactory = logerFactory;
         }
 
         [HttpGet()]
@@ -93,6 +97,8 @@ namespace TTHotel.API.Controllers
         [HttpPost()]
         public IActionResult Create([FromBody] BookingCreateDTO booking)
         {
+            var _ = _logerFactory.CreateLogger("Startup");
+            _.LogWarning(booking.StartDate.ToString());
             if (!Request.Cookies.ContainsKey("sessid"))
                 return BadRequest();
             var sessid = Request.Cookies["sessid"];
