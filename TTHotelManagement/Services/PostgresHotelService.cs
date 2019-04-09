@@ -202,10 +202,10 @@ namespace TTHotel.API.Services
                    "WHERE NOT EXISTS(SELECT * " +
                                     "FROM bookings " +
                                     "WHERE rooms.room_num = room_num " +
-                                           $"AND({availiableFrom.ToPostgresDateFormat()} BETWEEN start_date AND end_date " +
-                                               $"OR {availiableTo.ToPostgresDateFormat()} BETWEEN start_date AND end_date " +
+                                           $"AND({availiableFrom.ToPostgresDateFormat()} BETWEEN start_date AND (end_date - integer '1') " +
+                                               $"OR {availiableTo.ToPostgresDateFormat()} BETWEEN start_date AND (end_date - integer '1') " +
                                                $"OR start_date BETWEEN {availiableFrom.ToPostgresDateFormat()} AND {availiableTo.ToPostgresDateFormat()}" +
-                                               $"OR end_date BETWEEN {availiableFrom.ToPostgresDateFormat()} AND {availiableTo.ToPostgresDateFormat()})" +
+                                               $"OR (end_date - integer '1') BETWEEN {availiableFrom.ToPostgresDateFormat()} AND {availiableTo.ToPostgresDateFormat()})" +
                                             "AND book_state <> 'canceled') " +
                         $"AND room_places >= {guests} " +
                     $"ORDER BY room_num;";
