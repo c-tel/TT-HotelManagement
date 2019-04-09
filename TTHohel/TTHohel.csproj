@@ -129,6 +129,7 @@
     <Compile Include="Models\Storage.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Services\HotelApiClient.cs" />
+    <Compile Include="Tools\DataValidation.cs" />
     <Compile Include="Tools\EnumDescriptionConverter.cs" />
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\RoomsConverter.cs" />

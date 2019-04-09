@@ -31,7 +31,6 @@ namespace TTHohel.ViewModels
             Model = new PersonnelModel();
 
             Personnel = new UserCreateDTO();
-            
         }
 
         #region Properties
@@ -142,22 +141,25 @@ namespace TTHohel.ViewModels
 
         private bool AddPersonnelCanExecute(object obj)
         {
-            return true;
+            return !string.IsNullOrEmpty(Personnel.Name) &&
+                   !string.IsNullOrEmpty(Personnel.Surname) &&
+                   !string.IsNullOrEmpty(Personnel.Patronym) &&
+                   !string.IsNullOrEmpty(Personnel.TelNumber) &&
+                   !string.IsNullOrEmpty(Personnel.Passport) &&
+                   !string.IsNullOrEmpty(Personnel.EmplBook) &&
+                   !string.IsNullOrEmpty(Personnel.Login) &&
+                   !string.IsNullOrEmpty(Personnel.Password);
         }
 
         private void AddPersonnelExecute(object obj)
         {
             var res = Model.CreateNewPersonnel(Personnel, SelectedRole);
-            if (res == 1)
+            if (res == AddResult.Success)
             {
-                MessageBox.Show("Персонал створено.");
+                MessageBox.Show(res.GetDescription());
                 Model.GoBack();
             }
-            else if (res == 2)
-            {
-                MessageBox.Show("Персонал з такою трудовою книжкою вже є!", "Помилка");
-            }
-            else MessageBox.Show("Не вдалося створити клієнта", "Помилка");
+            else MessageBox.Show(res.GetDescription());
         }
 
         #endregion
