@@ -204,8 +204,8 @@ namespace TTHohel.Services
         {
             var booking = new BookingCreateDTO
             {
-                StartDate = from,
-                EndDate = to,
+                StartDate = from.AddHours(3),
+                EndDate = to.AddHours(3),
                 BookComment = bookComment,
                 BookedRoomNum = bookedRoomNum,
                 ClientTel = clientTel
