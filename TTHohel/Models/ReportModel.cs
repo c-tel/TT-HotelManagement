@@ -111,11 +111,7 @@ namespace TTHohel.Models
             var summary = firstTable.Rows.Add();
             summary.Cells.Merge();
             summary.Range.Text = $"Всього - {reportItemsList.Sum(i => i.Amount)} грн";
-            summaryCash.Cells[0].Alignment = WdRowAlignment.wdAlignRowRight;
-            summary.Alignment = WdRowAlignment.wdAlignRowRight;
-            summaryCard.Alignment = WdRowAlignment.wdAlignRowRight;
-
-
+            
             //Save the document
             document.Activate();
             try
