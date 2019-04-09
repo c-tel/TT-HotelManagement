@@ -147,7 +147,7 @@ namespace TTHohel.ViewModels
 
         private void AddPersonnelExecute(object obj)
         {
-            var res = Model.CreateNewPersonnel(Personnel);
+            var res = Model.CreateNewPersonnel(Personnel, SelectedRole);
             if (res == 1)
             {
                 MessageBox.Show("Персонал створено.");

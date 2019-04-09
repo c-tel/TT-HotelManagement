@@ -11,8 +11,9 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(ModesEnum.Settings);
         }
 
-        public int CreateNewPersonnel(UserCreateDTO user)
+        public int CreateNewPersonnel(UserCreateDTO user, UserRoles role)
         {
+            user.Role = role;
             var res = HotelApiClient.GetInstance().CreatePersonnel(user);
 
             if (res == System.Net.HttpStatusCode.NoContent)

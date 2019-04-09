@@ -17,7 +17,8 @@ namespace TTHohel.Models
         Report,
         Client,
         Personnel,
-        Room
+        Room,
+        Maid
     }
 
     public class NavigationModel
@@ -34,6 +35,7 @@ namespace TTHohel.Models
         private readonly StatisticView _statisticView;
         private readonly PersonnelView _personnelView;
         private readonly RoomView _roomView;
+        private readonly MaidMainView _maidMainView;
 
         public NavigationModel(ContentWindow contentWindow)
         {
@@ -49,6 +51,7 @@ namespace TTHohel.Models
             _statisticView = new StatisticView();
             _personnelView = new PersonnelView();
             _roomView = new RoomView();
+            _maidMainView = new MaidMainView();
         }
 
         public void Navigate(ModesEnum mode)
@@ -87,6 +90,9 @@ namespace TTHohel.Models
                     break;
                 case ModesEnum.Room:
                     _contentWindow.ContentControl.Content = _roomView;
+                    break;
+                case ModesEnum.Maid:
+                    _contentWindow.ContentControl.Content = _maidMainView;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

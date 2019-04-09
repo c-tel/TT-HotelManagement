@@ -10,7 +10,8 @@ namespace TTHohel.Models
         public static Dictionary<UserRoles, RightsEnum> RightsDictionary = new Dictionary<UserRoles, RightsEnum>
         {
             {UserRoles.Head,  RightsEnum.All},
-            {UserRoles.Administrator,  RightsEnum.None}
+            {UserRoles.Administrator,  RightsEnum.None},
+            {UserRoles.Maid,  RightsEnum.None}
         };
 
         public bool Login(string login, string pwd)
@@ -22,7 +23,10 @@ namespace TTHohel.Models
             var userRole = authResp.User.Role;
             Storage.Instance.ChangeUser(new User(RightsDictionary[userRole]));
 
-            NavigationManager.Instance.Navigate(ModesEnum.Main);
+            if(userRole == UserRoles.Maid)
+                NavigationManager.Instance.Navigate(ModesEnum.Maid);
+            else
+                NavigationManager.Instance.Navigate(ModesEnum.Main);
 
             return true;
 
