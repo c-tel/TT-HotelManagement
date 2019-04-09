@@ -36,6 +36,8 @@ namespace TTHohel.Contracts.Bookings
         public double? Debt { get; set; }
         public int? BookID { get; set; }
         public DateTime BookDate { get; set; }
+        public bool IsStartDate { get; set; }
+        public bool IsEndDate { get; set; }
     }
 
 }

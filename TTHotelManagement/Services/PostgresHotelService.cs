@@ -341,7 +341,7 @@ namespace TTHotel.API.Services
             {
                 Floor = b.Room_floor,
                 RoomNumber = b.Room_num,
-                DailyInfo = new List<RoomDailyInfo>()
+                DailyInfo = new List<RoomDailyInfo>(),
             }).Distinct(new RoomInfoComparer()).ToList();
             foreach(var info in infos)
             {
@@ -350,7 +350,7 @@ namespace TTHotel.API.Services
                 while(currDate <= to)
                 {
                     var currBoking = currBokings.FirstOrDefault(b => b.Start_date.Value.Date <= currDate.Date &&
-                                                                                b.End_date.Value.Date >= currDate.Date);
+                                                                                b.End_date.Value.Date > currDate.Date);
                     var currDailyInfo = currBoking == null ? new RoomDailyInfo
                     {
                         BookDate = currDate,
@@ -362,7 +362,9 @@ namespace TTHotel.API.Services
                         BookDate = currDate,
                         Status = MapToStatus(currBoking.Book_state),
                         BookID = currBoking.Book_num,
-                        Debt = (currBoking.Book_state == BookStates.Settled && currBoking.Debt > 0) ? currBoking.Debt : null
+                        Debt = (currBoking.Book_state == BookStates.Settled && currBoking.Debt > 0) ? currBoking.Debt : null,
+                        IsStartDate = currBoking.Start_date?.Date == currDate.Date,
+                        IsEndDate = currBoking.End_date?.Date == currDate.Date,
                     };
                     info.DailyInfo.Add(currDailyInfo);
                     currDate = currDate.AddDays(1);
