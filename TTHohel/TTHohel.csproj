@@ -133,6 +133,7 @@
     <Compile Include="Tools\RelayCommand.cs" />
     <Compile Include="Tools\RoomsConverter.cs" />
     <Compile Include="Tools\RoomsDataGrid.cs" />
+    <Compile Include="Tools\ValueToBorderThicknessConverter.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
     <Compile Include="ViewModels\AddBookingViewModel.cs" />
     <Compile Include="ViewModels\ClientsListViewModel.cs" />

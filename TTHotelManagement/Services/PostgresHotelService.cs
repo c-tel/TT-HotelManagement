@@ -364,7 +364,7 @@ namespace TTHotel.API.Services
                         BookID = currBoking.Book_num,
                         Debt = (currBoking.Book_state == BookStates.Settled && currBoking.Debt > 0) ? currBoking.Debt : null,
                         IsStartDate = currBoking.Start_date?.Date == currDate.Date,
-                        IsEndDate = currBoking.End_date?.Date == currDate.Date,
+                        IsEndDate = currBoking.End_date?.Date == currDate.Date.AddDays(1),
                     };
                     info.DailyInfo.Add(currDailyInfo);
                     currDate = currDate.AddDays(1);

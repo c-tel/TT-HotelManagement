@@ -55,7 +55,12 @@ namespace TTHohel.Tools
                             new Setter
                             {
                                 Property = BorderThicknessProperty,
-                                Value = new Thickness (0.6)
+                                Value = new Binding
+                                {
+                                    ConverterParameter = value,
+                                    Converter = new ValueToBorderThicknessConverter()
+                                }
+                                //Value = new Thickness (0.6)
                             }
                         }
                     }
