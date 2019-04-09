@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Microsoft.Office.Interop.Word;
 using TTHohel.Manager;
 using TTHohel.Services;
@@ -20,14 +21,26 @@ namespace TTHohel.Models
 
         public void CreateDocument(IEnumerable<ReportItemModel> report, DateTime asOfDate)
         {
+            try
+            {
+               System.Threading.Tasks.Task.Run( () => CreateDocumentInternal(report, asOfDate));
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
+
+        private void CreateDocumentInternal(IEnumerable<ReportItemModel> report, DateTime asOfDate)
+        {
             var reportItemsList = report.ToList();
-            Application winword = new Application();
+            var winword = new Microsoft.Office.Interop.Word.Application();
             winword.ShowAnimation = false;
-            winword.Visible = false;
 
             object missing = System.Reflection.Missing.Value;
+            winword.Visible = false;
 
-            Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+            var document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
             foreach (Section section in document.Sections)
             {
@@ -39,7 +52,7 @@ namespace TTHohel.Models
                 headerRange.Text = $"Звіт за {asOfDate.ToString("dd-MM-yyyy")}";
             }
 
-            Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+            var para1 = document.Content.Paragraphs.Add(ref missing);
             para1.Range.InsertParagraphAfter();
 
             Table firstTable = document.Tables.Add(para1.Range, reportItemsList.Count+1, 4, ref missing, ref missing);
@@ -93,13 +106,13 @@ namespace TTHohel.Models
             document.Activate();
             try
             {
-                document.Save();
+                winword.Visible = true;
+                document.Close(ref missing, ref missing, ref missing);
             }
-            catch(Exception)
+            catch (Exception)
             {
 
             }
-            document.Close(ref missing, ref missing, ref missing);
             winword.Quit(ref missing, ref missing, ref missing);
         }
 
