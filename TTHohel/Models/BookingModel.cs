@@ -45,7 +45,7 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(ModesEnum.Client);
         }
 
-        public double CalculateToPay(BookingDTO bookingDTO)
+        public static double CalculateToPay(BookingDTO bookingDTO)
         {
             if(bookingDTO == null)
                 return 0;

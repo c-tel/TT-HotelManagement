@@ -15,7 +15,7 @@ namespace TTHohel.ViewModels
         #region Private Fields
         private PayModel Model { get; }
 
-        private double _amount;
+        private string _amount;
         private PaymentTypes _selectedPayment;
 
         private ICommand _backCommand;
@@ -28,7 +28,7 @@ namespace TTHohel.ViewModels
         }
 
         #region Properties
-        public double Amount
+        public string Amount
         {
             get { return _amount; }
             set
@@ -105,25 +105,24 @@ namespace TTHohel.ViewModels
             }
         }
 
-        private bool PayCanExecute(object obj)
-        {
-            return Amount != 0;
-        }
+        private bool PayCanExecute(object obj) => true;
 
         private void PayExecute(object obj)
         {
-            if (Model.AddPayment(SelectedPayment, Amount))
+            var res = Model.AddPayment(SelectedPayment, Amount);
+            if (res == PayResult.Success)
             {
                 Reset();
                 Model.GoToBooking();
             }
-            else MessageBox.Show("Щось пішло не так...", "Помилка");
+            else
+                MessageBox.Show(res.GetDescription());
         }
         #endregion
 
         private void Reset()
         {
-            Amount = 0;
+            Amount = null;
             SelectedPayment = default(PaymentTypes);
         }
 

@@ -43,7 +43,7 @@ namespace TTHohel.ViewModels
                     InvokePropertyChanged(nameof(IsBookingActive));
                     InvokePropertyChanged(nameof(IsNotSettled));
 
-                    ToPay = Model.CalculateToPay(BookingDTO);
+                    ToPay = BookingModel.CalculateToPay(BookingDTO);
                 }
             }
         }
