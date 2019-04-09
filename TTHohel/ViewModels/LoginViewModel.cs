@@ -34,6 +34,7 @@ namespace TTHohel.ViewModels
                 }
             }
         }
+
         public Visibility ErrorVisibility
         {
             get { return _errorVisibility; }
@@ -70,14 +71,7 @@ namespace TTHohel.ViewModels
             var btn = obj as PasswordBox;
 
             if(!Model.Login(Name, btn.Password))
-            {
                 ErrorVisibility = Visibility.Visible;
-            }
-            else
-            {
-                Name = "";
-                btn.Password = "";
-            }
         }
 
         private bool LoginCanExecute(object obj)

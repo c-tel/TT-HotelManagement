@@ -21,6 +21,8 @@ namespace TTHohel.ViewModels
         private int _places;
         private string _comforts;
         private string _clientsFilter;
+        private DateTime _startDateDisplay;
+        private DateTime _endDateDisplay;
 
         private ClientDTO _selectedClient;
         private RoomDTO _selectedRoom;
@@ -44,7 +46,7 @@ namespace TTHohel.ViewModels
             Model.AllClientsChanged += OnClientsChanged;
 
             Init();
-            Today = DateTime.Now.ToString("yyyy/MM/dd");
+            
             ClientsList = Model.GetClientsList();
         }
 
@@ -60,6 +62,7 @@ namespace TTHohel.ViewModels
                     _dateFrom = value;
                     InvokePropertyChanged(nameof(DateFrom));
                     RefreshFreeRooms();
+                    UpdateFromDisplayDate();
                 }
             }
         }
@@ -78,7 +81,20 @@ namespace TTHohel.ViewModels
             }
         }
 
-        public string Today { get; set; }
+        public DateTime StartDateDisplay { get; set; }
+
+        public DateTime EndDateDisplay
+        {
+            get { return _endDateDisplay; }
+            set
+            {
+                if (_endDateDisplay != value)
+                {
+                    _endDateDisplay = value;
+                    InvokePropertyChanged(nameof(EndDateDisplay));
+                }
+            }
+        }
 
         public string CommentText
         {
@@ -306,6 +322,13 @@ namespace TTHohel.ViewModels
         #endregion
 
         #region Private Methods
+        private void UpdateFromDisplayDate()
+        {
+            EndDateDisplay = DateFrom.AddDays(1);
+            if(DateTo != null && DateTo < EndDateDisplay)
+                DateTo = EndDateDisplay;
+        }
+
         private void OnClientsChanged(ClientDTO clientDTO)
         {
             ClientsList = Model.GetClientsList();
@@ -343,6 +366,7 @@ namespace TTHohel.ViewModels
             SelectedRoom = null;
             Places = 1;
             CommentText = null;
+            StartDateDisplay = DateTime.Now;
         }
         #endregion
 
