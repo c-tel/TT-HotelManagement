@@ -507,7 +507,7 @@ namespace TTHotel.API.Services
             }
             else
             {
-                rooms = QueryInternal<Room>(AvailiableRoomsQuery(availiableFrom.Value, availiableTo.Value, guests));
+                rooms = QueryInternal<Room>(AvailiableRoomsQuery(availiableFrom.Value, availiableTo.Value.AddDays(-1), guests));
             }
             var mapTasks = rooms.Select(MapToRoom);
             var all = Task.WhenAll(mapTasks);
