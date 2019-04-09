@@ -25,14 +25,55 @@ namespace TTHohel.Tools
             var dataGrid = d as RoomsDataGrid;
             dataGrid.Columns.Clear();
             //Add Room Columns
-            dataGrid.Columns.Add(new DataGridTextColumn() { Header = "Номер", Binding = new Binding("RoomNumber") });
-            dataGrid.Columns.Add(new DataGridTextColumn() { Header = "Поверх", Binding = new Binding("Floor") });
+            dataGrid.Columns.Add(new DataGridTextColumn()
+            {
+                Header = "Номер",
+                Binding = new Binding("RoomNumber"),
+                CellStyle = new Style
+                {
+                    Setters =
+                    {
+                        new Setter
+                        {
+                            Property = BorderThicknessProperty,
+                            Value = new Thickness(0.5, 0.1, 0.5, 0.1)
+                        },
+                        new Setter
+                        {
+                            Property = BorderBrushProperty,
+                            Value = Brushes.Black
+                        }
+                    }
+                }
+            });
+            dataGrid.Columns.Add(new DataGridTextColumn()
+            {
+                Header = "Поверх",
+                Binding = new Binding("Floor"),
+                CellStyle = new Style
+                {
+                    Setters =
+                    {
+                        new Setter
+                        {
+                            Property = BorderThicknessProperty,
+                            Value = new Thickness(0.5, 0.1, 0.5, 0.1)
+                        },
+                        new Setter
+                        {
+                            Property = BorderBrushProperty,
+                            Value = Brushes.Black
+                        }
+                    }
+                }
+            });
             //Add States Columns
             foreach (var value in dataGrid.ColumnHeaders)
             {
                 var column = new DataGridTextColumn()
                 {
                     Header = value,
+                    CanUserReorder = false,
                     Binding = new Binding("DailyInfo")
                     { ConverterParameter = value, Converter = new RoomsConverter() },
                     CellStyle = new Style

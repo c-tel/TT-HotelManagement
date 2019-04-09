@@ -23,14 +23,14 @@ namespace TTHohel.Tools
                 var currInfo = statuses.FirstOrDefault(x => x.BookDate.ToString("dd-MM-yyyy") == index);
 
                 if (currInfo.BookID == null)
-                    return new Thickness(0);
+                    return new Thickness(0.5, 0, 0.5, 0);
 
-                var thickness = new Thickness(0, 0.7, 0, 0.7);
+                var thickness = new Thickness(0, 0.8, 0, 0.8);
 
                 if (currInfo.IsStartDate)
-                    thickness.Left = 0.7;
+                    thickness.Left = 0.8;
                 if (currInfo.IsEndDate)
-                    thickness.Right = 0.7;
+                    thickness.Right = 0.8;
                     //switch ()
                     //{
                     //    //case RoomDailyStatus.Settled: return Brushes.MediumSeaGreen;
