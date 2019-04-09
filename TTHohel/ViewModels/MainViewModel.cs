@@ -229,9 +229,7 @@ namespace TTHohel.ViewModels
 
         private bool RefreshCanExecute(object obj)
         {
-            if (_dateFrom <= _dateTo)
-                return true;
-            return false;
+            return true;
         }
 
         private void RefreshExecute(object obj)

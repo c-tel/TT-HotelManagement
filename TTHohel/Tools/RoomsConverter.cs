@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -12,14 +13,14 @@ namespace TTHohel.Tools
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var statuses = value as ObservableCollection<RoomDailyInfo>;
-            var index = parameter as int?;
+            var statuses = value as IEnumerable<RoomDailyInfo>;
+            var index = parameter as string;
             if (index != null)
-                if (statuses.ElementAt(index.Value).Debt > 0)
-                    return statuses.ElementAt(index.Value).Debt;
+                //if (statuses.ElementAt(index.Value).Debt > 0)
+                //    return statuses.ElementAt(index.Value).Debt;
                 return "";
                 //return statuses.ElementAt(index.Value).Status.ToString();
-            //return null;
+            return null;
         }
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

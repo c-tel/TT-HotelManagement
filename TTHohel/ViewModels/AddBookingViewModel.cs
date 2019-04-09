@@ -255,7 +255,7 @@ namespace TTHohel.ViewModels
 
         private bool CreateBookingCanExecute(object obj)
         {
-            return SelectedRoom != null && SelectedClient != null && DateFrom.Date <= DateTo.Date;
+            return SelectedRoom != null && SelectedClient != null;
         }
 
         private void CreateBookingExecute(object obj)

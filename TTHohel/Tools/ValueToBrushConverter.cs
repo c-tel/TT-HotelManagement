@@ -15,11 +15,10 @@ namespace TTHohel.Tools
             {
                 var statuses = _.DailyInfo;
                 var index = parameter as string;
-                RoomDailyStatus currStatus = RoomDailyStatus.Free;
 
                 var currInfo = statuses.FirstOrDefault(x => x.BookDate.ToString("dd-MM-yyyy") == index);
 
-                currStatus =  currInfo.Status;
+                RoomDailyStatus currStatus =  currInfo.Status;
 
                 if (currInfo.Debt > 0 && currInfo.Debt != null)
                     return "#D81B0E";
