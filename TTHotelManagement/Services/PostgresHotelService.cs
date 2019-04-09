@@ -172,7 +172,7 @@ namespace TTHotel.API.Services
         private static string CreateClientQuery(ClientDTO newcomer)
         {
             return "INSERT INTO clients " +
-                   $"VALUES ('{newcomer.TelNum}', '{ newcomer.Passport?? "NULL" }', '{newcomer.Name}', " +
+                   $"VALUES ('{newcomer.TelNum}', { (newcomer.Passport == null ? $"'{newcomer.Passport}'" : "NULL") }, '{newcomer.Name}', " +
                            $"'{newcomer.Surname}', '{newcomer.Patronym}', {newcomer.Discount});";
         }
 
