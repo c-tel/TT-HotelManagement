@@ -13,7 +13,7 @@ namespace TTHohel.ViewModels
     class MainViewModel : INotifyPropertyChanged
     {
         #region Private fields
-
+        private DateTime _endDateDisplay;
         private DateTime _dateFrom;
         private DateTime _dateTo;
 
@@ -97,6 +97,7 @@ namespace TTHohel.ViewModels
                 {
                     _dateFrom = value;
                     InvokePropertyChanged(nameof(DateFrom));
+                    UpdateFromDisplayDate();
                 }
             }
         }
@@ -110,6 +111,19 @@ namespace TTHohel.ViewModels
                 {
                     _dateTo = value;
                     InvokePropertyChanged(nameof(DateTo));
+                }
+            }
+        }
+
+        public DateTime EndDateDisplay
+        {
+            get { return _endDateDisplay; }
+            set
+            {
+                if (_endDateDisplay != value)
+                {
+                    _endDateDisplay = value;
+                    InvokePropertyChanged(nameof(EndDateDisplay));
                 }
             }
         }
@@ -323,6 +337,14 @@ namespace TTHohel.ViewModels
         }
         #endregion
 
+        #region Private methods
+        private void UpdateFromDisplayDate()
+        {
+            EndDateDisplay = DateFrom.AddDays(1);
+            if (DateTo < EndDateDisplay)
+                DateTo = DateFrom.AddDays(10);
+        }
+
         private void OnUserChanged(RightsEnum rights)
         {
             UserHasSettRight = rights.HasFlag(RightsEnum.Settings);
@@ -334,6 +356,7 @@ namespace TTHohel.ViewModels
             InfoTable = Model.ChangeInfoTable(DateFrom, DateTo);
             ColumnHeaders = Model.ChangeCollumnHeaders(DateFrom, DateTo);
         }
+        #endregion
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -21,7 +21,6 @@ namespace TTHohel.ViewModels
         private int _places;
         private string _comforts;
         private string _clientsFilter;
-        private DateTime _startDateDisplay;
         private DateTime _endDateDisplay;
 
         private ClientDTO _selectedClient;

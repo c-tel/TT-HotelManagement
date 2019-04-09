@@ -82,7 +82,7 @@
                             <Label Content="Заселення: " VerticalContentAlignment="Center"/>
                             <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}" DisplayDateStart="{Binding StartDateDisplay}" Height="40" Width="110"></DatePicker>
                             <Label Content="Виселення: " VerticalContentAlignment="Center"/>
-                            <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" DisplayDateStart="{Binding FromDateDisplay, UpdateSourceTrigger=PropertyChanged}" Height="40" Width="110"></DatePicker>
+                            <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" DisplayDateStart="{Binding EndDateDisplay, UpdateSourceTrigger=PropertyChanged}" Height="40" Width="110"></DatePicker>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Margin="60 20 0 0">

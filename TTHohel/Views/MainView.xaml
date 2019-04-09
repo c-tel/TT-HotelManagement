@@ -45,7 +45,8 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
             <DatePicker Name="DateFrom" FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}"></DatePicker>
-            <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}"></DatePicker>
+            <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}"
+                        DisplayDateStart="{Binding EndDateDisplay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
             <Button Style="{StaticResource BtnMenuStyle}" Height="26" FontSize="14" Background="#2DA46F" Command="{Binding RefreshCommand}">Оновити</Button>
         </StackPanel>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
