@@ -54,6 +54,7 @@ namespace TTHohel.Models
 
             var para1 = document.Content.Paragraphs.Add(ref missing);
             para1.Range.InsertParagraphAfter();
+            para1.Range.Text = "!!!!!!!!!!!!!!!!";
 
             Table firstTable = document.Tables.Add(para1.Range, reportItemsList.Count+1, 4, ref missing, ref missing);
 
@@ -101,6 +102,19 @@ namespace TTHohel.Models
                     }
                 }
             }
+            var summaryCash = firstTable.Rows.Add();
+            summaryCash.Cells.Merge();
+            summaryCash.Range.Text = $"Всього готівкою - {reportItemsList.Where(i => i.PaymentType == "Готівкою").Sum(i => i.Amount)} грн.";
+            var summaryCard = firstTable.Rows.Add();
+            summaryCard.Cells.Merge();
+            summaryCard.Range.Text = $"Всього карткою - {reportItemsList.Where(i => i.PaymentType == "Карткою").Sum(i => i.Amount)} грн";
+            var summary = firstTable.Rows.Add();
+            summary.Cells.Merge();
+            summary.Range.Text = $"Всього - {reportItemsList.Sum(i => i.Amount)} грн";
+            summaryCash.Cells[0].Alignment = WdRowAlignment.wdAlignRowRight;
+            summary.Alignment = WdRowAlignment.wdAlignRowRight;
+            summaryCard.Alignment = WdRowAlignment.wdAlignRowRight;
+
 
             //Save the document
             document.Activate();
