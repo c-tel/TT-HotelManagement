@@ -142,7 +142,8 @@ namespace TTHohel.ViewModels
 
         private bool SettleCanExecute(object obj)
         {
-            return BookingDTO?.Book_state != BookingStates.Settled;
+            return BookingDTO?.Book_state != BookingStates.Settled &&
+                BookingDTO?.StartDate <= DateTime.Today.Date;
         }
 
         private void SettleExecute(object obj)
