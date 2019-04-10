@@ -23,6 +23,7 @@ namespace TTHohel.ViewModels
         private ICommand _refreshCommand;
         private ICommand _cellCommand;
         private ICommand _addBookingCommand;
+        private ICommand _allBookingsCommand;
         private ICommand _reportCommand;
 
         private bool _userHasSettRight;
@@ -333,6 +334,32 @@ namespace TTHohel.ViewModels
             if(bookId != null)
                 Model.ProcessBookingSelection(bookId.Value);
         }
+
+        public ICommand AllBookingsCommand
+        {
+            get
+            {
+                if (_allBookingsCommand == null)
+                {
+                    _allBookingsCommand = new RelayCommand<object>(AllBookingsExecute, AllBookingsCanExecute);
+                }
+                return _reportCommand;
+            }
+            set
+            {
+                _allBookingsCommand = value;
+                InvokePropertyChanged(nameof(AllBookingsCommand));
+            }
+        }
+
+        private bool AllBookingsCanExecute(object obj) => true;
+
+        private void AllBookingsExecute(object obj)
+        {
+            Model.GoToAllBookings();
+        }
+
+
         #endregion
 
         #region Private methods

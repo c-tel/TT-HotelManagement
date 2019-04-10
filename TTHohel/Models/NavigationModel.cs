@@ -18,7 +18,8 @@ namespace TTHohel.Models
         Client,
         Personnel,
         Room,
-        Maid
+        Maid,
+        AllBookings
     }
 
     public class NavigationModel
@@ -91,6 +92,9 @@ namespace TTHohel.Models
                     break;
                 case ModesEnum.Maid:
                     _contentWindow.ContentControl.Content = _maidMainView;
+                    break;
+                case ModesEnum.AllBookings:
+                    _contentWindow.ContentControl.Content = new AllBookingsView();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mode), mode, null);

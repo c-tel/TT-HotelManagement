@@ -87,5 +87,10 @@ namespace TTHohel.Models
         {
             NavigationManager.Instance.Navigate(ModesEnum.Report);
         }
+
+        public void GoToAllBookings()
+        {
+            NavigationManager.Instance.Navigate(ModesEnum.AllBookings);
+        }
     }
 }
