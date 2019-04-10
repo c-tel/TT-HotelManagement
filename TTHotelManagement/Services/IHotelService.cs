@@ -40,7 +40,10 @@ namespace TTHotel.API.Services
         IEnumerable<RoomStatisticsDTO> GetRoomStats(DateTime from, DateTime to);
         RoomDTO GetRoom(int roomNum);
         void CreateRoom(RoomCreateDTO room);
+        // cleanings
         IEnumerable<CleaningDTO> GetCleanings();
+        void CreateCleaning(CleaningDTO cleaning, string persBook);
+        
         //clients
         IEnumerable<ClientDTO> GetClients();
         IEnumerable<ClientAnalisedDTO> GetClientAnalytics();

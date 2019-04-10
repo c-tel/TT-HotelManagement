@@ -28,5 +28,16 @@ namespace TTHotel.API.Controllers
         {
             return _hotelService.GetCleanings();
         }
+
+        [HttpPost]
+        public IActionResult CreateCleaning([FromBody] CleaningDTO cleaning)
+        {
+            if (!Request.Cookies.ContainsKey("sessid"))
+                return BadRequest();
+            var sessid = Request.Cookies["sessid"];
+            var persBook = _authService.GetAuthorized(sessid)?.EmplBook;
+            _hotelService.CreateCleaning(cleaning, persBook);
+            return NoContent();
+        }
     }
 }

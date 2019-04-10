@@ -277,6 +277,12 @@ namespace TTHotel.API.Services
                                                             "WHERE room_num = cleanings.room_num)); ";
         }
 
+        private static string CreateCleaningQuery(CleaningDTO cleaning, string persBook)
+        {
+            return "INSERT INTO cleanings (completed, clean_type, room_num, book_num) " +
+                  $"VALUES ({DateTime.Now.AddHours(3).ToPostgresTimestampFormat()}, " +
+                  $"{cleaning.Type.ToString().ToLower()}, {cleaning.RoomNum}, {persBook})";
+        }
 
         #endregion
 
@@ -547,6 +553,11 @@ namespace TTHotel.API.Services
                 RoomNum = n,
                 Type = CleaningTypes.Unsettle
             })).OrderBy(c => c.RoomNum);
+        }
+
+        public void CreateCleaning(CleaningDTO cleaning, string persBook)
+        {
+            ExecuteInternal(CreateCleaningQuery(cleaning, persBook));
         }
 
         #region WRAPPERS
