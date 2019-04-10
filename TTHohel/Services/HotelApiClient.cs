@@ -6,6 +6,7 @@ using TTHohel.Contracts.Bookings;
 using TTHohel.Models;
 using TTHotel.Contracts.Auth;
 using TTHotel.Contracts.Bookings;
+using TTHotel.Contracts.Cleanings;
 using TTHotel.Contracts.Clients;
 using TTHotel.Contracts.Payments;
 using TTHotel.Contracts.Rooms;
@@ -127,6 +128,14 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<List<ClientDTO>>().Result;
         }
 
+        public List<CleaningDTO> GetAllCleanings()
+        {
+            var resp = Client.GetAsync($"api/cleanings").Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<List<CleaningDTO>>().Result;
+        }
+
         public List<ClientAnalisedDTO> GetAnalisedClients()
         {
             var resp = Client.GetAsync($"api/clients/analytics").Result;
@@ -159,6 +168,12 @@ namespace TTHohel.Services
             var resp = Client.PostAsJsonAsync("api/clients", clientDTO).Result;
 
             return resp.StatusCode;
+        }
+        public bool CreateCleaning(CleaningDTO cleaning)
+        {
+            var resp = Client.PostAsJsonAsync("api/cleanings", cleaning).Result;
+
+            return resp.IsSuccessStatusCode;
         }
 
         public System.Net.HttpStatusCode CreateRoom(RoomCreateDTO room)
@@ -237,6 +252,7 @@ namespace TTHohel.Services
                 return null;
             return resp.Content.ReadAsAsync<List<ReportItem>>().Result;
         }
+
 
         private string ToQueryArgument(DateTime dateTime)
         {

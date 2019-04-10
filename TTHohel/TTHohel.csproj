@@ -116,6 +116,7 @@
     <Compile Include="Models\DescriptionValueBinder.cs" />
     <Compile Include="Models\DescriptionValueBinderPersonnel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MaidMainModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\PayModel.cs" />
     <Compile Include="Models\PersonnelModel.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MaidMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PayViewModel.cs" />
     <Compile Include="ViewModels\PersonnelViewModel.cs" />
