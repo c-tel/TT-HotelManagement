@@ -34,7 +34,7 @@ namespace TTHohel.Models
 
         public double CalculatePeriodPrice(DateTime dateFrom, DateTime dateTo, double price, ClientDTO client)
         {
-            var calc = (((dateTo - dateFrom).TotalDays+1) * price) * (1 - (client?.Discount??0) / 100.0);
+            var calc = (((dateTo - dateFrom).TotalDays) * price) * (1 - (client?.Discount??0) / 100.0);
             return Math.Max(calc, 0);
         }
 
