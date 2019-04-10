@@ -281,7 +281,7 @@ namespace TTHotel.API.Services
         {
             return "INSERT INTO cleanings (completed, clean_type, room_num, book_num) " +
                   $"VALUES ({DateTime.Now.AddHours(3).ToPostgresTimestampFormat()}, " +
-                  $"{cleaning.Type.ToString().ToLower()}, {cleaning.RoomNum}, {persBook})";
+                  $"'{cleaning.Type.ToString().ToLower()}', {cleaning.RoomNum}, '{persBook}')";
         }
 
         #endregion
