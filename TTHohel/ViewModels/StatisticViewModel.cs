@@ -25,7 +25,7 @@ namespace TTHohel.ViewModels
             Tabs = new ObservableCollection<TabItem>();
             Tabs.Add(new TabItem { Header = "Клієнти", Content = new ClientsListView() });
             Tabs.Add(new TabItem { Header = "Номери", Content = new RoomStatisticsView() });
-            Tabs.Add(new TabItem { Header = "Працівники", Content = null });
+            Tabs.Add(new TabItem { Header = "Працівники", Content = new CleaningStatsView() });
         }
 
         public ICommand BackCommand

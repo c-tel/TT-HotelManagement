@@ -138,6 +138,7 @@
     <Compile Include="Tools\ValueToBorderThicknessConverter.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
     <Compile Include="ViewModels\AddBookingViewModel.cs" />
+    <Compile Include="ViewModels\CleaningStatisticsViewModel.cs" />
     <Compile Include="ViewModels\ClientsListViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
@@ -153,6 +154,9 @@
     <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="Views\AddBookingView.xaml.cs">
       <DependentUpon>AddBookingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CleaningStatsView.xaml.cs">
+      <DependentUpon>CleaningStatsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ClientsListView.xaml.cs">
       <DependentUpon>ClientsListView.xaml</DependentUpon>
@@ -201,6 +205,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddBookingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CleaningStatsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

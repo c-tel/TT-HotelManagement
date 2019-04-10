@@ -135,6 +135,13 @@ namespace TTHohel.Services
                 return null;
             return resp.Content.ReadAsAsync<List<CleaningDTO>>().Result;
         }
+        public List<CleaningStatsDTO> GetCleaningsStats(DateTime date)
+        {
+            var resp = Client.GetAsync($"api/cleanings/statistics?date={ToQueryArgument(date)}").Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<List<CleaningStatsDTO>>().Result;
+        }
 
         public List<ClientAnalisedDTO> GetAnalisedClients()
         {

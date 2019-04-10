@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TTHohel.Manager;
 using TTHohel.Models;
 using TTHohel.Tools;
 using TTHotel.Contracts.Cleanings;
@@ -67,6 +68,8 @@ namespace TTHohel.ViewModels
         }
 
         private ObservableCollection<CleaningDTO> _cleanings;
+        private ICommand _exitCommand;
+
         public ObservableCollection<CleaningDTO> Cleanings
         {
             get => _cleanings;
@@ -78,6 +81,23 @@ namespace TTHohel.ViewModels
         }
 
         #endregion
+
+        public ICommand ExitCommand
+        {
+            get
+            {
+                if (_exitCommand == null)
+                {
+                    _exitCommand = new RelayCommand<object>(_ => NavigationManager.Instance.Navigate(ModesEnum.Login), _ => true);
+                }
+                return _exitCommand;
+            }
+            set
+            {
+                _exitCommand = value;
+                InvokePropertyChanged(nameof(ExitCommand));
+            }
+        }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TTHohel.Views"
              xmlns:tools="clr-namespace:TTHohel.Tools"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -12,6 +13,9 @@
     </UserControl.Resources>
     <DockPanel LastChildFill="True" Background="#17252B" >
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30" DockPanel.Dock="Top">
+            <Button ToolTip="Вийти" Command="{Binding ExitCommand}">
+                <fa:ImageAwesome Icon="SignOut" Foreground="WhiteSmoke" Height="20"/>
+            </Button>
             <Button Command="{Binding CleanCommand}">Відмітити як виконане</Button>
         </StackPanel>
         <DataGrid ItemsSource="{Binding Cleanings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
