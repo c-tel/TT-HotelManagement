@@ -3,20 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TTHohel.Views"
              xmlns:tools="clr-namespace:TTHohel.Tools"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <tools:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
+        <Style TargetType="Button">
+        <Setter Property="Foreground" Value="WhiteSmoke"/>
+        <Setter Property="Background" Value="#0D6C82"/>
+        <Setter Property="Height" Value="55"/>
+        <Setter Property="Width" Value="90"/>
+        <Setter Property="Margin" Value="10 0"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="DarkSlateGray"/>
+            </Trigger>
+        </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
-    <DockPanel LastChildFill="True" Background="#17252B" >
+    <DockPanel LastChildFill="True" Background="#17252B">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30" DockPanel.Dock="Top">
-            <Button ToolTip="Вийти" Command="{Binding ExitCommand}">
-                <fa:ImageAwesome Icon="SignOut" Foreground="WhiteSmoke" Height="20"/>
+            <Button Command="{Binding CleanCommand}" ToolTip="Відмітити як виконане" Background="#17A210">
+                <fa:ImageAwesome Icon="CheckSquareOutline" Foreground="WhiteSmoke" Height="24"/>
             </Button>
-            <Button Command="{Binding CleanCommand}">Відмітити як виконане</Button>
+            <Button ToolTip="Вийти" Command="{Binding ExitCommand}" Background="#D81B0E">
+                <fa:ImageAwesome Icon="SignOut" Foreground="WhiteSmoke" Height="22"/>
+            </Button>
         </StackPanel>
         <DataGrid ItemsSource="{Binding Cleanings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                   IsReadOnly="True" 

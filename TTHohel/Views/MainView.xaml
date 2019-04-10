@@ -30,7 +30,8 @@
     </UserControl.Resources>
     <DockPanel LastChildFill="True" Background="#17252B" MaxWidth="{Binding SystemParameters.PrimaryScreenWidth}">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Height="80" HorizontalAlignment="Center" Margin="0 10">
-            <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding AddBookingCommand}">Додати</Button>
+            <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding AddBookingCommand}"
+                    Background="#17A210">Додати</Button>
             <Button Style="{StaticResource BtnMenuStyle}"
                     Visibility="{Binding UserHasStatisticRight, Converter={StaticResource BoolToVis}}"
                     Command="{Binding StatisticCommand}">Статистика</Button>
@@ -39,7 +40,8 @@
                         Visibility="{Binding UserHasSettRight, Converter={StaticResource BoolToVis}}">
                 <fa:ImageAwesome Icon="Cogs" Foreground="WhiteSmoke" Height="26"/>
             </Button>
-            <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Вийти" Command="{Binding ExitCommand}">
+            <Button Style="{StaticResource BtnMenuStyle}" ToolTip="Вийти" Command="{Binding ExitCommand}"
+                    Background="#D81B0E">
                 <fa:ImageAwesome Icon="SignOut" Foreground="WhiteSmoke" Height="20"/>
             </Button>
         </StackPanel>
