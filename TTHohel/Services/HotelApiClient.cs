@@ -190,18 +190,16 @@ namespace TTHohel.Services
             return resp.StatusCode;
         }
 
-        public System.Net.HttpStatusCode UpdateClient(ClientDTO clientDTO, string oldNum)
+        public RoomDTO GetRoom(int roomNumber)
         {
-            var resp = Client.PutAsJsonAsync($"api/clients/{oldNum.TrimStart('+')}", clientDTO).Result;
+            var route = $"api/rooms/{roomNumber}";
 
-            return resp.StatusCode;
-        }
+            var resp = Client.GetAsync(route).Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
 
-        public System.Net.HttpStatusCode CreatePersonnel(UserCreateDTO user)
-        {
-            var resp = Client.PostAsJsonAsync("api/auth", user).Result;
+            return resp.Content.ReadAsAsync<RoomDTO>().Result;
 
-            return resp.StatusCode;
         }
 
         public List<RoomDTO> GetFreeRooms(DateTime from, DateTime to, int places)
@@ -220,6 +218,20 @@ namespace TTHohel.Services
             if (!resp.IsSuccessStatusCode)
                 return null;
             return resp.Content.ReadAsAsync<List<RoomStatisticsDTO>>().Result;
+        }
+
+        public System.Net.HttpStatusCode UpdateClient(ClientDTO clientDTO, string oldNum)
+        {
+            var resp = Client.PutAsJsonAsync($"api/clients/{oldNum.TrimStart('+')}", clientDTO).Result;
+
+            return resp.StatusCode;
+        }
+
+        public System.Net.HttpStatusCode CreatePersonnel(UserCreateDTO user)
+        {
+            var resp = Client.PostAsJsonAsync("api/auth", user).Result;
+
+            return resp.StatusCode;
         }
 
         public bool CreateBooking(DateTime from, DateTime to, int bookedRoomNum, string clientTel, string bookComment)

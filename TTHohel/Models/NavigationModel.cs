@@ -34,7 +34,7 @@ namespace TTHohel.Models
         private readonly ClientView _clientView;
         private readonly StatisticView _statisticView;
         private readonly PersonnelView _personnelView;
-        private readonly RoomView _roomView;
+        //private readonly RoomView _roomView;
         private readonly MaidMainView _maidMainView;
 
         public NavigationModel(ContentWindow contentWindow)
@@ -49,7 +49,7 @@ namespace TTHohel.Models
             _clientView = new ClientView();
             _statisticView = new StatisticView();
             _personnelView = new PersonnelView();
-            _roomView = new RoomView();
+            //_roomView = new RoomView();
             _maidMainView = new MaidMainView();
         }
 
@@ -88,7 +88,7 @@ namespace TTHohel.Models
                     _contentWindow.ContentControl.Content = _personnelView;
                     break;
                 case ModesEnum.Room:
-                    _contentWindow.ContentControl.Content = _roomView;
+                    _contentWindow.ContentControl.Content = new RoomView();
                     break;
                 case ModesEnum.Maid:
                     _contentWindow.ContentControl.Content = _maidMainView;

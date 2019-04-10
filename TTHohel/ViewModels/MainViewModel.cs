@@ -328,11 +328,18 @@ namespace TTHohel.ViewModels
             var selectedRoomInfo = selectedSell.Value.Item as RoomInfo;
             var column = selectedSell.Value.Column.Header.ToString();
 
-            var dateColumn = selectedRoomInfo.DailyInfo.FirstOrDefault(x => x.BookDate.ToString("dd-MM-yyyy") == column);
-            int? bookId = dateColumn.BookID;
+            if (column == "Номер" || column == "Поверх")
+            {
+                Model.ProcessRoomSelection(selectedRoomInfo.RoomNumber);
+            }
+            else
+            {
+                var dateColumn = selectedRoomInfo.DailyInfo.FirstOrDefault(x => x.BookDate.ToString("dd-MM-yyyy") == column);
+                int? bookId = dateColumn.BookID;
 
-            if(bookId != null)
-                Model.ProcessBookingSelection(bookId.Value);
+                if (bookId != null)
+                    Model.ProcessBookingSelection(bookId.Value);
+            }
         }
 
         public ICommand AllBookingsCommand

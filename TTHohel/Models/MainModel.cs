@@ -92,5 +92,12 @@ namespace TTHohel.Models
         {
             NavigationManager.Instance.Navigate(ModesEnum.AllBookings);
         }
+
+        public void ProcessRoomSelection(int roomNumber)
+        {
+            Storage.Instance.SelectedRoom = HotelApiClient.GetInstance().GetRoom(roomNumber);
+
+            NavigationManager.Instance.Navigate(ModesEnum.Room);
+        }
     }
 }
