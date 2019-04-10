@@ -255,11 +255,11 @@ namespace TTHotel.API.Services
         {
             return "SELECT room_num, (date(now()) - date(start_date_real)) % 3 = 0 AS with_linen " +
                     "FROM bookings " +
-                    "WHERE date(now()) BETWEEN start_date AND end_date " +
+                    "WHERE date(now()) BETWEEN (start_date + integer '1') AND (end_date - integer '1') " +
                                "AND start_date_real IS NOT NULL AND end_date_real IS NULL " +
                                "AND room_num NOT IN(SELECT room_num " +
                                                     "FROM cleanings " +
-                                                    "WHERE date(completed) = date(now()));";
+                                                    "WHERE completed IS NOT NULL AND date(completed) = date(now()));";
         }
 
         private static string DirtyRoomsQuery()
