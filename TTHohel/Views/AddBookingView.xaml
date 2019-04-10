@@ -80,7 +80,7 @@
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
                             <Label Content="Заселення: " VerticalContentAlignment="Center"/>
-                            <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}" DisplayDateStart="{Binding StartDateDisplay}" Height="40" Width="110"></DatePicker>
+                            <DatePicker SelectedDate="{Binding DateFrom, Mode=TwoWay}"  Height="40" Width="110"></DatePicker>
                             <Label Content="Виселення: " VerticalContentAlignment="Center"/>
                             <DatePicker SelectedDate="{Binding DateTo, Mode=TwoWay}" DisplayDateStart="{Binding EndDateDisplay, UpdateSourceTrigger=PropertyChanged}" Height="40" Width="110"></DatePicker>
                         </StackPanel>
