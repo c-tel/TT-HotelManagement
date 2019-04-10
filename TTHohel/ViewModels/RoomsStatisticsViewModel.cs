@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TTHohel.Models;
 using TTHotel.Contracts.Rooms;
 
@@ -22,6 +19,8 @@ namespace TTHohel.ViewModels
         private List<RoomStatisticsDTO> _statistics;
         private DateTime _dateTo;
         private DateTime _dateFrom;
+        private DateTime _dateStartDisplay;
+
         private readonly RoomStatisticsModel Model;
 
         public List<RoomStatisticsDTO> Statistics
@@ -57,14 +56,36 @@ namespace TTHohel.ViewModels
                     _dateTo = value;
                     RefreshStats();
                     InvokePropertyChanged(nameof(DateTo));
+
+                    UpdateFromDisplayDate();
                 }
             }
         }
 
+        public DateTime DateEndDisplay { get => DateTime.Today.Date; }
+
+        public DateTime DateStartDisplay
+        {
+            get { return _dateStartDisplay; }
+            set
+            {
+                _dateStartDisplay = value;
+                InvokePropertyChanged(nameof(DateStartDisplay));
+            }
+        }
 
         private void RefreshStats()
         {
             Statistics = Model?.GetStatistics(DateFrom, DateTo);
+        }
+
+        private void UpdateFromDisplayDate()
+        {
+            DateStartDisplay = DateTo;
+
+            if (DateFrom != null && DateFrom > DateTo)
+                DateFrom = DateTo;
+
         }
 
         #region INotifyPropertyChanged

@@ -61,7 +61,7 @@ namespace TTHohel.ViewModels
                     _dateFrom = value;
                     InvokePropertyChanged(nameof(DateFrom));
                     RefreshFreeRooms();
-                    UpdateFromDisplayDate();
+                    UpdateEndDisplayDate();
                 }
             }
         }
@@ -321,7 +321,7 @@ namespace TTHohel.ViewModels
         #endregion
 
         #region Private Methods
-        private void UpdateFromDisplayDate()
+        private void UpdateEndDisplayDate()
         {
             EndDateDisplay = DateFrom.AddDays(1);
             if(DateTo != null && DateTo < EndDateDisplay)

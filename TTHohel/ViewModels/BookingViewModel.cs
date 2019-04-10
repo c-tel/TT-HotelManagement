@@ -71,6 +71,7 @@ namespace TTHohel.ViewModels
             }
         }
 
+
         #region Commands
         public ICommand BackCommand
         {

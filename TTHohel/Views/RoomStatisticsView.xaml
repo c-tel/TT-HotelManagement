@@ -8,8 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center" Margin="0 0 0 10">
-            <DatePicker Name="DateFrom" FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}"></DatePicker>
-            <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}"></DatePicker>
+            <DatePicker Name="DateFrom" FontSize="13" SelectedDate="{Binding DateFrom, Mode=TwoWay}" DisplayDateEnd="{Binding DateStartDisplay, Mode=OneWay}"></DatePicker>
+            <DatePicker Name="DateTo" FontSize="13" SelectedDate="{Binding DateTo, Mode=TwoWay}" DisplayDateEnd="{Binding DateEndDisplay, Mode=OneWay}"></DatePicker>
         </StackPanel>
         <ListView ItemsSource="{Binding Statistics}" Height="200" SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   Width="200">
