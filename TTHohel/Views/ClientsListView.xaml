@@ -46,6 +46,8 @@
                 <DataGridTextColumn Header="Знижка" Binding="{Binding Discount, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label DockPanel.Dock="Top" Content="Клієнти, що бронювали тільки номери люкс:" Foreground="WhiteSmoke" FontSize="15"
+               HorizontalAlignment="Center" FontWeight="Bold"/>
         <DataGrid DockPanel.Dock="Bottom"
                   HorizontalAlignment="Center"
                   AutoGenerateColumns="False"
