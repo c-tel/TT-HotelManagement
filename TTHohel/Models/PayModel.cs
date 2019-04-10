@@ -28,6 +28,7 @@ namespace TTHohel.Models
             {
                 var booking = HotelApiClient.GetInstance().GetBookingById(id);
                 Storage.Instance.ChangeBooking(booking);
+
                 return PayResult.Success;
             }
 

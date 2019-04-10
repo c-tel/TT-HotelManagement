@@ -38,6 +38,8 @@ namespace TTHohel.Models
         {
             SelectedBooking = nextBooking;
             BookingChanged?.Invoke(SelectedBooking);
+
+            ChangeBookings();
         }
 
         public void ChangeBookings()

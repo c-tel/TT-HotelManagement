@@ -60,7 +60,6 @@ namespace TTHohel.Models
             {
                 var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
                 Storage.Instance.ChangeBooking(_);
-                Storage.Instance.ChangeBookings();
 
                 return true;
             }
@@ -74,7 +73,6 @@ namespace TTHohel.Models
             {
                 var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
                 Storage.Instance.ChangeBooking(_);
-                Storage.Instance.ChangeBookings();
 
                 return true;
             }
@@ -88,7 +86,6 @@ namespace TTHohel.Models
             {
                 var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
                 Storage.Instance.ChangeBooking(_);
-                Storage.Instance.ChangeBookings();
 
                 return true;
             }
@@ -106,7 +103,6 @@ namespace TTHohel.Models
             {
                 var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);
                 Storage.Instance.ChangeBooking(_);
-                Storage.Instance.ChangeBookings();
 
                 return true;
             }
