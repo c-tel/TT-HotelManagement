@@ -1,7 +1,6 @@
 ﻿using System;
 using TTHotel.Contracts.Bookings;
 using TTHotel.Contracts.Clients;
-using TTHotel.Contracts.Rooms;
 
 namespace TTHohel.Models
 {
@@ -13,10 +12,11 @@ namespace TTHohel.Models
         public event Action<User> UserChanged;
         public event Action BookingsChanged;
         public event Action<ClientDTO> AllClientsChanged;
+
         public event Action<ClientDisplayData> ClientDisplayChanged;
 
         public BookingDTO SelectedBooking { get; private set; }
-        public RoomDTO SelectedRoom { get; set; }
+        public RoomDisplayData RoomData { get; private set; }
         public User User { get; private set; }
 
         public static Storage Instance { get => GetInstance();  }
@@ -65,6 +65,12 @@ namespace TTHohel.Models
         public void ChangeClientDisplayData(ClientDisplayData data)
         {
             ClientDisplayChanged?.Invoke(data);
+        }
+
+        public void ChangeRoomDisplayData(RoomDisplayData data)
+        {
+            RoomData = data;
+            ChangeBookings();
         }
     }
 }

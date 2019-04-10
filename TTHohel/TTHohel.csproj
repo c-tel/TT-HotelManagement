@@ -109,12 +109,13 @@
     </ApplicationDefinition>
     <Compile Include="Models\AddBookingModel.cs" />
     <Compile Include="Models\BookingModel.cs" />
-    <Compile Include="Models\ClientDisplayData.cs" />
+    <Compile Include="Models\DisplayData\ClientDisplayData.cs" />
     <Compile Include="Models\ClientModel.cs" />
     <Compile Include="Models\ClientsListModel.cs" />
-    <Compile Include="Models\ClientViewModes.cs" />
+    <Compile Include="Models\DisplayData\ClientViewModes.cs" />
     <Compile Include="Models\DescriptionValueBinder.cs" />
     <Compile Include="Models\DescriptionValueBinderPersonnel.cs" />
+    <Compile Include="Models\DisplayData\RoomDisplayData.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MaidMainModel.cs" />
     <Compile Include="Models\MainModel.cs" />

@@ -55,7 +55,7 @@ namespace TTHohel.Models
             var data = new ClientDisplayData
             {
                 Client = client,
-                Mode = ClientViewModes.Editing,
+                Mode = DisplayModes.Editing,
                 CameFrom = ModesEnum.Statistic
             };
             Storage.Instance.ChangeClientDisplayData(data);

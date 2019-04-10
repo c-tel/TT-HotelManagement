@@ -183,8 +183,16 @@ namespace TTHohel.Services
             return resp.IsSuccessStatusCode;
         }
 
-        public System.Net.HttpStatusCode CreateRoom(RoomCreateDTO room)
+        public System.Net.HttpStatusCode CreateRoom(RoomDTO roomDTO)
         {
+            var room = new RoomCreateDTO
+            {
+                Num = roomDTO.Num,
+                Floor = roomDTO.Floor,
+                Places = roomDTO.Places,
+                Price = roomDTO.Price,
+                Type = roomDTO.Type
+            };
             var resp = Client.PostAsJsonAsync("api/rooms", room).Result;
 
             return resp.StatusCode;

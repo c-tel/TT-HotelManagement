@@ -187,8 +187,8 @@ namespace TTHohel.ViewModels
             Client = data.Client;
             _oldTel = Client.TelNum;
 
-            IsCreation = data.Mode.HasFlag(ClientViewModes.Creation);
-            IsEditing = data.Mode.HasFlag(ClientViewModes.Editing);
+            IsCreation = data.Mode.HasFlag(DisplayModes.Creation);
+            IsEditing = data.Mode.HasFlag(DisplayModes.Editing);
         }
 
         #region INotifyPropertyChanged

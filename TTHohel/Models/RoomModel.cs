@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using TTHohel.Manager;
+﻿using TTHohel.Manager;
 using TTHohel.Services;
 using TTHotel.Contracts.Rooms;
 
@@ -8,13 +6,30 @@ namespace TTHohel.Models
 {
     public class RoomModel
     {
+        private RoomDisplayData _data;
+
+        public RoomModel()
+        {
+            _data = Storage.Instance.RoomData;
+        }
 
         public void GoBack()
         {
-            NavigationManager.Instance.Navigate(ModesEnum.Settings);
+            NavigationManager.Instance.Navigate(_data.CameFrom);
         }
 
-        public int CreateNewRoom(RoomCreateDTO room, Contracts.Bookings.RoomType selectedType)
+
+        public RoomDTO GetRoom()
+        {
+            return _data.Room;
+        }
+
+        public DisplayModes GetMode()
+        {
+            return _data.Mode;
+        }
+
+        public int CreateNewRoom(RoomDTO room, Contracts.Bookings.RoomType selectedType)
         {
             room.Type = selectedType;
             var res = HotelApiClient.GetInstance().CreateRoom(room);

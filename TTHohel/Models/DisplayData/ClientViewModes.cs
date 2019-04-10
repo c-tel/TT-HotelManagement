@@ -3,7 +3,7 @@
 namespace TTHohel.Models
 {
     [Flags]
-    public enum ClientViewModes
+    public enum DisplayModes
     {
         Creation = 1,
         Editing = 2,

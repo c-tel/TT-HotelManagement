@@ -58,7 +58,7 @@ namespace TTHohel.Models
             var data = new ClientDisplayData
             {
                 Client = new ClientDTO(),
-                Mode = ClientViewModes.Creation,
+                Mode = DisplayModes.Creation,
                 CameFrom = ModesEnum.AddBooking
             };
             Storage.Instance.ChangeClientDisplayData(data);
@@ -76,7 +76,7 @@ namespace TTHohel.Models
             var data = new ClientDisplayData
             {
                 Client = selectedClient,
-                Mode = ClientViewModes.Editing,
+                Mode = DisplayModes.Editing,
                 CameFrom = ModesEnum.AddBooking
             };
             Storage.Instance.ChangeClientDisplayData(data);

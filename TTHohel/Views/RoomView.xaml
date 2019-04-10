@@ -34,7 +34,9 @@
             <Border CornerRadius="10" Background="WhiteSmoke" Width="420">
                 <StackPanel Orientation="Vertical">
                     <Label Content="Новий номер" FontSize="20" HorizontalAlignment="Center" Foreground="#2DA46F"
-                           FontWeight="Bold" Margin="2,7,2,10"/>
+                           FontWeight="Bold" Margin="2,7,2,10" Visibility="{Binding IsCreation, Converter={StaticResource BoolToVis}}"/>
+                    <Label Content="Перегляд номеру" FontSize="20" HorizontalAlignment="Center" Foreground="#2DA46F"
+                           FontWeight="Bold" Margin="2,7,2,10" Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"/>
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <Grid Margin="5" >
                             <Grid.ColumnDefinitions>
@@ -55,29 +57,32 @@
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Margin="40,5,0,5" Content="Номер:" FontSize="16" HorizontalContentAlignment="Left"/>
                             <TextBox Grid.Row="0" Grid.Column="1"
-                                 Text="{Binding Room.Num, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding Room.Num, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="1" Margin="40,5,0,5" Content="Поверх:" FontSize="16" HorizontalContentAlignment="Left"/>
                             <TextBox Grid.Row="1" Grid.Column="1"
-                                 Text="{Binding Room.Floor, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding Room.Floor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="2" Grid.Column="0" Margin="40,5,0,5" Content="Кількість місць:" FontSize="16" HorizontalContentAlignment="Left"/>
                             <TextBox Grid.Row="2" Grid.Column="1"
-                                 Text="{Binding Room.Places, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding Room.Places, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="3" Grid.Column="0" Margin="40,5,0,5" Content="Ціна:" FontSize="16" HorizontalContentAlignment="Left"/>
                             <TextBox Grid.Row="3" Grid.Column="1"
-                                 Text="{Binding Room.Price, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+                                 Text="{Binding Room.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="6" Grid.Column="0" Margin="40,5,0,5" Content="Роль:" FontSize="16" HorizontalContentAlignment="Left"/>
-                            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding TypeList}" SelectedItem="{Binding SelectedType, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" Margin="15 7"/>
+                            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding TypeList}" SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15 7"/>
                             
                             <StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                                 <Button Command="{Binding BackCommand}" FontSize="17" Margin="5,10"
                                     ToolTip="Назад">
                                     <fa:ImageAwesome Icon="ArrowCircleLeft" Foreground="WhiteSmoke" Height="26"/>
                                 </Button>
-                                <Button Content="Створити" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding AddRoom}"/>
+                                <Button Content="Створити" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding AddRoom}"
+                                        Visibility="{Binding IsCreation, Converter={StaticResource BoolToVis}}"/>
+                                <Button Content="Зберегти" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding SaveClient}"
+                                    Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"/>
                             </StackPanel>
                         </Grid>
                     </ScrollViewer>

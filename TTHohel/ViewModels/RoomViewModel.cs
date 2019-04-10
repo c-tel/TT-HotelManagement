@@ -17,7 +17,10 @@ namespace TTHohel.ViewModels
         #region Private Fields
         private RoomType _selectedType;
 
-        private RoomCreateDTO _room;
+        private bool _isCreation;
+        private bool _isEditing;
+
+        private RoomDTO _room;
 
         private RoomModel Model { get; }
 
@@ -28,12 +31,13 @@ namespace TTHohel.ViewModels
         public RoomViewModel()
         {
             Model = new RoomModel();
+            Room = Model.GetRoom();
 
-            Room = new RoomCreateDTO();
+            OnModeChanged(Model.GetMode());
         }
 
 
-        public RoomCreateDTO Room
+        public RoomDTO Room
         {
             get { return _room; }
             set
@@ -66,6 +70,28 @@ namespace TTHohel.ViewModels
                 return Enum.GetValues(typeof(RoomType)).Cast<RoomType>().ToList();
             }
         }
+
+        #region Modes Properties
+        public bool IsCreation
+        {
+            get { return _isCreation; }
+            set
+            {
+                _isCreation = value;
+                InvokePropertyChanged(nameof(IsCreation));
+            }
+        }
+
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set
+            {
+                _isEditing = value;
+                InvokePropertyChanged(nameof(IsEditing));
+            }
+        }
+        #endregion
 
         #region Commands
         public ICommand BackCommand
@@ -129,6 +155,12 @@ namespace TTHohel.ViewModels
         }
 
         #endregion
+
+        private void OnModeChanged(DisplayModes mode)
+        {
+            IsCreation = mode.HasFlag(DisplayModes.Creation);
+            IsEditing = mode.HasFlag(DisplayModes.Editing);
+        }
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

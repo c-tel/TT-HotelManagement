@@ -1,5 +1,5 @@
-﻿using System;
-using TTHohel.Manager;
+﻿using TTHohel.Manager;
+using TTHotel.Contracts.Rooms;
 
 namespace TTHohel.Models
 {
@@ -17,6 +17,15 @@ namespace TTHohel.Models
 
         public void AddRoom()
         {
+            var data = new RoomDisplayData
+            {
+                CameFrom = ModesEnum.Settings,
+                Room = new RoomDTO(),
+                Mode = DisplayModes.Creation
+            };
+
+            Storage.Instance.ChangeRoomDisplayData(data);
+
             NavigationManager.Instance.Navigate(ModesEnum.Room);
         }
     }
