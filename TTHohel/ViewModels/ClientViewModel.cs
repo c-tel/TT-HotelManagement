@@ -132,15 +132,13 @@ namespace TTHohel.ViewModels
         private void AddClientExecute(object obj)
         {
             var res = Model.CreateNewClient(Client);
-            if (res == 1)
+
+            if (res == AddResult.Success)
             {
-                MessageBox.Show("Клієнта створено.");
+                MessageBox.Show(res.GetDescription());
                 Model.GoBack();
-            } else if(res == 2)
-            {
-                MessageBox.Show("Клієнт з таким номером телефону вже є!", "Помилка");
             }
-            else MessageBox.Show("Не вдалося створити клієнта", "Помилка");
+            else MessageBox.Show(res.GetDescription(), "Помилка");
         }
 
         public ICommand SaveClient
@@ -169,18 +167,13 @@ namespace TTHohel.ViewModels
         private void SaveClientExecute(object obj)
         {
             var res = Model.SaveClient(Client, _oldTel);
-            if (res == 1)
-            {
-                MessageBox.Show("Інформацію змінено.");
-                Model.GoBack();
-            }
-            else if(res == 2)
-            {
-                MessageBox.Show("Клієнт з таким номером телефону вже є.", "Помилка");
-                Model.GoBack();
-            }
 
-            else MessageBox.Show("Не вдалося зберегти клієнта.", "Помилка");
+            if (res == AddResult.Success)
+            {
+                MessageBox.Show("Гостя збережено.");
+                Model.GoBack();
+            }
+            else MessageBox.Show(res.GetDescription(), "Помилка");
         }
         #endregion
 

@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows;
 using TTHohel.Manager;
 using TTHohel.Services;
+using TTHohel.Tools;
 using TTHotel.Contracts.Clients;
 
 namespace TTHohel.Models
@@ -30,19 +30,28 @@ namespace TTHohel.Models
             ClientDisplayChanged?.Invoke(data);
         }
 
-        public int CreateNewClient(ClientDTO clientDTO)
+        public AddResult CreateNewClient(ClientDTO clientDTO)
         {
+            if (!DataValidation.ValidateTelNum(clientDTO.TelNum))
+                return AddResult.InvalidInput;
+
+            if (!string.IsNullOrEmpty(clientDTO.Passport))
+                if (!DataValidation.ValidatePassport(clientDTO.Passport))
+                    return AddResult.InvalidInput;
+
             var res = HotelApiClient.GetInstance().CreateClient(clientDTO);
 
             if (res == System.Net.HttpStatusCode.NoContent)
             {
                 Storage.Instance.ChangeAllClients(clientDTO);
-                return 1;
+                return AddResult.Success;
+                ;
             }
-            if (res == System.Net.HttpStatusCode.Conflict)
-                return 2;
 
-            return 0;
+            if (res == System.Net.HttpStatusCode.Conflict)
+                return AddResult.AlreadyCreated;
+
+            return AddResult.Error;
         }
 
         public void GoBack()
@@ -50,19 +59,26 @@ namespace TTHohel.Models
             NavigationManager.Instance.Navigate(_cameFrom);
         }
 
-        public int SaveClient(ClientDTO client, string oldTel)
+        public AddResult SaveClient(ClientDTO client, string oldTel)
         {
+            if (!DataValidation.ValidateTelNum(client.TelNum))
+                return AddResult.InvalidInput;
+
+            if (!string.IsNullOrEmpty(client.Passport))
+                if (!DataValidation.ValidatePassport(client.Passport))
+                    return AddResult.InvalidInput;
+
             var res = HotelApiClient.GetInstance().UpdateClient(client, oldTel);
 
             if (res == System.Net.HttpStatusCode.NoContent)
             {
                 Storage.Instance.ChangeAllClients(client);
-                return 1;
+                return AddResult.Success;
             }
             if (res == System.Net.HttpStatusCode.Conflict)
-                return 2;
+                return AddResult.AlreadyCreated;
 
-            return 0;
+            return AddResult.Error;
         }
     }
 }

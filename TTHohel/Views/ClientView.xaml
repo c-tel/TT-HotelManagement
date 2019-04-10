@@ -23,11 +23,18 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style TargetType="TextBox">
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
             <Setter Property="Padding" Value="2"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Width" Value="160"/>
             <Setter Property="Margin" Value="0,5"/>
+        </Style>
+        <Style x:Key="Required" TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}">
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="BorderBrush" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <Grid Background="#17252B">
@@ -54,23 +61,23 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Margin="40,5,0,5" Content="Ім'я:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtUserId"
+                        <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource Required}"
                                  Text="{Binding Client.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="1" Margin="40,5,0,5" Content="Прізвище:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="1" Grid.Column="1"
+                        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource Required}"
                                  Text="{Binding Client.Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="2" Grid.Column="0" Margin="40,5,0,5" Content="По батькові:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="2" Grid.Column="1"
+                        <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource Required}"
                                  Text="{Binding Client.Patronym, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="3" Grid.Column="0" Margin="40,5,0,5" Content="Телефон:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="3" Grid.Column="1"
+                        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource Required}"
                                  Text="{Binding Client.TelNum, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                         <Label Grid.Row="4" Grid.Column="0" Margin="40,5,0,5" Content="Паспорт:" FontSize="16" HorizontalContentAlignment="Left"/>
-                        <TextBox Grid.Row="4" Grid.Column="1"
+                        <TextBox Grid.Row="4" Grid.Column="1" Style="{StaticResource Required}"
                                  Text="{Binding Client.Passport, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         
                         <Label Grid.Row="5" Grid.Column="0" Margin="40,5,0,5" Content="Знижка:" FontSize="16" HorizontalContentAlignment="Left"
