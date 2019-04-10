@@ -43,7 +43,8 @@ namespace TTHotel.API.Services
         // cleanings
         IEnumerable<CleaningDTO> GetCleanings();
         void CreateCleaning(CleaningDTO cleaning, string persBook);
-        
+        IEnumerable<CleaningStatsDTO> CleaningStats(DateTime asOfDate);
+
         //clients
         IEnumerable<ClientDTO> GetClients();
         IEnumerable<ClientAnalisedDTO> GetClientAnalytics();

@@ -29,6 +29,12 @@ namespace TTHotel.API.Controllers
             return _hotelService.GetCleanings();
         }
 
+        [HttpGet("statistics")]
+        public IEnumerable<CleaningStatsDTO> CleaningsStatistics([FromQuery] DateTime date)
+        {
+            return _hotelService.CleaningStats(date);
+        }
+
         [HttpPost]
         public IActionResult CreateCleaning([FromBody] CleaningDTO cleaning)
         {

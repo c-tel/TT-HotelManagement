@@ -19,7 +19,7 @@ using TTHotel.Contracts.Rooms;
 
 namespace TTHotel.API.Services
 {
-    public class PostgresHotelService: IHotelService
+    public class PostgresHotelService : IHotelService
     {
         private NpgsqlConnectionStringBuilder _builder;
 
@@ -29,7 +29,7 @@ namespace TTHotel.API.Services
         {
             var fromStr = from.ToPostgresDateFormat();
             var toStr = to.ToPostgresDateFormat();
-            var res =   "SELECT rooms.room_num, room_floor, start_date, end_date, book_state, book_num, " +
+            var res = "SELECT rooms.room_num, room_floor, start_date, end_date, book_state, book_num, " +
                         "(price_period * (1 - (" +
                             "SELECT discount " +
                             "FROM clients " +
@@ -47,7 +47,7 @@ namespace TTHotel.API.Services
 
         private static string LoginQuery(string login, string pwdHash)
         {
-            return      $"SELECT * FROM personnel " +
+            return $"SELECT * FROM personnel " +
                         $"WHERE login ='{login}' AND pwd = '{pwdHash}'";
         }
 
@@ -129,7 +129,7 @@ namespace TTHotel.API.Services
 
         private static string ReportQuery(DateTime date)
         {
-            return "SELECT payment_type AS paymentType, payment_date AS paymentDate, amount, room_num AS roomNum "+
+            return "SELECT payment_type AS paymentType, payment_date AS paymentDate, amount, room_num AS roomNum " +
                    "FROM payments INNER JOIN bookings ON payments.book_num = bookings.book_num " +
                    $"WHERE date(payments.payment_date) = {date.ToPostgresDateFormat()};";
         }
@@ -143,7 +143,7 @@ namespace TTHotel.API.Services
         {
             return "SELECT clients.tel_num, clients.cl_name, clients.surname, clients.discount, " +
                           "COUNT(bookings.book_num) as count_booked, " +
-				          "coalesce(SUM(bookings.payed), 0) as sum_payed " +
+                          "coalesce(SUM(bookings.payed), 0) as sum_payed " +
                    "FROM clients LEFT OUTER JOIN bookings ON bookings.cl_tel_num = clients.tel_num " +
                    "GROUP BY clients.tel_num, clients.cl_name, clients.surname, clients.discount " +
                    "ORDER BY sum_payed DESC; ";
@@ -232,14 +232,14 @@ namespace TTHotel.API.Services
 
         private static string AllRoomsQuery(int guests)
         {
-            return   "SELECT * " +
+            return "SELECT * " +
                      "FROM rooms " +
                     $"WHERE room_places >= {guests} " +
                     $"ORDER BY room_num;";
         }
         private static string RoomQuery(int roomNum)
         {
-            return   "SELECT * " +
+            return "SELECT * " +
                      "FROM rooms " +
                     $"WHERE room_num = {roomNum};";
         }
@@ -264,7 +264,7 @@ namespace TTHotel.API.Services
 
         private static string DirtyRoomsQuery()
         {
-            return  "SELECT room_num " +
+            return "SELECT room_num " +
                     "FROM rooms " +
                     "WHERE room_num IN(SELECT room_num " +
                                       "FROM bookings " +
@@ -283,6 +283,19 @@ namespace TTHotel.API.Services
                   $"VALUES ({DateTime.Now.AddHours(3).ToPostgresTimestampFormat()}, " +
                   $"'{cleaning.Type.ToString().ToLower()}', {cleaning.RoomNum}, '{persBook}')";
         }
+
+        private static string CleaningStatsQuery(DateTime asOfDate)
+        {
+            return "SELECT personnel.book_num, personnel.surname, COUNT(completed) AS count_completed " +
+                   "FROM personnel LEFT OUTER JOIN " +
+                   "                            (SELECT * FROM cleanings" +
+                  $"                             WHERE date(completed) = {asOfDate.ToPostgresDateFormat()}) AS X" +
+                   "                                                                 ON personnel.book_num = X.book_num " +
+                  $"WHERE personnel.pers_role = 'maid' " +
+                  $"GROUP BY personnel.book_num, personnel.surname";
+        }
+
+
 
         #endregion
 
@@ -349,11 +362,11 @@ namespace TTHotel.API.Services
                 RoomNumber = b.Room_num,
                 DailyInfo = new List<RoomDailyInfo>(),
             }).Distinct(new RoomInfoComparer()).ToList();
-            foreach(var info in infos)
+            foreach (var info in infos)
             {
                 var currBokings = bookingsData.Where(b => b.Room_num == info.RoomNumber && b.Book_num != null).ToList();
                 var currDate = from;
-                while(currDate <= to)
+                while (currDate <= to)
                 {
                     var currBoking = currBokings.FirstOrDefault(b => b.Start_date.Value.Date <= currDate.Date &&
                                                                                 b.End_date.Value.Date > currDate.Date);
@@ -500,7 +513,7 @@ namespace TTHotel.API.Services
         {
             ExecuteInternal(UpdateClientQuery(toCreate, telnum));
         }
-       
+
 
         #endregion
 
@@ -559,6 +572,17 @@ namespace TTHotel.API.Services
         {
             ExecuteInternal(CreateCleaningQuery(cleaning, persBook));
         }
+
+        public IEnumerable<CleaningStatsDTO> CleaningStats(DateTime asOfDate)
+        {
+            return QueryInternal<CleaningStatsQueryRes>(CleaningStatsQuery(asOfDate)).Select(qr => new CleaningStatsDTO
+            {
+                BookNum = qr.Book_num,
+                CountCompleted = qr.Count_completed,
+                Surname = qr.Surname
+            });
+        }
+
 
         #region WRAPPERS
         private IEnumerable<T> QueryInternal<T>(string sql)
