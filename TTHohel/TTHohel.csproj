@@ -108,6 +108,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\AddBookingModel.cs" />
+    <Compile Include="Models\AllBookingsModel.cs" />
     <Compile Include="Models\BookingModel.cs" />
     <Compile Include="Models\DisplayData\ClientDisplayData.cs" />
     <Compile Include="Models\ClientModel.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Tools\ValueToBorderThicknessConverter.cs" />
     <Compile Include="Tools\ValueToBrushConverter.cs" />
     <Compile Include="ViewModels\AddBookingViewModel.cs" />
+    <Compile Include="ViewModels\AllBookingsViewModel.cs" />
     <Compile Include="ViewModels\CleaningStatisticsViewModel.cs" />
     <Compile Include="ViewModels\ClientsListViewModel.cs" />
     <Compile Include="ViewModels\ClientViewModel.cs" />

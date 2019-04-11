@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Controls;
 using System.Windows.Input;
 using TTHohel.Models;
 using TTHohel.Tools;
@@ -8,22 +7,21 @@ using TTHohel.Views;
 
 namespace TTHohel.ViewModels
 {
-    class StatisticViewModel : INotifyPropertyChanged
+    class AllBookingsViewModel : INotifyPropertyChanged
     {
-        private StatisticModel Model { get; }
+        private AllBookingsModel Model { get; }
 
         private ICommand _backCommand;
 
         public ObservableCollection<TabItem> Tabs { get; set; }
 
-        public StatisticViewModel()
+        public AllBookingsViewModel()
         {
-            Model = new StatisticModel();
+            Model = new AllBookingsModel();
 
             Tabs = new ObservableCollection<TabItem>();
-            Tabs.Add(new TabItem { Header = "Клієнти", Content = new ClientsListView() });
-            Tabs.Add(new TabItem { Header = "Номери", Content = new RoomStatisticsView() });
-            Tabs.Add(new TabItem { Header = "Працівники", Content = new CleaningStatsView() });
+            Tabs.Add(new TabItem { Header = "Заплановані заїзди", Content = new ClientsListView() });
+            Tabs.Add(new TabItem { Header = "Заборгованості", Content = new RoomStatisticsView() });
         }
 
         public ICommand BackCommand
@@ -51,7 +49,6 @@ namespace TTHohel.ViewModels
             Model.GoToMain();
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void InvokePropertyChanged(string propertyName)
@@ -60,11 +57,4 @@ namespace TTHohel.ViewModels
             PropertyChanged?.Invoke(this, e);
         }
     }
-
-        public sealed class TabItem
-        {
-            public string Header { get; set; }
-            public UserControl Content { get; set; }
-        }
-
-    }
+}

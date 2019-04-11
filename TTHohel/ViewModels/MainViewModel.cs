@@ -350,7 +350,7 @@ namespace TTHohel.ViewModels
                 {
                     _allBookingsCommand = new RelayCommand<object>(AllBookingsExecute, AllBookingsCanExecute);
                 }
-                return _reportCommand;
+                return _allBookingsCommand;
             }
             set
             {
