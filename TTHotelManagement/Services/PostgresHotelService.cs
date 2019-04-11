@@ -82,6 +82,15 @@ namespace TTHotel.API.Services
                    "WHERE start_date = date(now()); ";
         }
 
+        private static string DebptsQuery()
+        {
+            return "SELECT * " +
+                   "FROM(SELECT book_num AS BookNum, clients.tel_num AS ClientTelNum, cl_name AS ClientName, surname AS ClientSurname, " +
+                             "room_num AS RoomNum, ((price_period + sum_fees) * (1 - clients.discount / 100.0)) - payed AS debpt " +
+                       "FROM bookings INNER JOIN clients ON bookings.cl_tel_num = clients.tel_num) AS X " +
+                   "WHERE debpt > 0; ";
+        }
+
 
         private static string CreateBookingQuery(BookingCreateDTO booking, string person_book)
         {
@@ -405,6 +414,11 @@ namespace TTHotel.API.Services
         public IEnumerable<TodayBookingDTO> GetTodayBookings()
         {
             return QueryInternal<TodayBookingDTO>(TodayBookingsQuery());
+        }
+
+        public IEnumerable<DebptInfo> GetDebpts()
+        {
+            return QueryInternal<DebptInfo>(DebptsQuery());
         }
 
         public BookingDTO GetBooking(int id)

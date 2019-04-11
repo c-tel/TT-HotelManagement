@@ -39,6 +39,12 @@ namespace TTHotel.API.Controllers
             return _hotelService.GetTodayBookings();
         }
 
+        [HttpGet("debpts")]
+        public IEnumerable<DebptInfo> Debpts()
+        {
+            return _hotelService.GetDebpts();
+        }
+
         [HttpGet("{id}")]
         public BookingDTO ById([FromRoute] int id)
         {

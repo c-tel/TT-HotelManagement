@@ -24,6 +24,7 @@ namespace TTHotel.API.Services
         List<RoomInfo> GetPeriodInfo(DateTime from, DateTime to);
         BookingDTO GetBooking(int id);
         IEnumerable<TodayBookingDTO> GetTodayBookings();
+        IEnumerable<DebptInfo> GetDebpts();
         void CreateBooking(BookingCreateDTO booking, string persBook);
         void UpdateBooking(BookingUpdateDTO booking, int bookId);
         void Close(int bookId);
