@@ -30,9 +30,13 @@ namespace TTHotel.API.Controllers
         [HttpGet()]
         public IEnumerable<RoomInfo> PeriodInfo([FromQuery] DateTime from, [FromQuery] DateTime to)
         {
-            //CultureInfo provider = CultureInfo.InvariantCulture;
-            //Convert.ToDateTime(from);
             return _hotelService.GetPeriodInfo(from, to);
+        }
+
+        [HttpGet("todays")]
+        public IEnumerable<TodayBookingDTO> Todays()
+        {
+            return _hotelService.GetTodayBookings();
         }
 
         [HttpGet("{id}")]
