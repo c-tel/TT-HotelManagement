@@ -101,7 +101,7 @@
                     <TextBlock Grid.Row="1" Grid.Column="3"
                                  Text="{Binding BookingDTO.BookedPrice}"/>
                     <TextBlock Grid.Row="1" Grid.Column="4"
-                                 Text="{Binding BookingDTO.PricePeriod}"/>
+                                 Text="{Binding GeneralPrice}"/>
                     <TextBlock Grid.Row="1" Grid.Column="5"
                                  Text="{Binding BookingDTO.SumFees}"/>
 

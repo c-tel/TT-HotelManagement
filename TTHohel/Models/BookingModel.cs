@@ -53,6 +53,14 @@ namespace TTHohel.Models
             return Math.Max(calc, 0);
         }
 
+        public static double CalculateGeneral(BookingDTO bookingDTO)
+        {
+            if (bookingDTO == null)
+                return 0;
+            var calc = bookingDTO.PricePeriod * (1 - bookingDTO.ClientDiscount / 100.0);
+            return Math.Max(calc, 0);
+        }
+
         public bool Settle(BookingDTO booking)
         {
 

@@ -22,6 +22,7 @@ namespace TTHohel.ViewModels
         private ICommand _settleCommand;
         private ICommand _closeCommand;
         private ICommand _cancelCommand;
+        private double _generalPrice;
         #endregion
 
         public BookingViewModel()
@@ -44,6 +45,7 @@ namespace TTHohel.ViewModels
                     InvokePropertyChanged(nameof(IsNotSettled));
 
                     ToPay = BookingModel.CalculateToPay(BookingDTO);
+                    GeneralPrice = BookingModel.CalculateGeneral(BookingDTO);
                 }
             }
         }
@@ -68,6 +70,16 @@ namespace TTHohel.ViewModels
             {
                 _toPay = value;
                 InvokePropertyChanged(nameof(ToPay));
+            }
+        }
+
+        public double GeneralPrice
+        {
+            get { return _generalPrice; }
+            set
+            {
+                _generalPrice = value;
+                InvokePropertyChanged(nameof(GeneralPrice));
             }
         }
 
