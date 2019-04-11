@@ -280,6 +280,15 @@ namespace TTHohel.Services
             return resp.Content.ReadAsAsync<List<ReportItem>>().Result;
         }
 
+        public List<TodayBookingDTO> GetTodayBook()
+        {
+            var route = "/api/bookings/todays";
+            var resp = Client.GetAsync(route).Result;
+            if (!resp.IsSuccessStatusCode)
+                return null;
+            return resp.Content.ReadAsAsync<List<TodayBookingDTO>>().Result;
+        }
+
 
         private string ToQueryArgument(DateTime dateTime)
         {

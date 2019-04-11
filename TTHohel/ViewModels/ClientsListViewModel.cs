@@ -17,7 +17,6 @@ namespace TTHohel.ViewModels
         private string _clientsFilter;
 
         private ClientAnalisedDTO _selectedClient;
-        private ClientDTO _selectedSuitClient;
         private DataGridCellInfo _cellInfo;
 
         private List<ClientAnalisedDTO> _clientsList;

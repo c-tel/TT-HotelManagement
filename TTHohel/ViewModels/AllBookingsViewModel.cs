@@ -20,8 +20,8 @@ namespace TTHohel.ViewModels
             Model = new AllBookingsModel();
 
             Tabs = new ObservableCollection<TabItem>();
-            Tabs.Add(new TabItem { Header = "Заплановані заїзди", Content = new ClientsListView() });
-            Tabs.Add(new TabItem { Header = "Заборгованості", Content = new RoomStatisticsView() });
+            Tabs.Add(new TabItem { Header = "Заплановані заїзди", Content = new TodayBookings() });
+            //Tabs.Add(new TabItem { Header = "Заборгованості", Content = new RoomStatisticsView() });
         }
 
         public ICommand BackCommand
