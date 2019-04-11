@@ -74,6 +74,15 @@ namespace TTHotel.API.Services
                    $"WHERE book_num = {id}";
         }
 
+        private static string TodayBookingsQuery()
+        {
+            return "SELECT bookings.book_num AS BookNum, bookings.room_num AS RoomNum, clients.tel_num AS ClientTelNum, " +
+                   "clients.cl_name AS ClientName, clients.surname AS ClientSurname, bookings.book_comment AS BookComment " +
+                   "FROM bookings INNER JOIN clients ON clients.tel_num = bookings.cl_tel_num " +
+                   "WHERE start_date = date(now()); ";
+        }
+
+
         private static string CreateBookingQuery(BookingCreateDTO booking, string person_book)
         {
             return "INSERT INTO bookings (start_date, end_date, book_comment, room_num, cl_tel_num, pers_book) " +
@@ -391,6 +400,11 @@ namespace TTHotel.API.Services
             }
 
             return infos;
+        }
+
+        public IEnumerable<TodayBookingDTO> GetTodayBookings()
+        {
+            return QueryInternal<TodayBookingDTO>(TodayBookingsQuery());
         }
 
         public BookingDTO GetBooking(int id)
