@@ -105,8 +105,9 @@ namespace TTHohel.Models
             return HotelApiClient.GetInstance().GetClient(clientTel);
         }
 
-        public bool Edit(BookingDTO booking)
+        public bool Edit(BookingDTO booking, DateTime from)
         {
+            booking.StartDate = from;
             if (HotelApiClient.GetInstance().EditBooking(booking))
             {
                 var _ = HotelApiClient.GetInstance().GetBookingById(booking.BookingId);

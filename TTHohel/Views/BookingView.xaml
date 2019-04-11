@@ -95,9 +95,9 @@
                     <TextBlock Grid.Row="1"
                                  Text="{Binding BookingDTO.BookedRoomNum}"/>
                     <DatePicker Grid.Row="1" Grid.Column="1"
-                                 SelectedDate="{Binding BookingDTO.StartDate, Mode=TwoWay}" IsEnabled="{Binding IsNotSettled}"/>
-                    <DatePicker Grid.Row="1" Grid.Column="2"
-                                 SelectedDate="{Binding BookingDTO.EndDate, Mode=TwoWay}"/>
+                                 SelectedDate="{Binding DateFrom, Mode=TwoWay}" IsEnabled="{Binding IsNotSettled}"/>
+                    <DatePicker Grid.Row="1" Grid.Column="2" DisplayDateStart="{Binding EndDateDisplay, UpdateSourceTrigger=PropertyChanged}"
+                                 SelectedDate="{Binding BookingDTO.EndDate, Mode=TwoWay}" IsEnabled="{Binding IsBookingActive}"/>
                     <TextBlock Grid.Row="1" Grid.Column="3"
                                  Text="{Binding BookingDTO.BookedPrice}"/>
                     <TextBlock Grid.Row="1" Grid.Column="4"

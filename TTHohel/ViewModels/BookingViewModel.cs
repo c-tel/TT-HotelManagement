@@ -15,6 +15,9 @@ namespace TTHohel.ViewModels
         private double _toPay;
         private BookingModel Model { get; }
 
+        private DateTime _dateFrom;
+        private DateTime _endDateDisplay;
+
         private ICommand _backCommand;
         private ICommand _payCommand;
         private ICommand _editCommand;
@@ -31,6 +34,34 @@ namespace TTHohel.ViewModels
             Model.BookingChanged += OnBookingChanged;
         }
 
+        public DateTime DateFrom
+        {
+            get { return _dateFrom; }
+            set
+            {
+                if (_dateFrom != value)
+                {
+                    _dateFrom = value;
+                    InvokePropertyChanged(nameof(DateFrom));
+                    UpdateEndDisplayDate();
+
+                }
+            }
+        }
+
+        public DateTime EndDateDisplay
+        {
+            get { return _endDateDisplay; }
+            set
+            {
+                if (_endDateDisplay != value)
+                {
+                    _endDateDisplay = value;
+                    InvokePropertyChanged(nameof(EndDateDisplay));
+                }
+            }
+        }
+
         public BookingDTO BookingDTO
         {
             get { return _bookingDTO; }
@@ -39,13 +70,6 @@ namespace TTHohel.ViewModels
                 if (_bookingDTO != value)
                 {
                     _bookingDTO = value;
-                    InvokePropertyChanged(nameof(BookingDTO));
-                    InvokePropertyChanged(nameof(BookingState));
-                    InvokePropertyChanged(nameof(IsBookingActive));
-                    InvokePropertyChanged(nameof(IsNotSettled));
-
-                    ToPay = BookingModel.CalculateToPay(BookingDTO);
-                    GeneralPrice = BookingModel.CalculateGeneral(BookingDTO);
                 }
             }
         }
@@ -132,7 +156,7 @@ namespace TTHohel.ViewModels
 
         private void EditExecute(object obj)
         {
-            if (Model.Edit(BookingDTO))
+            if (Model.Edit(BookingDTO, DateFrom))
                 MessageBox.Show("Бронювання змінено.");
             else MessageBox.Show("Не вдалося оновити стан бронювання.", "Помилка");
 
@@ -290,6 +314,23 @@ namespace TTHohel.ViewModels
         private void OnBookingChanged(BookingDTO obj)
         {
             BookingDTO = obj;
+            DateFrom = obj.StartDate;
+
+            InvokePropertyChanged(nameof(BookingDTO));
+            InvokePropertyChanged(nameof(BookingState));
+            InvokePropertyChanged(nameof(IsBookingActive));
+            InvokePropertyChanged(nameof(IsNotSettled));
+
+            ToPay = BookingModel.CalculateToPay(BookingDTO);
+            GeneralPrice = BookingModel.CalculateGeneral(BookingDTO);
+        }
+
+        private void UpdateEndDisplayDate()
+        {
+            EndDateDisplay = DateFrom.AddDays(1);
+
+            if (BookingDTO.EndDate < EndDateDisplay)
+                BookingDTO.EndDate = EndDateDisplay;
         }
 
         #region INotifyPropertyChanged

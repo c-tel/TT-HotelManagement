@@ -28,6 +28,19 @@
             <Setter Property="Width" Value="160"/>
             <Setter Property="Margin" Value="0,5"/>
         </Style>
+        <Style TargetType="TextBox" x:Key="TextBoxStyle">
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Margin" Value="0,5"/>
+        </Style>
+        <Style x:Key="Required" TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}">
+            <Style.Triggers>
+                <Trigger Property="Text" Value="">
+                    <Setter Property="BorderBrush" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid Background="#17252B">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
@@ -56,23 +69,25 @@
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Label Grid.Row="0" Margin="40,5,0,5" Content="Номер:" FontSize="16" HorizontalContentAlignment="Left"/>
-                            <TextBox Grid.Row="0" Grid.Column="1"
+                            <TextBox Grid.Row="0" Grid.Column="1" Style="{StaticResource Required}" IsReadOnly="{Binding IsEditing}"
                                  Text="{Binding Room.Num, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="1" Margin="40,5,0,5" Content="Поверх:" FontSize="16" HorizontalContentAlignment="Left"/>
-                            <TextBox Grid.Row="1" Grid.Column="1"
+                            <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource Required}" IsReadOnly="{Binding IsEditing}"
                                  Text="{Binding Room.Floor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="2" Grid.Column="0" Margin="40,5,0,5" Content="Кількість місць:" FontSize="16" HorizontalContentAlignment="Left"/>
-                            <TextBox Grid.Row="2" Grid.Column="1"
+                            <TextBox Grid.Row="2" Grid.Column="1" Style="{StaticResource Required}" IsReadOnly="{Binding IsEditing}"
                                  Text="{Binding Room.Places, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="3" Grid.Column="0" Margin="40,5,0,5" Content="Ціна:" FontSize="16" HorizontalContentAlignment="Left"/>
-                            <TextBox Grid.Row="3" Grid.Column="1"
+                            <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource Required}" IsReadOnly="{Binding IsEditing}"
                                  Text="{Binding Room.Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                             <Label Grid.Row="6" Grid.Column="0" Margin="40,5,0,5" Content="Роль:" FontSize="16" HorizontalContentAlignment="Left"/>
-                            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding TypeList}" SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="15 7"/>
+                            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding TypeList}"
+                                      SelectedItem="{Binding SelectedType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Margin="15 7" IsReadOnly="{Binding IsEditing}"/>
                             
                             <StackPanel  Margin="0 10" Orientation="Horizontal" Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Center">
                                 <Button Command="{Binding BackCommand}" FontSize="17" Margin="5,10"
@@ -81,8 +96,8 @@
                                 </Button>
                                 <Button Content="Створити" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding AddRoom}"
                                         Visibility="{Binding IsCreation, Converter={StaticResource BoolToVis}}"/>
-                                <Button Content="Зберегти" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding SaveClient}"
-                                    Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"/>
+                                <!--<Button Content="Зберегти" FontSize="17" Margin="2,10" Background="#17A210" Command="{Binding SaveClient}"
+                                    Visibility="{Binding IsEditing, Converter={StaticResource BoolToVis}}"/>-->
                             </StackPanel>
                         </Grid>
                     </ScrollViewer>
