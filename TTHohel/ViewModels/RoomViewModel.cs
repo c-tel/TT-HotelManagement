@@ -20,7 +20,7 @@ namespace TTHohel.ViewModels
         private bool _isCreation;
         private bool _isEditing;
 
-        private RoomDTO _room;
+        private RoomProxy _room;
 
         private RoomModel Model { get; }
 
@@ -31,13 +31,13 @@ namespace TTHohel.ViewModels
         public RoomViewModel()
         {
             Model = new RoomModel();
-            Room = Model.GetRoom();
+            Room = new RoomProxy(Model.GetRoom());
 
             OnModeChanged(Model.GetMode());
         }
 
 
-        public RoomDTO Room
+        public RoomProxy Room
         {
             get { return _room; }
             set
@@ -141,7 +141,13 @@ namespace TTHohel.ViewModels
 
         private void AddExecute(object obj)
         {
-            var res = Model.CreateNewRoom(Room, SelectedType);
+            var converted = Room.Convert();
+            if(converted == null)
+            {
+                MessageBox.Show("Перевірте правильність вводу!");
+                return;
+            }
+            var res = Model.CreateNewRoom(Room.Convert(), SelectedType);
             if (res == 1)
             {
                 MessageBox.Show("Номер створено.");

@@ -125,6 +125,7 @@
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\RightsEnum.cs" />
     <Compile Include="Models\RoomModel.cs" />
+    <Compile Include="Models\RoomProxy.cs" />
     <Compile Include="Models\RoomStatisticsModel.cs" />
     <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="Models\StatisticModel.cs" />

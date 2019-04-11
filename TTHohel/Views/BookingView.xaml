@@ -130,7 +130,7 @@
                     <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding PayCommand}"
                             Visibility="{Binding IsBookingActive, Converter={StaticResource BoolToVis}}">Сплатити</Button>
                     <Button Style="{StaticResource BtnMenuStyle}" Command="{Binding EditCommand}"
-                            Visibility="{Binding IsBookingActive, Converter={StaticResource BoolToVis}}">Редагувати</Button>
+                            Visibility="{Binding IsBookingActive, Converter={StaticResource BoolToVis}}">Зберегти</Button>
                 </StackPanel>
                 
             </StackPanel>
